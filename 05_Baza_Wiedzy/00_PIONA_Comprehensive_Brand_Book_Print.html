@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIONA Studio | Comprehensive Master Brand Book</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* V6/v8 EXACT TOKENS */
+            --color-black: #050505;
+            --color-dark: #0f100e;
+            --color-darker: #090908;
+            --color-white: #FFFFFF;
+            --color-muted: #9F9F9F;
+            --color-lime: #B4F95A;
+            --color-lime-glow: rgba(180, 249, 90, 0.4);
+            --color-lime-15: rgba(180, 249, 90, 0.15);
+            --color-glass-dark: rgba(255, 255, 255, 0.03);
+            --color-glass-border: rgba(255, 255, 255, 0.08);
+            --color-alert: #e63946;
+
+            /* Fonts */
+            --font-heading: 'Archivo Black', system-ui, sans-serif;
+            --font-body: 'Fira Sans', sans-serif;
+            
+            --page-bg: #0b0c0a;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+            @bottom-right {
+                content: "PIONA Studio — The Master Framework";
+                font-family: 'Fira Sans', sans-serif;
+                font-size: 8pt;
+                color: #555;
+            }
+            @bottom-left {
+                content: counter(page);
+                font-family: 'Archivo Black', sans-serif;
+                font-size: 8pt;
+                color: #B4F95A;
+            }
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--page-bg);
+            color: var(--color-white);
+            line-height: 1.6;
+            font-size: 9.5pt;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 25mm 20mm;
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+            background-color: var(--page-bg);
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+        }
+
+        .glow-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 100% 0%, rgba(180, 249, 90, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, .font-head {
+            font-family: var(--font-heading);
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        h1.title-huge {
+            font-size: 50pt;
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+
+        h2.section-header {
+            font-size: 26pt;
+            letter-spacing: -0.02em;
+            margin-bottom: 25px;
+            color: var(--color-white);
+            border-bottom: 2px solid var(--color-glass-border);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+        h3 {
+            font-size: 13pt;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: var(--color-lime);
+        }
+
+        p {
+            color: var(--color-muted);
+            margin-bottom: 15px;
+            font-size: 10pt;
+        }
+        
+        strong { color: var(--color-white); font-weight: 600; }
+        
+        .text-lime { color: var(--color-lime); }
+        .text-white { color: var(--color-white); }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            font-size: 7.5pt;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 100px;
+            border: 1px solid var(--color-lime);
+            color: var(--color-lime);
+            background: var(--color-lime-15);
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .pill-alert {
+            border-color: var(--color-alert);
+            color: var(--color-alert);
+            background: rgba(230, 57, 70, 0.15);
+        }
+
+        /* RULE BOXES */
+        .rule-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-left: 3px solid var(--color-lime);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .rule-box.do-not {
+            border-left-color: var(--color-alert);
+        }
+        
+        .rule-box.important {
+            border-left-color: #fca311;
+        }
+
+        .do-not-label {
+            color: var(--color-alert);
+            font-size: 9pt;
+            font-family: var(--font-heading);
+            margin-bottom: 5px;
+            letter-spacing: 0.05em;
+        }
+        
+        .important-label {
+            color: #fca311;
+            font-size: 9pt;
+            font-family: var(--font-heading);
+            margin-bottom: 5px;
+            letter-spacing: 0.05em;
+        }
+
+        ul {
+            color: var(--color-muted);
+            font-size: 9.5pt;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- PAGE 1: COVER -->
+    <div class="page" style="display: flex; align-items: flex-end; padding-bottom: 50mm;">
+        <div class="glow-overlay" style="background: radial-gradient(circle at 0% 100%, rgba(180, 249, 90, 0.15) 0%, transparent 60%);"></div>
+        <div class="content">
+            <span class="pill">C-Level Brand Guidelines</span>
+            <h1 class="title-huge">THE ULTIMATE PIONA<br><span class="text-lime">FRAMEWORK.</span></h1>
+            <p style="font-size: 14pt; color: var(--color-white); max-width: 500px;">
+                Kodeks karny, inżynieria behawioralna i tożsamość PIONA Studio.
+            </p>
+            <div class="rule-box important" style="margin-top: 30px; max-width: 600px;">
+                <div class="important-label">DOKUMENT ZASTRZEŻONY</div>
+                <p style="margin-bottom: 0;">To nie jest zbiór luźnych sugestii estetycznych. To scentralizowany, agresywny kodeks pacyfikujący każdy element tożsamości, strategii, psychologii i wyceny PIONA Studio. Złamanie poniższych zasad skutkuje odrzuceniem projektu C-Level.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: MANIFESTO -->
+    <div class="page">
+        <div class="glow-overlay"></div>
+        <div class="content">
+            <h2 class="section-header">01 <span style="font-size: 14pt; color: var(--color-muted);">/ The Core Manifesto</span></h2>
+            
+            <p>Zanim narysujesz piksel, napiszesz linijkę copy lub wygenerujesz strategię w imieniu PIONA Studio, musisz zrozumieć Prawdę Absolutną. Marka to obietnica i fosa ekonomiczna, nie sztuka nowoczesna.</p>
+            
+            <h3>Prawo Absolutu (ROI & Pragmatic Design)</h3>
+            <p>Wszystko, co publikujemy, piszemy, projektujemy i mówimy, podlega jednej żelaznej regule:</p>
+            <div class="rule-box">
+                <strong style="color:var(--color-lime); font-size: 12pt;">Sprzedajemy rozwiązania rynkowe oparte na walidacji i zbrojeniu behawioralnym, a nie estetyczne obrazki.</strong><br>
+                <span style="color:var(--color-muted); font-size: 9pt;">Podwyższenie LTV, obniżenie Perceived Risk oraz "Konwersja na skalę" The Pragmatic Design Rule. Zero tolerancji na "Dribbble Syndrome".</span>
+            </div>
+
+            <h3>The North Star (Cel PIONA Studio)</h3>
+            <ul style="margin-top: 10px;">
+                <li><strong>Purpose:</strong> "Zrobimy miejsce na nową pasję". Osłaniamy bezlitosną obroną rynek cyfrowy klienta, automatyzujemy go wspólnie z AI i odzyskujemy DLA NIEGO CZAS.</li>
+                <li><strong>Mission:</strong> Budowa "Mental Availability" oparta na wyrazistości i asymetrii, wyzwalająca skalowanie start-upów z pominięciem walk cenowych.</li>
+            </ul>
+
+            <h3>Doktryna Sun Tzu (The Business Battlefield)</h3>
+            <p>B2B to pole wojny korporacyjnej. PIONA Studio implementuje klasyczne zagrania:</p>
+            <div class="rule-box do-not">
+                <div class="do-not-label">ZAKAZ WOJEN CENOWYCH (SUPREME EXCELLENCE)</div>
+                Celem nadrzędnym PIONY jest ustrzec klienta od równoległej bitwy. Ewakuujemy go na "Blue Ocean" nieszablonowością, gdzie walka w ogóle się nie odbywa.
+            </div>
+            <ul>
+                <li><strong>Oskrzydlanie (Flanking):</strong> Żadnych starć o generyczne USP z "Goliathami". Atakujemy ich lenistwo, rzęchowate aplikacje i korposzczurowy język.</li>
+                <li><strong>Death Ground:</strong> Startup wygrywa innowacyjnością przez presję (The Hollywood Ratio). Działamy z lękiem przed porażką podwyższającym tętno kampanii rynkowej.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PAGE 3: BRAND STRATEGY -->
+    <div class="page">
+        <div class="content">
+            <h2 class="section-header">02 <span style="font-size: 14pt; color: var(--color-muted);">/ Silnik Wzrostu (Growth)</span></h2>
+            
+            <p>Odrzucamy wróżenie z fusów. Wzrost to żelazna, udowodniona matematyka z Instytutu Ehrenberg-Bass. Skalowanie w B2B nie polega na budowie super-lojalności małej zgrai wyznawców.</p>
+
+            <h3>The 95-5 Rule & Penetracja B2B</h3>
+            <p><strong>Fakt:</strong> Tylko 5% firm "In-Market" jest gotowych na zakupy IT na dziś. Performance Marketing (generowanie leada) pali tam olbrzymie budżety ślepo mierząc w ułamek szans.</p>
+            <p><strong>Taktyka PIONY:</strong> Rzucamy budżety i uderzenia marki podbiciowo na uśpione 95% kupujących (Light Buyers, z Out-Of-Market), ładując ich C-Level'owi pojęcie kim jesteśmy dużo przed "kwartałem wdrożeniowym". Wyścig do penetracji i the <em>Brand Awareness</em>.</p>
+
+            <h3>The DBA Rule (Distinctiveness > Differentiation)</h3>
+            <div class="rule-box">
+                <strong style="color:var(--color-lime);">ZANIECHAJ HIPER-ZRÓŻNICOWANIA</strong><br>
+                Wyjątkowe benefity produktu SAAS łatwo mogą zostać skopiowane przez zespoły koderskie w 6 miesięcy. To unikalne i potężne asymetrie wizualne marki "Distinctive Brand Assets" uodparniają się na klonowanie. Marka nie ma być logiczna - ma być ŚMIESZNIE WYRAZISTA by wytworzyć Category Entry Points (CEPs).
+            </div>
+
+            <h3>The Bain Blitz Algorithm</h3>
+            <p>Wprowadzając startup B2B nie pozwalamy mu rozsmarować 5,000 PLN na 6 miesięcy budżetu. Wymuszamy agresywny <strong>Go Big on the Reveal</strong> (Blitzing) z udziałem minimum 3 kanałów pierwszego dnia w celu przebicia progu krzyku rynkowego.</p>
+
+        </div>
+    </div>
+
+    <!-- PAGE 4: BEHAVIORAL PSYCHOLOGY -->
+    <div class="page">
+        <div class="content">
+            <h2 class="section-header">03 <span style="font-size: 14pt; color: var(--color-muted);">/ Psychologia Decyzji B2B</span></h2>
+            
+            <p>Decyzje C-Level na zleceniach do 150k PLN podejmuje irracjonalny Autopilot (System 1). Mózg pragnie luksusu niewydawania energii na domysły. Jeśli musi się zastanowić na "Landing Page'u" – wychodzi.</p>
+
+            <h3>The Eager Want & Dale Carnegie Override</h3>
+            <div class="rule-box do-not">
+                <div class="do-not-label">ZAKAZ KOMUNIKATU "MY / JESTEŚMY / NASZE"</div>
+                Zabrania się pisać e-maile startowe zaczynając od "Jesteśmy ekspertami PIONA Studio". B2B ma to w dupie. Mów wyłącznie o nich, do nich: o ich "Pain pointach" i ich pieniądzach. (The Eager Want Principle).
+            </div>
+            <ul>
+                <li><strong>Saving Face:</strong> W obiekcjach i awariach – PIONA zawsze używa Socratic Momentum i przejmuje od razu agresję na siebie. Działaj tak, by urażony Dyrektor IT u klienta czuł, iż zachował godność po wyjściu z "Calle". Rozbrajanie Systemu 2.</li>
+                <li><strong>The Sensory Gap:</strong> Brak możliwości "dotknięcia" usługi generuje strach u C-Level przed złym wyborem (Perceived Risk). Przełam to na stronie grubszym, haptycznym kliknięciem i renderem w makro-szczegółach "Masywności Oprogramowania", aby zastrzelić złą obawę "jakością Premium".</li>
+            </ul>
+
+            <h3 style="margin-top: 30px;">The Weigel Pitch Narrative (Struktura Ofertowa)</h3>
+            <p>Oferowanie produktu to The Arc (5-Aktorwa Konstrukcja Emocjonalna):</p>
+            <div style="background: var(--color-darker); padding: 15px; border-radius: 8px; border: 1px solid var(--color-glass-border);">
+                <ol style="margin-left: 20px; color: var(--color-white); font-weight: 500; font-size: 10pt;">
+                    <li><span class="text-lime">Reflection</span> (Odbicie lustrzane The As-is status).</li>
+                    <li><span class="text-lime">Ambition</span> (Apetyt na raj w branży).</li>
+                    <li style="color:var(--color-alert);">Jeopardy (Zrzucenie klienta w przerażenie "Systemów Legacy" The Cost of Inaction!).</li>
+                    <li><span class="text-lime">Hope</span> (Pojawienie się światła wewnątrz logiki PIONA).</li>
+                    <li><span class="text-lime">Solution</span> (Położenie Narzędzia / Kontraktu na stół C-Level).</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PAGE 5: PRICING -->
+    <div class="page">
+        <div class="content">
+            <h2 class="section-header">04 <span style="font-size: 14pt; color: var(--color-muted);">/ Inżynieria Zysku (Finance)</span></h2>
+            
+            <p>Nie jesteśmy wyrobnikami z upcycle'owej farmy oprogramowania na godziny. PIONA Studio produkuje Osobiste Fosy Ekonomiczne "Economic Moats". Architekci Kapitału dla Startupów SaaS.</p>
+
+            <h3>Value-Based Pricing</h3>
+            <div class="rule-box do-not">
+                <div class="do-not-label">ODRZUCAJ T&M (TIME & MATERIAL)</div>
+                Wynagrodzenie definiowane na "Stawki Godzinowe" to archaizm ograniczający wzrost i zachęcający firmę do spowolnionego wykonywania zleceń. Wycena w PIONIE koreluje bezpośrednio z potężną WARTOŚCIĄ LTV wykreowaną dla Klienta B2B przez nasze optymalizacje ("Bierzemy mniejszy % z Waszych milionów w zyskach oszczędnościowych").
+            </div>
+
+            <h3>Paradoks Wyborów & The Decoy Effect</h3>
+            <p>Mózg psuje się pod naporem decyzyjnym (Kognitywne wyczerpanie):</p>
+            <ul>
+                <li><strong>Maksimum Opcji:</strong> Obowiązuje kategoryczny zakaz podrzucania na e-commercach (w tym cennikach SaaS) widoków w których pakietów i wariantów abonamentu jest 5 lub więcej (Paradox of Choice - spadek konwersji ze 30% na 3%). Trzymamy The Magic Number: 3 opcje (Ewentualnie 4).</li>
+                <li><strong>The Decoy Rule (Wabik):</strong> Zawsze sztucznie zaszczepiaj w Pricing na poziomie "Medium/Advanced" opcję "Przewartościowaną/Celowo głupią", w kontekście jej opcja "Ultra-Najdroższa The PIONA Black" wydaje się oszałamiająco rewelacyjną okazją. (Asymetryczna dominacja the Casino style dla optymalizacji ARPU).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PAGE 6: AI OVERRIDES -->
+    <div class="page">
+        <div class="content">
+            <span class="pill pill-alert">THE MASTER AI PROTOCOL</span>
+            <h2 class="section-header">05 <span style="font-size: 14pt; color: var(--color-muted);">/ Override Systemu Sztucznej Inteligencji</span></h2>
+            
+            <p>Zbiór bezwzględnych ostrzeżeń wygenerowany po kompilacji całego ekosystemu dokumentacji Bazy Wiedzy PIONY służących Agencji pod postacią nakazu behawioralnego AI.</p>
+
+            <div class="rule-box important" style="margin-top: 10px; margin-bottom: 5px;">
+                <div class="important-label">1. ZACHOWAJ 100% PERSONY B2B ANTI-SLOP RULE</div>
+                Generatywne AI musi odciąć puste ogólnikowe frazesy "Jesteśmy innowacyjnym partnerem...". Pisz prosto w The Eager Want Decydenta. Stosuj cyniczną i oschłą szczerość PIONY "My oszczędzimy wam przepalania gotówki u gorszych zespołów." Zero sztucznych uśmiechów (Sensory Gap Rule).
+            </div>
+
+            <div class="rule-box important" style="margin-top: 5px; margin-bottom: 5px;">
+                <div class="important-label">2. MANDATORIUM: THE WEIGEL ARC</div>
+                Nie pisz treści copy bez the 5 Steps. Zmuszaj użytkowniak do zaplanowania "The Cost of Inaction" i "Jeopardy" u swoich klientów. Oferta musi przerażać przed zignorowaniem postępu.
+            </div>
+
+            <div class="rule-box important" style="margin-top: 5px; margin-bottom: 5px;">
+                <div class="important-label">3. LOGIKA THE 95/5 RULE ORAZ PENETRACJI (SUN TZU)</div>
+                Doradzając startupom z B2B zniweluj fałsz marketingu o lojalności zażartej early adopters "Love Brandów". Zarządzasz strategiami skierowanymi 100% na the "Reach" i rynkową penetrację Lekkiej Części Biznesów. Budujesz FAME. Zawsze pytasz przed poradami wg modelu 3C (Company, Customer, Competitors - Szpiegowanie Przeciwników Oskrzydlania).
+            </div>
+            
+            <div class="rule-box important" style="margin-top: 5px; margin-bottom: 5px;">
+                <div class="important-label">4. PRAGMATYCZNA ESTETYKA B2B</div>
+                Aplikując instrukcję wizualną w V8 zawsze implementujesz asymetrię The Lime z agresją czerni. Przepychanie "Chrome Bionic Hand" i The Dark Mode Bento Gridów to priorytet nad nudnym UI dla biznesmenów. Uzasadnienie decyzyjne zamykające dyskusję w imieniu PIONA w kwestii użyteczności: <em>"Będziemy mieć brzydsze logo w rogu jeśli to poprawi na badaniach HotJar współczynnik podpięcia kart płatniczych o 3%, ponieważ Brandowanie to Fosa dla gotówki, a nie galeria piękna".</em>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

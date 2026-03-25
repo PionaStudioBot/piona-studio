@@ -1,0 +1,65 @@
+# ============================================
+# PIONA Studio .gitignore
+# Git śledzi: markdown, skrypty, konfigurację
+# Google Drive śledzi: assety binarne, backupy
+# ============================================
+
+# --- System & AI cache ---
+.DS_Store
+.gemini/
+.agent/
+
+# --- .claude/ — trackowane selektywnie ---
+# Ignorujemy cache i wrażliwe pliki, ale śledzimy agentów, skille i komendy
+.claude/.DS_Store
+.claude/projects/
+.claude/todos/
+.claude/statsig/
+node_modules/
+pdf_venv/
+__pycache__/
+*.pyc
+
+# --- Pliki binarne (sync przez Google Drive) ---
+*.zip
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.svg
+*.mp4
+*.mov
+*.avi
+*.psd
+*.ai
+*.eps
+*.indd
+*.sketch
+*.figma
+*.glb
+*.gltf
+*.obj
+*.fbx
+*.woff
+*.woff2
+*.ttf
+*.otf
+*.ico
+
+# --- Duże foldery (sync przez Google Drive / backup) ---
+downloads/
+www-*/archives/
+Backup/
+10_Archiwum/
+06_Dane_i_Assety/Brand Assets/
+
+# --- Pliki tymczasowe ---
+temp*
+Untitled-*
+*.tmp
+*.bak
+*~
+
+# --- Logi ---
+*.log

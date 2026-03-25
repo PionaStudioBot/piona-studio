@@ -1,0 +1,65 @@
+# PIONA STUDIO — ZASADY PRACY AI Z PLIKAMI
+# (Plik konfiguracyjny dla Cursor, Antigravity i wszystkich modeli AI)
+# Każdy asystent AI pracujący w tym folderze MUSI przeczytać i stosować poniższe reguły.
+# Reguły są nadrzędne wobec domyślnych zachowań modelu.
+
+---
+
+## PROTOKÓŁ STARTOWY (czytaj w tej kolejności)
+Zanim zaczniesz pracę, przeczytaj te pliki w dokładnie tej kolejności:
+1. `.cursorrules` — ten plik (zasady pracy z plikami)
+2. `SESSION.md` — stan ostatniej sesji i następny krok
+3. `CLAUDE.md` — mapa całej przestrzeni projektu
+
+Nie zaczynaj żadnej pracy przed przeczytaniem tych trzech plików.
+
+---
+
+## REGUŁY
+
+**Reguła #1: ZERO NA BIURKU (ROOT DIR)**
+Nigdy nie twórz żadnych nowych plików `.md`, `.py`, `.pdf` ani folderów bezpośrednio w głównym katalogu `/AI/PIONA Studio/`. Ten folder ma być całkowicie czysty. Służy tylko do nawigacji.
+Jedyne dopuszczalne pliki w root: `.cursorrules`, `SESSION.md`, `CLAUDE.md`, `MASTERPLAN.md`, `STATUS_UPDATES.md`
+
+**Reguła #2: KAŻDY PLIK MA SWOJE MIEJSCE (JOHNNY.DECIMAL)**
+Zanim coś utworzysz, sprawdź strukturę w `CLAUDE.md` lub spójrz na istniejące podfoldery numeryczne. Każdy wygenerowany plik i folder MUSI trafić do odpowiedniego podfolderu:
+- `00_Strategia_2026`: Cele roczne, lejek, harmonogram.
+- `01_Procesy_Wewnetrzne`: SOPy, procesy operacyjne.
+- `02_Ofertowanie`: Szablony ofert, prompty, wytyczne designu.
+- `03_Rozwoj_i_Trendy`: Analizy rynku, notatki o trendach.
+- `04_SEO_i_WWW`: Wszystko związane ze stroną i SEO.
+- `05_Baza_Wiedzy`: TYLKO zdystylowana, zweryfikowana wiedza (patrz Reguła #3).
+- `06_Dane_i_Assety`: Dane firmy, brand assets, identyfikacja wizualna.
+- `07_Projekty_Aktywne`: Aktualnie rozwijane projekty (kod, oferty w toku).
+- `08_Skrypty_i_Narzedzia`: Wszystkie samodzielne skrypty (Python i inne).
+- `09_Notatki_i_Brudnopisy`: Surowe dane, tymczasowe notatki, logi, brudnopisy.
+- `10_Archiwum`: Zimny magazyn — stare wersje projektów.
+
+**Reguła #3: ŚWIĘTOŚĆ BAZY WIEDZY (ZŁOTA KLATKA)**
+Folder `05_Baza_Wiedzy` zawiera TYLKO zdystylowaną, skompresowaną esencję wiedzy — nie surowe materiały.
+ZAKAZ dodawania tymczasowych notatek, surowych wyników badań, fragmentów logów ani nieprzetworzonego tekstu.
+Wszystko surowe i tymczasowe idzie do `09_Notatki_i_Brudnopisy`.
+
+AI może samodzielnie dodać wiedzę do `05_Baza_Wiedzy` WYŁĄCZNIE gdy spełnione są WSZYSTKIE trzy warunki:
+1. SYNTEZA — materiał został przeanalizowany i skompresowany do esencji (jak dystylacja ksiąg biznesowych lub artykułów naukowych). Nie wklejamy, syntezujemy.
+2. KOMPLETNOŚĆ — kluczowa wiedza nie została utracona w procesie kompresji. Esencja jest gęsta, nie pusta.
+3. TRWAŁOŚĆ — wiedza ma długoterminową wartość dla PIONA Studio, nie jest odpowiedzią na jednorazowe zadanie.
+
+Jeśli choć jeden warunek nie jest spełniony → materiał idzie do `09_Notatki_i_Brudnopisy` i AI informuje Oskara.
+
+Gdy AI samodzielnie doda wiedzę do `05_Baza_Wiedzy`, MUSI natychmiast poinformować Oskara raportem zawierającym:
+- **Co zostało zapisane** — nazwa pliku, lokalizacja, zakres tematyczny
+- **Co z tego wynika** — jaką lukę w wiedzy to wypełnia lub jaką zasadę ustanawia
+- **Dlaczego to ważne** — konkretne uzasadnienie, nie ogólnik
+- **Jak można tego użyć** — przykład zastosowania w pracy PIONA Studio
+
+Bez tego raportu zapis jest niekompletny. Cicha aktualizacja bazy = błąd procesu.
+Powód: bezmyślne powiększanie bazy wiedzy zmniejsza okno kontekstowe i rozmywa kluczowe reguły.
+
+**Reguła #4: ARCHIWIZUJ, NIE USUWAJ**
+Nigdy nie używaj twardego usuwania (`rm` ani niszczenia struktury dokumentów) w odniesieniu do starszych iteracji wiedzy czy projektów (V1, V2 itp.).
+Zamiast tego przenoś przestarzałe foldery i pliki do `10_Archiwum/`.
+
+**Reguła #5: OBOWIĄZEK AKTUALIZACJI SESSION.MD**
+Na zakończenie każdej sesji (komenda `/backup`, "zapisz pracę" lub koniec etapu zadania) AI MUSI zaktualizować `SESSION.md` przed uruchomieniem skryptu backupu.
+Backup bez aktualnego `SESSION.md` = niepełny backup.
