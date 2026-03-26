@@ -176,8 +176,14 @@
 6. Odzyskaj: `git show HEAD:09_Notatki_i_Brudnopisy/TEST_SYNC_PLIK.md` — czy widać "WAŻNA EDYCJA"?
 7. Przywróć: `git checkout HEAD -- 09_Notatki_i_Brudnopisy/TEST_SYNC_PLIK.md`
 
-**PASS:** `git show HEAD` zawiera utraconą edycję. `git checkout` przywraca ją na dysk.
+**PASS:** `git show HEAD` zawiera utraconą edycję. Recovery przez `git show` + `cp` przywraca ją na dysk.
 **FAIL:** Git nie ma snapshota, albo `git show` nie zawiera edycji.
+
+**⚠️ ODKRYCIE (26-03-2026):** `git checkout HEAD -- plik` NIE działa na FUSE/Google Drive mount (EPERM przy unlink). Prawidłowa komenda recovery:
+```bash
+git show HEAD:"ścieżka/do/pliku" > /tmp/restored.md && cp /tmp/restored.md "ścieżka/do/pliku"
+```
+Tak samo `mv` działa tam gdzie `rm` nie — przy HEAD.lock używaj `mv lock lock.bak` zamiast `rm lock`.
 
 **Czyszczenie:** Przywróć stan bazowy.
 

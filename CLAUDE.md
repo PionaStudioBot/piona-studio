@@ -166,7 +166,7 @@ Normalna praca. Zero dodatkowego narzutu. Jedyny obowiązek: pamiętaj które pl
 1. **Weryfikacja edycji:** Ponownie przeczytaj każdy plik, który edytowałeś podczas sesji. Porównaj aktualną treść na dysku z tym co pamiętasz że zapisałeś.
 2. **Jeśli treść się zgadza** — brak konfliktu. Przejdź do kroku 4.
 3. **Jeśli treść się różni** — wykryty konflikt. Wykonaj procedurę merge:
-   - Odczytaj wersję bazową z git snapshota: `git show HEAD~1:ścieżka/do/pliku` (stan sprzed twoich edycji)
+   - Odczytaj wersję bazową z git snapshota: `git show HEAD~1:"ścieżka/do/pliku" > /tmp/restored.md && cp /tmp/restored.md "ścieżka/do/pliku"` (stan sprzed twoich edycji — uwaga: `git checkout` nie działa na FUSE/Google Drive mount, używaj `git show` + `cp`)
    - Masz teraz 3 wersje: **Baza** (snapshot), **Twoja** (w pamięci sesji), **Dysk** (z Google Drive sync, od drugiego Coworka)
    - Zrozum intencję obu zmian — co każda strona chciała osiągnąć
    - Stwórz **syntezę** łączącą wartość z obu wersji (NIE wybieraj jednej — merguj obie)
