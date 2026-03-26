@@ -7,6 +7,10 @@
 4. [Nawigacja kontekstowa](#4-nawigacja-kontekstowa)
 5. [Status systemu](#5-status-systemu)
 6. [Zasady operacyjne](#6-zasady-operacyjne)
+7. [Architektura synchronizacji i backupu](#7-architektura-synchronizacji-i-backupu)
+   - 7.1 [Jak działa synchronizacja w praktyce](#71-jak-działa-synchronizacja-w-praktyce)
+   - 7.2 [Protokół Sesji Cowork (OBOWIĄZKOWY)](#72-protokół-sesji-cowork-obowiązkowy)
+   - 7.3 [Obsługa .auto-memory](#73-obsługa-auto-memory-pamięć-między-sesjami)
 
 ## 0. Protokół startowy dla nowego modelu AI
 
@@ -53,7 +57,7 @@
 | `/06_Dane_i_Assety/` | `PIONA_AI_Brandbook.md` | Brandbook — zasady stosowania identyfikacji wizualnej |
 | `/07_Projekty_Aktywne/` | `www-v9/` | **Aktywna wersja strony WWW** — HTML, CSS, JS, modele 3D |
 | `/08_Skrypty_i_Narzedzia/` | `scripts/` | Skrypty backup (bash + Python) — Git commit, ZIP archive, Google Drive sync |
-| `/Dane_Firmy/` | `o_nas.md` | Misja, filozofia, oferta i kluczowe informacje o zespole |
+| `/06_Dane_i_Assety/Dane_Firmy/` | `o_nas.md` | Misja, filozofia, oferta i kluczowe informacje o zespole |
 | `/05_Baza_Wiedzy/` | `00_AI_System_Instructions.md` | **Instrukcje AI + Złota Zasada aktualizacji bazy** |
 | `/05_Baza_Wiedzy/` | `01_Brand_Core_Identity.md` | Fundamenty marki, archetpy, głos, storytelling |
 | `/05_Baza_Wiedzy/` | `03_Brand_Strategy.md` | **Strategia marki, 3C, Ehrenberg-Bass, 25 reguł MANDATORY** |
@@ -81,8 +85,8 @@ Pełna mapa klastrów: `/05_Baza_Wiedzy/00_AI_System_Instructions.md`
 | `/init` | Synchronizacja `CLAUDE.md` i weryfikacja struktury |
 | `/feedback` | Przetwórz feedback i zapisz jako trwałą regułę w bazie wiedzy |
 | `/knowledge-load` | Załaduj bazę wiedzy przed zadaniem marketingowym/brandingowym |
-| `/manual-backup` | Kopia zapasowa + synchronizacja z Google Drive |
-| `/sync` | Uruchomienie skryptu SYNC.command do wymiany danych zespołu |
+| `/backup` | Kopia zapasowa na GitHub (commit + push). Google Drive synchronizuje automatycznie |
+| `/sync` | Commit + push na GitHub (koło ratunkowe). Sync zespołowy działa automatycznie przez Google Drive |
 
 ## 4. Nawigacja kontekstowa
 | Jeśli pytanie dotyczy... | Przeczytaj... |
@@ -94,7 +98,7 @@ Pełna mapa klastrów: `/05_Baza_Wiedzy/00_AI_System_Instructions.md`
 | Fraz SEO i keyword mapping | `/04_SEO_i_WWW/strategia_seo.md` |
 | Strony WWW — budowa i podstrony | `/04_SEO_i_WWW/architektura_strony_www.md` |
 | Planu artykułów blogowych | `/04_SEO_i_WWW/plan_bloga.md` |
-| Kim jesteśmy i co robimy | `/Dane_Firmy/o_nas.md` |
+| Kim jesteśmy i co robimy | `/06_Dane_i_Assety/Dane_Firmy/o_nas.md` |
 | **Brandingu, strategii marki, pozycjonowania** | `/05_Baza_Wiedzy/01_Brand_Core_Identity.md` + `03_Brand_Strategy.md` |
 | **Psychologii klienta, UX, neuromarketingu** | `/05_Baza_Wiedzy/07_Behavioral_Economics.md` |
 | **Copywritingu, content marketingu** | `/05_Baza_Wiedzy/04_Content_Strategy.md` + `06_Personas_Brand_Voice.md` |
@@ -106,14 +110,75 @@ Aktualny stan projektu znajduje się w: [STATUS_UPDATES.md](./STATUS_UPDATES.md)
 
 ## 6. Zasady operacyjne
 1. **Zasada Bezwzględnego Mentora (Strażnik & Edukator)**: AI komunikuje się brutalnie szczerze i chroni projekt przed "tarciem". Jeśli pomysł użytkownika (np. nowa funkcja) skomplikuje pracę, wymaga dublowania działań lub długoterminowo pogorszy jej płynność — zablokuj to, podaj uzasadnienie i **wyedukuj użytkownika**, tłumacząc techniczne konsekwencje. Twoim celem jest budowanie wspólnego zrozumienia architektury, aby użytkownik projektował coraz mądrzejsze systemy.
-2. **Baza kontekstu**: Przed zadaniem związanym z PIONA Studio, AI zna `/Dane_Firmy/o_nas.md` (misja, filozofia, zespół) i `/05_Baza_Wiedzy/00_AI_System_Instructions.md` (Złota Zasada, mapa klastrów). Agenci NIE muszą tego powtarzać.
+2. **Baza kontekstu**: Przed zadaniem związanym z PIONA Studio, AI zna `/06_Dane_i_Assety/Dane_Firmy/o_nas.md` (misja, filozofia, zespół) i `/05_Baza_Wiedzy/00_AI_System_Instructions.md` (Złota Zasada, mapa klastrów). Agenci NIE muszą tego powtarzać.
 3. **Nawigacja przez TOC**: AI zawsze zaczyna od spisu treści pliku.
 4. **Living Context**: Aktywny zapis bieżących informacji w `STATUS_UPDATES.md`.
 5. **Praca Etapowa & Transparentność**: AI wykonuje jedną rzecz na raz, pokazuje każdą zmianę i czeka na zatwierdzenie przed kolejnym krokiem.
-6. **Feedback trwały**: Workflow `/feedback` przetwarza i zapisuje feedback jako trwałe reguły. Szczegóły: `.agent/workflows/feedback.md`.
+6. **Feedback trwały**: Workflow `/feedback` przetwarza i zapisuje feedback jako trwałe reguły. Szczegóły: `.claude/workflows/oferta.md`.
 7. **Żelazna Pamięć (Architektura DRY)**: Bezwzględny zakaz "naiwnego" duplikowania plików czy wiedzy. Pojedyncze źródło prawdy jest święte. Jeśli 2 platformy wymagają tego samego pliku, stosuj dowiązania symboliczne (symlink), nigdy kopie. Raz wypracowane, eleganckie rozwiązania w systemie są ostateczne — nie zapominaj ustaleń i nie wracaj z przyzwyczajenia do starych metod.
 
 
+## 7. Architektura synchronizacji i backupu
+
+**Lokalizacja folderu PIONA Studio:**
+- Mac Studio (Oskar): `~/Mój dysk/PIONA Studio/`
+- MacBook (Wiktoria): `~/Mój dysk/PIONA Studio/`
+- Google Drive: konto `kontakt.piona@gmail.com`, tryb „Powielaj pliki" (Mirror)
+- GitHub: `PionaStudioBot/piona-studio` (private repo, backup)
+
+**Warstwy bezpieczeństwa:**
+1. **Google Drive** — real-time sync między urządzeniami, automatyczny, dwustronny
+2. **Git snapshoty** — lokalny commit na starcie i na końcu każdej sesji Cowork (punkt odtworzenia)
+3. **Detekcja konfliktów** — automatyczne wykrywanie nadpisań przez Google Drive sync
+4. **Inteligentny merge** — Claude czyta obie wersje + bazę (snapshot), tworzy syntezę zachowującą zmiany obu stron
+5. **GitHub** — backup na żądanie (`/backup`) lub piątkowy. Jednokierunkowy (lokalnie → GitHub)
+
+**Zasady stałe:**
+- Wiktoria nigdy nie musi otwierać terminala (Zero-Terminal Policy)
+- `.git` folder zostaje wewnątrz Google Drive — NIE przenosimy go nigdzie (decyzja ostateczna, 25-03-2026)
+- `core.fsmonitor=false` w git config (zabezpieczenie przed konfliktem z sync)
+- Nigdy nie klikaj „Zachowaj mimo to" gdy Drive blokuje plik — to nadpisuje cudzą wersję
+
+### 7.1 Jak działa synchronizacja w praktyce
+
+Google Drive Mirror synchronizuje pliki między Mac Studio i MacBook w czasie rzeczywistym. Przy normalnej pracy (różne zadania = różne pliki) synchronizacja działa bezproblemowo. Jedyne ryzyko to sytuacja gdy oba Coworki edytują **ten sam plik w odstępie krótszym niż czas sync Google Drive (5-30 sekund)**. Wtedy Google Drive stosuje zasadę last-write-wins i jedna wersja nadpisuje drugą.
+
+Dlatego każda sesja Cowork stosuje Protokół Sesji (sekcja 7.2), który: tworzy git snapshot jako punkt odtworzenia, na koniec sesji automatycznie wykrywa czy coś zostało nadpisane, i jeśli tak — merguje inteligentnie obie wersje zamiast wybierać jedną.
+
+### 7.2 Protokół Sesji Cowork (OBOWIĄZKOWY)
+
+> **KAŻDY Claude Cowork** (na Mac Studio i na MacBook) MUSI przestrzegać tego protokołu. To nie jest opcjonalne.
+
+#### START SESJI (zanim cokolwiek zrobisz):
+
+1. **Git snapshot:** `git add -A && git commit -m "snapshot-start: [macstudio/macbook] [YYYY-MM-DD HH:MM]"`
+   - Jeśli `git status` pokazuje brak zmian do commitowania — OK, przejdź dalej
+   - Jeśli są niezcommitowane zmiany — commituj je (przyszły z Google Drive sync od drugiego komputera)
+2. **Skan pamięci:** Przeczytaj listę plików w `.auto-memory/` i porównaj z `MEMORY.md`. Jeśli istnieją pliki pamięci nieujęte w indeksie — uzupełnij indeks automatycznie.
+3. **Zapamiętaj edycje:** Przez całą sesję zapamiętuj w kontekście konwersacji: które pliki edytowałeś i jaka była ich treść po twojej edycji.
+
+#### PODCZAS SESJI:
+
+Normalna praca. Zero dodatkowego narzutu. Jedyny obowiązek: pamiętaj które pliki edytowałeś (punkt 3 powyżej).
+
+#### KONIEC SESJI (przed aktualizacją SESSION.md):
+
+1. **Weryfikacja edycji:** Ponownie przeczytaj każdy plik, który edytowałeś podczas sesji. Porównaj aktualną treść na dysku z tym co pamiętasz że zapisałeś.
+2. **Jeśli treść się zgadza** — brak konfliktu. Przejdź do kroku 4.
+3. **Jeśli treść się różni** — wykryty konflikt. Wykonaj procedurę merge:
+   - Odczytaj wersję bazową z git snapshota: `git show HEAD~1:ścieżka/do/pliku` (stan sprzed twoich edycji)
+   - Masz teraz 3 wersje: **Baza** (snapshot), **Twoja** (w pamięci sesji), **Dysk** (z Google Drive sync, od drugiego Coworka)
+   - Zrozum intencję obu zmian — co każda strona chciała osiągnąć
+   - Stwórz **syntezę** łączącą wartość z obu wersji (NIE wybieraj jednej — merguj obie)
+   - Zapisz zmergowaną wersję na dysk
+   - Poinformuj użytkownika: „Wykryłem równoległą edycję [plik]. [Oskar/Wiktoria] zmienił(a) [co], drugi Cowork zmienił [co]. Połączyłem obie zmiany — sprawdź czy wynik jest poprawny."
+4. **Git snapshot końcowy:** `git add -A && git commit -m "snapshot-end: [macstudio/macbook] [YYYY-MM-DD HH:MM]"`
+5. **Aktualizuj SESSION.md** zgodnie z Regułą #5 z `.cursorrules`
+
+### 7.3 Obsługa .auto-memory (pamięć między sesjami)
+
+Pliki pamięci (`.auto-memory/*.md`) to osobne pliki z unikalnymi nazwami — każdy Cowork tworzy nowe pliki niezależnie, Google Drive synchronizuje je bez konfliktów. `MEMORY.md` to indeks (spis treści) — jeśli oba Coworki dodadzą wpis jednocześnie i jeden się zgubi, indeks jest automatycznie odbudowywany przez skan folderu na starcie sesji (punkt 2 Protokołu).
+
 ---
-**Wersja**: 4.0
-**Ostatnia aktualizacja**: 24-03-2026
+**Wersja**: 6.0
+**Ostatnia aktualizacja**: 26-03-2026

@@ -18,7 +18,7 @@ Nie zaczynaj żadnej pracy przed przeczytaniem tych trzech plików.
 ## REGUŁY
 
 **Reguła #1: ZERO NA BIURKU (ROOT DIR)**
-Nigdy nie twórz żadnych nowych plików `.md`, `.py`, `.pdf` ani folderów bezpośrednio w głównym katalogu `/AI/PIONA Studio/`. Ten folder ma być całkowicie czysty. Służy tylko do nawigacji.
+Nigdy nie twórz żadnych nowych plików `.md`, `.py`, `.pdf` ani folderów bezpośrednio w głównym katalogu `PIONA Studio/`. Ten folder ma być całkowicie czysty. Służy tylko do nawigacji.
 Jedyne dopuszczalne pliki w root: `.cursorrules`, `SESSION.md`, `CLAUDE.md`, `MASTERPLAN.md`, `STATUS_UPDATES.md`
 
 **Reguła #2: KAŻDY PLIK MA SWOJE MIEJSCE (JOHNNY.DECIMAL)**

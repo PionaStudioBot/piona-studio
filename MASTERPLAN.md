@@ -9,7 +9,7 @@
 
 ## Status Projektu
 - **Data powstania**: 16-01-2026
-- **Ostatnia aktualizacja**: 06-03-2026
+- **Ostatnia aktualizacja**: 25-03-2026
 - **Główny cel**: Budowa inteligentnego ekosystemu dokumentacji wspierającego rozwój agencji.
 
 ---
@@ -59,7 +59,8 @@
     - [ ] Procedura akceptacji projektów brandingowych
 - [ ] **Analiza Rynku**: Analiza konkurencji w Zielonej Górze `03_Rozwoj_i_Trendy/analiza_rynku.md`
 - [ ] **Przewodnik Współpracy z PIONA Studio**: Estetyczny PDF
-- [ ] **Instalacja backupu**: (Wymaga `brew install fswatch`)
+- [x] **Architektura synchronizacji**: Google Drive Mirror + GitHub backup + Claude merge (wdrożone 25-03-2026)
+- [x] **Migracja folderu**: Z `~/Desktop/AI/` do `~/Mój dysk/PIONA Studio/` (25-03-2026)
 
 ---
 

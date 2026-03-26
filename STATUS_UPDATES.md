@@ -12,10 +12,10 @@
 
 | Pole | Wartość |
 |------|---------|
-| **Data** | 19-03-2026 |
-| **Aktualizował** | @antigravity |
-| **Typ** | AI Memory & Agent Optimization |
-| **Co zmieniono** | Wdrożenie systemu feedbacku (AI Memory), refaktoryzacja agentów, optymalizacja CLAUDE.md |
+| **Data** | 26-03-2026 |
+| **Aktualizował** | Claude Opus (Cowork) |
+| **Typ** | Wdrożenie Protokołu Sesji Cowork |
+| **Co zmieniono** | Zaprojektowanie i wdrożenie systemu bezpiecznej synchronizacji dwóch sesji Cowork. Git snapshoty, detekcja konfliktów, inteligentny merge. CLAUDE.md v6.0 |
 
 ## 2. Stan systemu
 
@@ -68,6 +68,12 @@
 | 19-03-2026 | AI Memory | Wdrożenie workflow `/feedback` i `FEEDBACK_LOG.md` dla trwałej nauki systemu | KRYTYCZNY |
 | 19-03-2026 | Agenci | Refaktoryzacja agentów: instrukcje operacyjne (+/-) zamiast opisowych | WYSOKI |
 | 19-03-2026 | CLAUDE.md | Przeniesienie zasad globalnych do Hubu Głównego (DRY) | WYSOKI |
+| 25-03-2026 | Architektura | Migracja PIONA Studio z `~/Desktop/AI/` do `~/Mój dysk/` (Google Drive Mirror) | KRYTYCZNY |
+| 25-03-2026 | Sync | Nowa architektura: Google Drive (transport) + GitHub (backup) + Claude (merge) | KRYTYCZNY |
+| 25-03-2026 | Skrypty | Wycofanie starych skryptów sync: SYNC.command, WYSLIJ/POBIERZ_ZMIANY, piona_sync.py | WYSOKI |
+| 25-03-2026 | CLAUDE.md | Aktualizacja v5.0 — nowe ścieżki, architektura sync, poprawki niespójności | WYSOKI |
+| 26-03-2026 | Sync | Protokół Sesji Cowork — git snapshoty, detekcja konfliktów, inteligentny merge. Rozwiązuje problem jednoczesnej pracy dwóch Cowork sesji | KRYTYCZNY |
+| 26-03-2026 | CLAUDE.md | Aktualizacja v6.0 — Sekcja 7 przebudowana: 7.1 (jak działa sync), 7.2 (Protokół Sesji), 7.3 (obsługa .auto-memory) | WYSOKI |
 
 ## 5. Najbliższe zadania
 ### AKTYWNE (od 23-02-2026)
@@ -83,7 +89,9 @@
 |------|-----|-----|------|
 | 16-01-2026 | @antigravity | INIT | Stworzenie STATUS_UPDATES.md i CLAUDE.md |
 | 19-03-2026 | @antigravity | UPDATE | Wdrożenie AI Memory (feedback loop) i optymalizacja 3 agentów |
+| 25-03-2026 | Claude Opus | MIGRATION | Migracja na Google Drive, nowa architektura sync, audyt spójności, CLAUDE.md v5.0 |
+| 26-03-2026 | Claude Opus | FEATURE | Protokół Sesji Cowork — system bezpiecznej synchronizacji dwóch sesji, CLAUDE.md v6.0 |
 
 ---
-**Wersja**: 3.0
-**Ostatnia aktualizacja**: 19-03-2026
+**Wersja**: 5.0
+**Ostatnia aktualizacja**: 26-03-2026
