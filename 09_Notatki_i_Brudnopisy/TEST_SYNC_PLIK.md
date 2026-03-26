@@ -13,8 +13,8 @@ Ten tekst jest stanem bazowym pliku. Został stworzony 26-03-2026 podczas projek
 - Poranny wpis Oskara — test 9
 
 ### Sekcja Wiktorii
-(pusta — do edycji w testach)
+- Poranny wpis Wiktorii — test 9
 
 ### Sekcja wspólna
-Wartość bazowa: 100
-Status: aktywny
+Wartość bazowa: 500
+Status: zaktualizowany
