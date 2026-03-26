@@ -8,9 +8,9 @@ description: Model Git Branches — jak działa synchronizacja, branche, /sync v
 ## Model
 
 ```
-OSKAR (Mac Studio):         WIKTORIA (MacBook):
-~/PIONA-AI/                 ~/PIONA-AI/
-└── branch: oskar           └── branch: wika
+OSKAR (Mac Studio):                 WIKTORIA (MacBook):
+~/Desktop/AI/PIONA-AI/              ~/Desktop/AI/PIONA-AI/
+└── branch: oskar                   └── branch: wika
           ↕ git push/pull ↕
     GitHub: PionaStudioBot/piona-studio
     ├── main    ← merged, canonical
@@ -18,7 +18,7 @@ OSKAR (Mac Studio):         WIKTORIA (MacBook):
     └── wika    ← Wiktoria's working branch
 ```
 
-**Pliki tekstowe** (markdown, HTML, CSS, JS, Python) → git repo (`~/PIONA-AI/`)
+**Pliki tekstowe** (markdown, HTML, CSS, JS, Python) → git repo (`~/Desktop/AI/PIONA-AI/`)
 **Pliki binarne** (logotypy, oferty, portfolio, fonty) → Google Drive (`Mój dysk/PIONA Assets/`)
 
 ## Warstwy bezpieczeństwa
