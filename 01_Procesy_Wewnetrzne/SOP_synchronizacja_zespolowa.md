@@ -1,134 +1,147 @@
 # SOP: Synchronizacja Zespołowa PIONA Studio
 
 ## O co chodzi?
-System pozwala Oskarowi (Mac Studio) i Wiktorii (MacBook) pracować jednocześnie na tym samym folderze PIONA Studio. Zmiany jednej osoby automatycznie trafiają do drugiej — bez nadpisywania, bez duplikatów.
+
+Oskar (Mac Studio) i Wiktoria (MacBook) pracują jednocześnie na tym samym folderze PIONA Studio. Google Drive synchronizuje pliki między komputerami automatycznie w czasie rzeczywistym. Protokół Sesji Cowork chroni przed utratą danych gdy obie osoby edytują ten sam plik w tym samym czasie.
 
 ## Architektura
-- **Git + GitHub** = synchronizacja plików tekstowych (markdown, skrypty, konfiguracja)
-- **Google Drive Shared Drive** = synchronizacja assetów binarnych (logotypy, fonty, video, PSD)
-- **Backup ZIP + Google Drive** = warstwa bezpieczeństwa (bez zmian vs. obecny system)
+
+```
+Warstwa 1 — TRANSPORT:    Google Drive Mirror (automatyczny, dwustronny, real-time)
+Warstwa 2 — RECOVERY:     Git snapshoty lokalne (commit na start i koniec każdej sesji Cowork)
+Warstwa 3 — DETEKCJA:     Weryfikacja edycji na koniec sesji (Claude porównuje pamięć z dyskiem)
+Warstwa 4 — MERGE:        Inteligentny three-way merge przez Claude (synteza obu wersji)
+Warstwa 5 — BACKUP:       GitHub (na żądanie /backup lub piątkowy)
+```
+
+**Zasada:** Google Drive synchronizuje wszystko. Git jest siatką bezpieczeństwa — punktem odtworzenia gdy Drive nadpisze czyjąś edycję.
+
+---
 
 ## Codzienny workflow
 
-### Zaczynam pracę (rano)
-1. Otwórz Terminal
-2. Wpisz: `./08_Skrypty_i_Narzedzia/scripts/POBIERZ_ZMIANY.command`
-   - LUB kliknij dwukrotnie plik `POBIERZ_ZMIANY.command` w Finderze
-3. Gotowe — masz najnowszą wersję ze zmianami całego zespołu
+### Zaczynam pracę
 
-### Kończę pracę (wieczór / koniec etapu)
-1. Otwórz Terminal
-2. Wpisz: `./08_Skrypty_i_Narzedzia/scripts/WYSLIJ_ZMIANY.command`
-   - LUB kliknij dwukrotnie plik `WYSLIJ_ZMIANY.command` w Finderze
-3. Wpisz krótki opis co zrobiłeś/aś (np. "Dodałam SOP onboardingu klienta")
-4. Gotowe — twoja praca jest na GitHubie, dostępna dla reszty zespołu
+1. Otwórz Cowork
+2. Powiedz: **"Rozpocznij sesję"** — Claude wykona Protokół startowy automatycznie (usuwa stare lock files, robi git snapshot, skanuje pamięć)
+3. Pracuj normalnie
 
-### Chcę zobaczyć historię zmian
-1. Uruchom `HISTORIA.command`
-2. Wybierz co chcesz zobaczyć:
-   - Ostatnie 20 zmian
-   - Zmiany z ostatniego tygodnia
-   - Historię konkretnego pliku
-   - Zmiany konkretnej osoby
-   - Aktualny status (co jest zmienione)
+### Kończę pracę
 
-## Co jeśli pojawi się konflikt?
-Konflikt = oboje edytowaliście tę samą linijkę tego samego pliku. Przy 2-osobowym zespole to rzadkość.
+1. Powiedz Claude: **"Zakończ sesję"** — Claude wykona Protokół końcowy automatycznie (weryfikuje swoje edycje, wykrywa konflikty, merguje jeśli trzeba, robi git snapshot)
+2. Gotowe
 
-Gdy się zdarzy, skrypt pokaże komunikat i wskaże pliki w konflikcie. W pliku zobaczysz:
-```
-<<<<<<< TWOJA WERSJA
-(to co ty napisałeś/aś)
-=======
-(to co napisała druga osoba)
->>>>>>> WERSJA ZESPOŁU
-```
+### Chcę wysłać backup na GitHub
 
-Rozwiązanie: otwórz plik, wybierz właściwą wersję (albo połącz obie), usuń znaczniki `<<<<<<<`, `=======`, `>>>>>>>`, zapisz plik, uruchom `WYSLIJ_ZMIANY`.
+Powiedz: `/backup` — Claude commituje i pushuje na GitHub.
 
-## Jednorazowa konfiguracja (tylko raz na każdym komputerze)
+---
 
-### Krok 1: Zainstaluj Git (jeśli nie masz)
-macOS ma Git wbudowany. Sprawdź: otwórz Terminal, wpisz `git --version`. Jeśli nie ma, zainstaluj Xcode Command Line Tools: `xcode-select --install`.
+## Co jeśli pojawi się komunikat o błędzie?
 
-### Krok 2: Skonfiguruj swoją tożsamość
-```bash
-git config --global user.name "Twoje Imię"
-git config --global user.email "twoj@email.com"
-```
-Przykład dla Oskara:
-```bash
-git config --global user.name "Oskar"
-git config --global user.email "kontakt.piona@gmail.com"
-```
-Przykład dla Wiktorii:
-```bash
-git config --global user.name "Wiktoria"
-git config --global user.email "wiktoria@email.com"
-```
+### Sytuacja 1: Claude mówi „HEAD.lock zablokował snapshot"
 
-### Krok 3: Połącz z GitHub (tylko Mac Studio — raz)
-```bash
-cd "/ścieżka/do/PIONA Studio"
-git remote add origin https://github.com/NAZWA-KONTA/piona-studio.git
-git push -u origin main
-```
+**Co to znaczy:** Google Drive zsynchronizował plik blokady z drugiego komputera. Claude poradził sobie (`mv` zamiast `rm`) — prawdopodobnie snapshot się powiódł mimo warningów. Nie wymaga Twojej akcji, chyba że Claude wyraźnie poprosi o pomoc.
 
-### Krok 4: Sklonuj repo (MacBook Wiktorii — raz)
-```bash
-cd ~/Desktop
-git clone https://github.com/NAZWA-KONTA/piona-studio.git "PIONA Studio"
-```
-Po sklonowaniu Wiktoria ma identyczny folder. Od teraz używa `POBIERZ_ZMIANY` i `WYSLIJ_ZMIANY`.
+### Sytuacja 2: Claude mówi „index.lock — potrzebuję Twojej pomocy"
 
-### Krok 5: GitHub authentication
-Przy pierwszym push/pull GitHub poprosi o login. Najprościej:
-1. Zainstaluj GitHub CLI: `brew install gh`
-2. Zaloguj się: `gh auth login` (wybierz HTTPS, przeglądarkę)
-3. Gotowe — nie będzie więcej pytał o hasło
+**Co zrobić (bez terminala):**
+1. Otwórz Finder
+2. Naciśnij **Cmd+Shift+.** (pokazuje ukryte pliki)
+3. Przejdź do folderu `PIONA Studio`
+4. Wejdź do folderu `.git`
+5. Znajdź plik `index.lock` — przesuń go do Kosza
+6. Wróć do Cowork i powiedz: „Gotowe, usunęłam index.lock"
+
+### Sytuacja 3: Claude mówi „`.git` zmienił się na `.git (1)`"
+
+**Co to znaczy:** Google Drive zmienił nazwę folderu git podczas synchronizacji. To psuje całe repozytorium na tym komputerze.
+
+**Co zrobić (bez terminala):**
+1. Otwórz Finder
+2. Naciśnij **Cmd+Shift+.** (pokazuje ukryte pliki)
+3. Przejdź do folderu `PIONA Studio`
+4. Znajdź folder `.git (1)`
+5. Kliknij na niego raz, naciśnij **Enter**, zmień nazwę na `.git` (usuń ` (1)`)
+6. Naciśnij Enter
+7. Wróć do Cowork i powiedz: „Gotowe, zmieniłam nazwę z powrotem na .git"
+
+### Sytuacja 4: Claude mówi „Wykryłem konflikt — mergowałem [plik]"
+
+**Co to znaczy:** Obie osoby edytowały ten sam plik prawie jednocześnie. Drive nadpisał jedną wersję. Claude wykrył to i połączył obie zmiany. **Nie trzeba nic robić** — przeczytaj tylko co Claude zmergował i potwierdź że wynik jest poprawny.
+
+### Sytuacja 5: Widzę komunikat „Zachowaj mimo to" od Google Drive
+
+**Nigdy nie klikaj „Zachowaj mimo to"** — to nadpisuje wersję drugiej osoby. Zamknij dialog i powiedz Claude co się stało.
+
+---
+
+## Protokół Sesji Cowork (szczegóły techniczne)
+
+Każda sesja Cowork wykonuje ten protokół automatycznie. Tu jest opis co Claude robi i dlaczego.
+
+### START SESJI
+
+1. **Usuwa stare lock files** — sprawdza `.git/HEAD.lock` i `.git/index.lock`. Jeśli istnieją (Drive przyniósł je z drugiego komputera) — usuwa przez `mv lock lock.bak`. Jeśli nie może (brak uprawnień) — prosi użytkownika o pomoc przez Finder.
+2. **Git snapshot** — `git add -A && git commit -m "snapshot-start: [macstudio/macbook] [data godzina]"`. To jest punkt odtworzenia — jeśli coś pójdzie nie tak, można cofnąć do tego momentu. Jeśli są niezcommitowane zmiany (przyszły z Drive od drugiego komputera) — też je commituje.
+3. **Skan pamięci** — przegląda `.auto-memory/` i uzupełnia `MEMORY.md` jeśli są nowe pliki pamięci.
+
+### PODCZAS SESJI
+
+Normalna praca. Claude zapamiętuje które pliki edytował i jak wyglądały po edycji.
+
+### KONIEC SESJI
+
+1. **Weryfikacja** — ponownie czyta każdy plik który edytował. Porównuje z tym co pamięta że zapisał.
+2. **Jeśli treść się zgadza** — brak konfliktu, przechodzi dalej.
+3. **Jeśli treść się różni** — wykryty konflikt (Drive nadpisał). Claude pobiera wersję bazową z git snapshota, ma teraz 3 wersje: Baza (snapshot) + Jego edycja (pamięć) + Dysk (wersja Drive). Tworzy syntezę łączącą obie zmiany. Informuje użytkownika.
+4. **Git snapshot końcowy** — `git commit` z wynikiem sesji.
+5. **Aktualizuje SESSION.md** — handoff dla następnej sesji.
+
+---
+
+## Ważne zasady
+
+- **`rm` nie działa na FUSE mount** — Claude używa `mv lock lock.bak` (nie `rm`) przy lock files. To normalne, nie jest błędem.
+- **`git checkout HEAD -- plik` nie działa na FUSE** — Claude używa `git show HEAD:"ścieżka" > /tmp/restored.md && cp /tmp/restored.md "ścieżka"` przy recovery.
+- **Warningi `unable to unlink tmp_obj`** — pojawiają się przy każdym commit na FUSE mount. Nie blokują commitów — są kosmetyczne.
+- **Nigdy nie klikaj „Zachowaj mimo to"** gdy Drive blokuje plik — to nadpisuje cudzą wersję bez merge.
+
+---
 
 ## Co Git śledzi, a co nie
 
-### Śledzone przez Git (synchronizowane między komputerami):
+### Śledzone przez Git (synchronizowane przez GitHub przy /backup):
 - Wszystkie pliki `.md` (strategie, SOP, baza wiedzy, sesje)
 - Pliki `.py`, `.sh`, `.command` (skrypty)
 - Pliki `.html`, `.css`, `.js` (strona WWW)
 - `.cursorrules`, `SESSION.md`, `CLAUDE.md`
 
-### NIE śledzone przez Git (sync przez Google Drive lub backup ZIP):
-- Obrazy (jpg, png, gif, svg)
-- Video (mp4, mov)
-- Pliki projektowe (psd, ai, sketch)
-- Fonty (woff, woff2, ttf)
-- Modele 3D (glb, gltf)
-- ZIPy, PDFy
-- Folder `10_Archiwum/`
-- Folder `Backup/`
-- Brand Assets
+### NIE śledzone przez Git (synchronizowane przez Google Drive):
+- Obrazy (jpg, png, gif, svg), video (mp4, mov)
+- Pliki projektowe (psd, ai, sketch), fonty, modele 3D
+- ZIPy, PDFy, folder `10_Archiwum/`, folder `Backup/`, Brand Assets
 
-## Lokalizacja skryptów
-```
-08_Skrypty_i_Narzedzia/scripts/
-├── WYSLIJ_ZMIANY.command    ← zapisz + wyślij swoją pracę
-├── POBIERZ_ZMIANY.command   ← pobierz pracę zespołu
-├── HISTORIA.command          ← historia zmian
-├── piona_backup.py           ← backup ZIP (bez zmian)
-└── backup_*.sh               ← pomocnicze skrypty backup
-```
+---
 
 ## FAQ
 
+**P: Czy muszę cokolwiek robić ręcznie przy synchronizacji?**
+O: Prawie nigdy. Powiedz „Rozpocznij sesję" i „Zakończ sesję" — Claude robi resztę. Ręczna akcja wymagana tylko przy index.lock lub `.git (1)` (instrukcje wyżej).
+
+**P: Co jeśli zapomnę powiedzieć „Zakończ sesję"?**
+O: Twoje edycje są w Google Drive (zsynchronizowane). Nie ma git snapshota końcowego — ale przy następnej sesji Cowork na dowolnym komputerze, Protokół startowy commituje niezcommitowane zmiany automatycznie.
+
+**P: Co jeśli oba Coworki edytują ten sam plik jednocześnie?**
+O: Drive zastosuje last-write-wins (jedna wersja nadpisze drugą). Protokół końcowy to wykryje i zmerguje automatycznie — żadne dane nie giną.
+
 **P: Czy mogę pracować offline?**
-O: Tak. `WYSLIJ_ZMIANY` zapisuje lokalnie nawet bez internetu. Gdy połączysz się z internetem, uruchom skrypt ponownie — wyśle zaległe zmiany.
+O: Tak. Google Drive buforuje zmiany i synchronizuje gdy wróci internet. Git snapshoty są zawsze lokalne — nie wymagają sieci.
 
 **P: Co jeśli przypadkowo usunę plik?**
-O: Git pamięta wszystko. W historii (`HISTORIA`) znajdziesz każdą wersję każdego pliku. Odzyskanie: `git checkout HEAD~1 -- ścieżka/do/pliku.md`
-
-**P: Czy muszę coś robić z Google Drive?**
-O: Nie dla plików tekstowych — Git to obsługuje. Google Drive for Desktop synchronizuje automatycznie folder Brand Assets i inne assety binarne.
-
-**P: Jak często powinienem wysyłać zmiany?**
-O: Minimum raz dziennie na koniec pracy. Idealnie — po każdym większym bloku pracy (np. po napisaniu SOPa, po sesji z AI).
+O: Git pamięta wszystko. Powiedz Claude: „Odzyskaj plik [ścieżka] z ostatniego snapshota" — Claude użyje `git show` żeby przywrócić.
 
 ---
-*Wersja: 1.0 | Data: 2026-03-25 | Autor: Oskar + Claude*
+
+*Wersja: 2.0 | Data: 2026-03-26 | Autor: Oskar + Claude*
+*Poprzednia wersja (v1.0, Git-centric workflow) zastąpiona przez Google Drive + Protokół Sesji Cowork*

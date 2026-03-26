@@ -1,93 +1,162 @@
 ---
 name: sync
 description: |
-  Synchronizuje projekt PIONA Studio z GitHub — pobiera zmiany zespołu, commituje lokalne zmiany z auto-wygenerowaną wiadomością i pushuje na GitHub. Uruchom ten skill gdy użytkownik wpisze /sync, "synchronizuj", "sync projekt", "wyślij zmiany", "pobierz zmiany zespołu", "zaktualizuj git", lub "zapisz i wyślij zmiany". Skill działa w 4 krokach: sprawdź lokalne zmiany → pobierz zmiany z GitHub → zapisz (commit) → wyślij (push). Zawsze używaj tego skilla dla wszelkich operacji Git sync w projekcie PIONA Studio.
+  Synchronizuje projekt PIONA Studio z GitHub — wykonuje Protokół Sesji Cowork (weryfikacja edycji + merge jeśli konflikt) i pushuje na GitHub. Uruchom ten skill gdy użytkownik wpisze /sync, "synchronizuj", "sync projekt", "wyślij zmiany", "zaktualizuj git", "zapisz i wyślij zmiany". Skill działa w 5 krokach: usuń lock files → snapshot → weryfikacja edycji → merge jeśli konflikt → push na GitHub. Zawsze używaj tego skilla dla wszelkich operacji Git w projekcie PIONA Studio.
 ---
 
 # Sync — PIONA Studio Git Synchronizacja
 
-Twoim zadaniem jest zsynchronizować folder projektu PIONA Studio z repozytorium GitHub. Wykonaj poniższe kroki **jeden po drugim**, raportując wynik każdego z nich.
+## Kontekst środowiska (ważne)
+
+Ten skill działa w Cowork VM (środowisko Claude na Linuxie). VM widzi folder PIONA Studio przez warstwę `bindfs` (zamontowany dysk z macOS), która blokuje niektóre operacje na plikach.
+
+**Znane ograniczenia FUSE/bindfs:**
+- `rm` na plikach `.git/` zwraca EPERM — używaj `mv lock lock.bak`
+- `git checkout HEAD -- plik` zwraca EPERM — używaj `git show HEAD:"ścieżka" > /tmp/restored.md && cp /tmp/restored.md "ścieżka"`
+- `git merge` i `git pull` są niedostępne z poziomu Cowork — merge robi Claude ręcznie przez three-way synthesis
+- Warningi `unable to unlink tmp_obj` przy każdym commit — kosmetyczne, nie blokują commitów
+
+**Podział odpowiedzialności:**
+- **Cowork (ten skill):** snapshot + weryfikacja edycji + merge + push na GitHub ✅
+- **Fizyczny komputer:** Google Drive synchronizuje pliki automatycznie między urządzeniami ✅
+
+---
 
 ## Lokalizacja projektu
-
-Projekt PIONA Studio znajduje się w katalogu zawierającym plik `.cursorrules`. Standardowa ścieżka to katalog zamontowany w sesji Cowork (workspace folder). Znajdź go przez:
 
 ```bash
 find /sessions -name ".cursorrules" -maxdepth 6 2>/dev/null | head -1 | xargs dirname
 ```
 
-Jeśli nie znajdziesz, użyj ścieżki workspace z sesji.
+Użyj znalezionej ścieżki jako `PROJECT_DIR`. Standardowo: `/sessions/.../mnt/PIONA Studio`.
 
-## Krok 1 — Sprawdź lokalne zmiany
+---
 
-```bash
-cd <PROJECT_DIR> && git status --porcelain
-```
-
-Podsumuj wynik: ile plików nowych, zmodyfikowanych, usuniętych. Jeśli brak zmian — powiedz to krótko i przejdź dalej.
-
-## Krok 2 — Pobierz zmiany zespołu z GitHub
+## Krok 1 — Usuń stare lock files
 
 ```bash
-cd <PROJECT_DIR> && git fetch origin $(git branch --show-current) --quiet 2>&1
+ls "<PROJECT_DIR>/.git/HEAD.lock" "<PROJECT_DIR>/.git/index.lock" 2>/dev/null
 ```
 
-Następnie sprawdź czy są nowe commity:
-```bash
-LOCAL=$(git rev-parse HEAD); REMOTE=$(git rev-parse origin/$(git branch --show-current) 2>/dev/null || echo ""); [ "$LOCAL" != "$REMOTE" ] && echo "SĄ NOWE ZMIANY" || echo "BRAK NOWYCH ZMIAN"
-```
-
-Jeśli są nowe zmiany — wykonaj merge:
-```bash
-cd <PROJECT_DIR> && git merge origin/$(git branch --show-current) --no-edit --quiet 2>&1
-```
-
-Jeśli pojawi się **konflikt** — wypisz nazwy plików w konflikcie i zatrzymaj się. Poinformuj użytkownika że musi rozwiązać konflikty ręcznie, a potem uruchomić /sync ponownie.
-
-## Krok 3 — Zapisz lokalne zmiany (commit)
-
-Sprawdź ponownie czy są jakieś niezapisane zmiany (po merge mogły powstać nowe lub odwrotnie):
+Jeśli któryś z plików istnieje — Google Drive zsynchronizował go z drugiego komputera. Usuń przez `mv`:
 
 ```bash
-cd <PROJECT_DIR> && git status --porcelain
+mv "<PROJECT_DIR>/.git/HEAD.lock" "<PROJECT_DIR>/.git/HEAD.lock.bak" 2>/dev/null || true
+mv "<PROJECT_DIR>/.git/index.lock" "<PROJECT_DIR>/.git/index.lock.bak" 2>/dev/null || true
 ```
 
-Jeśli **są zmiany do zapisania**:
+**Jeśli `mv` też zwraca błąd (index.lock):** poinformuj użytkownika:
+> ⚠ Nie mogę usunąć `index.lock` z poziomu Cowork. Otwórz Finder → naciśnij Cmd+Shift+. (ukryte pliki) → przejdź do PIONA Studio/.git → przesuń `index.lock` do Kosza → powiedz mi „gotowe".
 
-1. Wygeneruj automatyczną wiadomość commita na podstawie listy zmienionych plików. Format:
-   - Policz ile plików z każdej kategorii (nowe, zmodyfikowane, usunięte)
-   - Wylistuj max 5 najbardziej znaczących nazw plików (bez ścieżki)
-   - Sformatuj jako: `[Auto] Aktualizacja DD.MM HH:MM — X nowych, Y zmienionych: plik1, plik2, ...`
+Czekaj na odpowiedź użytkownika przed kontynuacją.
 
-2. Dodaj wszystkie pliki i zapisz commit:
-```bash
-cd <PROJECT_DIR> && git add -A && git commit -m "<WIADOMOŚĆ>" --quiet 2>&1
-```
+---
 
-Jeśli **brak zmian** — poinformuj że nie ma nic do zapisania.
-
-## Krok 4 — Wyślij na GitHub (push)
+## Krok 2 — Git snapshot (commit lokalnych zmian)
 
 ```bash
-cd <PROJECT_DIR> && git push origin $(git branch --show-current) --quiet 2>&1
+cd "<PROJECT_DIR>" && git status --porcelain
 ```
 
-Jeśli push się nie uda (brak internetu, brak uprawnień) — poinformuj użytkownika że zmiany są zapisane **lokalnie**, ale nie zostały wysłane do GitHub.
+Zlicz zmienione pliki. Następnie wykonaj commit:
+
+```bash
+cd "<PROJECT_DIR>" && git add -A && git commit -m "snapshot-end: macstudio $(date '+%Y-%m-%d %H:%M') /sync" 2>&1
+```
+
+Jeśli commit się nie powiódł z powodu HEAD.lock — wróć do Kroku 1. Jeśli brak zmian — poinformuj krótko i przejdź dalej.
+
+---
+
+## Krok 3 — Weryfikacja edycji (detekcja konfliktu)
+
+> Ten krok wykonuj **tylko jeśli** w bieżącej sesji Claude edytował jakiekolwiek pliki. Jeśli `/sync` wywołano po sesji bez edycji plików — pomiń Krok 3 i 4.
+
+Dla każdego pliku edytowanego w bieżącej sesji:
+
+1. Przeczytaj plik z dysku (Read tool)
+2. Porównaj z tym co pamiętasz że zapisałeś
+3. Jeśli treść się **zgadza** → brak konfliktu, przejdź do kolejnego pliku
+4. Jeśli treść się **różni** → wykryty konflikt → przejdź do Kroku 4
+
+Jeśli żaden plik nie ma konfliktu — poinformuj: „Brak konfliktów — wszystkie edycje zachowane."
+
+---
+
+## Krok 4 — Merge (tylko przy wykrytym konflikcie)
+
+Wykonaj three-way merge dla każdego pliku z konfliktem.
+
+**Pobierz wersję bazową z ostatniego snapshota:**
+```bash
+git show HEAD~1:"ścieżka/do/pliku" > /tmp/restored_base.md 2>/dev/null || git show HEAD:"ścieżka/do/pliku" > /tmp/restored_base.md
+cat /tmp/restored_base.md
+```
+
+Masz teraz 3 wersje:
+- **Baza** — stan z git snapshota (sprzed sesji)
+- **Twoja** — co pamiętasz że zapisałeś (pamięć sesji)
+- **Dysk** — aktualny stan pliku (wersja Drive, z drugiego komputera)
+
+**Zasady merge:**
+- Zrozum intencję każdej zmiany (co każda strona chciała osiągnąć)
+- Stwórz syntezę łączącą wartość z obu wersji — NIE wybieraj jednej
+- Zapisz zmergowaną wersję na dysk
+
+**Poinformuj użytkownika:**
+> 🔀 Wykryłem równoległą edycję `[nazwa pliku]`. [Co zmieniła wersja Drive] + [co zmieniłem ja]. Połączyłem obie zmiany — sprawdź czy wynik jest poprawny.
+
+Po merge — wróć do Kroku 2 i zrób kolejny snapshot z mergem.
+
+---
+
+## Krok 5 — Push na GitHub
+
+Sprawdź czy są nowe commity na GitHub:
+
+```bash
+cd "<PROJECT_DIR>" && git fetch origin main --quiet 2>&1
+LOCAL=$(git rev-parse main); REMOTE=$(git rev-parse origin/main 2>/dev/null || echo "")
+[ "$LOCAL" != "$REMOTE" ] && echo "SĄ NOWE ZMIANY NA GITHUB" || echo "BRAK NOWYCH ZMIAN"
+```
+
+Jeśli są nowe zmiany — wylistuj je i poinformuj:
+```bash
+cd "<PROJECT_DIR>" && git log --oneline main..origin/main
+```
+> ⚠ Na GitHub są nowe zmiany (lista powyżej). Claude nie może ich pobrać z poziomu Cowork — są dostępne przez Google Drive automatycznie.
+
+Następnie push:
+```bash
+cd "<PROJECT_DIR>" && git push origin main --quiet 2>&1
+```
+
+**Jeśli push się nie uda:**
+- Brak internetu → poinformuj że snapshot jest zapisany lokalnie, push przy następnej sesji
+- Błąd uprawnień → poinformuj że należy sprawdzić token GitHub w konfiguracji
+
+---
 
 ## Podsumowanie
 
-Na końcu wyświetl zwięzłe podsumowanie w formacie:
+Wyświetl zawsze na końcu:
 
 ```
 ✅ SYNC ZAKOŃCZONY — [data i godzina]
-   Pobrano:  [zmiany zespołu / brak nowych]
-   Zapisano: [nazwa commita / brak zmian]
-   Wysłano:  [✓ GitHub / ⚠ tylko lokalnie]
+   Lock files:      [usunięte / brak]
+   Snapshot:        [X plików / brak zmian]
+   Konflikty:       [brak / zmergowano: plik1, plik2]
+   GitHub (nowe):   [⚠ są / ✓ brak]
+   Push:            [✓ GitHub / ⚠ tylko lokalnie]
 ```
+
+---
 
 ## Zasady
 
-- Jeśli `git` nie jest zainstalowany lub folder nie jest repozytorium Git — poinformuj o tym wprost i zakończ.
-- Nie pytaj użytkownika o opis commita — generuj go automatycznie.
-- Jeśli któryś krok się nie powiedzie, nie kontynuuj do następnego — opisz błąd i zatrzymaj się.
-- Cały czas komunikuj się po polsku.
+- **Nigdy nie wykonuj `git merge` ani `git pull`** — w Cowork VM to zawsze zwróci błąd uprawnień.
+- **Nigdy nie używaj `rm` na plikach `.git/`** — używaj `mv lock lock.bak`.
+- **Nigdy nie używaj `git checkout HEAD -- plik`** — używaj `git show HEAD:"ścieżka" > /tmp/restored.md && cp /tmp/restored.md "ścieżka"`.
+- **Nigdy nie pytaj użytkownika o opis commita** — generuj automatycznie.
+- Komunikuj się wyłącznie po polsku.
+- Jeśli któryś krok się nie powiedzie — opisz błąd i nie kontynuuj do następnego.
