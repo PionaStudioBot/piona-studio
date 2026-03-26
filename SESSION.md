@@ -19,17 +19,17 @@
 
 ## Aktywne zadanie
 
-**Nazwa:** Wdrożenie Protokołu Sesji Cowork — system synchronizacji dwóch sesji
+**Nazwa:** Protokół Sesji Cowork — ZWALIDOWANY ✅ Kolejne kroki: SOP + skill /sync
 
-**Opis:** Zaprojektowanie i wdrożenie systemu bezpiecznej pracy dwóch Claude Cowork sesji (Mac Studio Oskara + MacBook Wiktorii) na tym samym folderze Google Drive. Trzy warstwy: git snapshot (recovery), detekcja konfliktów (na starcie i końcu sesji), inteligentny merge przez Claude (synteza obu wersji, nie wybór jednej).
+**Opis:** Protokół Sesji Cowork zaprojektowany, wdrożony i przeszedł pełną walidację (9 testów). System wykrywa konflikty synchronizacji Google Drive i automatycznie je merguje. Następny etap: aktualizacja SOP synchronizacji + przebudowa skill /sync.
 
 ---
 
 ## Stan roboczy (gdzie skończyliśmy)
 
-**Etap:** PROTOKÓŁ SESJI COWORK WDROŻONY ✅
+**Etap:** WALIDACJA PROTOKOŁU SESJI COWORK — ZAKOŃCZONA ✅
 
-**Co zostało zrobione w tej sesji (26-03-2026, Cowork, sesja 3):**
+**Co zostało zrobione w tej sesji (26-03-2026, Cowork, sesja 3+):**
 
 **Audyt i diagnostyka problemu synchronizacji (kontynuacja z sesji 2):**
 1. **Testy synchronizacji** — przetestowano jednoczesną edycję pliku z dwóch komputerów. Odkryto: Google Drive Mirror używa last-write-wins, nie tworzy conflict files przy normalnej pracy online. Zmiany jednej strony mogą zniknąć bez śladu.
@@ -40,6 +40,16 @@
 **Zaprojektowanie i wdrożenie Protokołu Sesji Cowork:**
 5. **CLAUDE.md v6.0** — przebudowana Sekcja 7: nowe warstwy bezpieczeństwa, dodane podsekcje 7.1 (jak działa sync), 7.2 (Protokół Sesji — START/PODCZAS/KONIEC), 7.3 (obsługa .auto-memory).
 6. **Protokół trzywarstwowy:** git snapshot na starcie sesji (punkt odtworzenia) → normalna praca bez narzutu → weryfikacja edycji + inteligentny merge na końcu sesji.
+
+**Walidacja — seria 9 testów (26-03-2026):**
+7. **TEST 1 PASS** — Snapshot startowy działa poprawnie
+8. **TEST 6 PASS** — Git recovery przez `git show` + `cp` (odkrycie: `git checkout` nie działa na FUSE mount)
+9. **TEST 7 PASS** — index.lock edge case wykryty i obsłużony (wymaga interwencji użytkownika przez Finder)
+10. **TEST 9 PASS** — Full integration test: poranne wpisy → jednoczesna edycja → detekcja konfliktu → three-way merge → weryfikacja na obu komputerach. WSZYSTKIE dane zachowane.
+
+**Odkrycia z testów dodane do CLAUDE.md v6.1:**
+- `.git (1)` naming — Drive zmienia nazwę `.git` przy rename conflict. Fix: Finder → Cmd+Shift+. → rename
+- Lock files są synchronizowane między maszynami → usuwaj je na starcie każdej sesji przed git commit (krok 1 protokołu startowego)
 
 **Nowa architektura synchronizacji (v2):**
 ```
@@ -55,9 +65,9 @@ Warstwa 5 — BACKUP:       GitHub (na żądanie /backup lub piątkowy)
 ## Następny krok
 
 **Do zrobienia w następnej sesji:**
-1. **Pierwszy test Protokołu Sesji** — uruchomić sesję na obu komputerach, zweryfikować że git snapshot działa, opcjonalnie wywołać kontrolowany konflikt i przetestować merge
-2. **Aktualizacja SOP** — `01_Procesy_Wewnetrzne/SOP_synchronizacja_zespolowa.md` — nowy workflow z Protokołem Sesji
-3. **Przebudowa skill /sync** — dostosować do nowej architektury
+1. **Aktualizacja SOP** — `01_Procesy_Wewnetrzne/SOP_synchronizacja_zespolowa.md` — nowy workflow z Protokołem Sesji (dla Wiktorii — Zero-Terminal: co robić gdy Drive zablokuje lub lock się pojawi)
+2. **Przebudowa skill /sync** — dostosować do nowej architektury (snapshot → weryfikacja → merge → push)
+3. **Cleanup plików testowych** — `09_Notatki_i_Brudnopisy/TEST_SYNC_PLIK.md` i `PLAN_TESTOW_SYNC.md` — do usunięcia po zatwierdzeniu wyników
 
 **Inne zaległe zadania (z poprzednich sesji):**
 - Praca nad `downloads/` — zawartość do posortowania
@@ -71,9 +81,9 @@ Warstwa 5 — BACKUP:       GitHub (na żądanie /backup lub piątkowy)
 
 - [x] ~~GitHub repo~~ — założone (PionaStudioBot/piona-studio)
 - [x] ~~Google Drive sync~~ — wdrożony i przetestowany
-- [x] ~~Protokół Sesji Cowork~~ — zaprojektowany i wdrożony w CLAUDE.md v6.0
+- [x] ~~Protokół Sesji Cowork~~ — zaprojektowany, wdrożony i zwalidowany (CLAUDE.md v6.1)
+- [x] ~~Test Protokołu na żywo~~ — TEST 9 PASS, wszystkie dane zachowane, merge działał poprawnie
 - [ ] **Nocny Git cron** — niezatwierdzone, do decyzji: czy potrzebny skoro snapshoty robią się na start/koniec sesji a /backup jest ręczny?
-- [ ] **Test Protokołu na żywo** — kontrolowany konflikt na dwóch komputerach
 - [ ] **Stary folder `Desktop/AI/PIONA Studio`** — pusty, do usunięcia
 - [ ] Folder `downloads/` — skrzynka podawcza, zostaje w root celowo
 
@@ -88,4 +98,7 @@ Warstwa 5 — BACKUP:       GitHub (na żądanie /backup lub piątkowy)
 - **Git snapshoty to diffy, nie kopie** — lekkie, lokalne, ułamek sekundy. Push na GitHub zostaje ręczny (/backup)
 - **Merge = synteza, nie wybór** — Claude czyta obie wersje, rozumie intencję, łączy. Nie „wybierz A albo B"
 - **MEMORY.md odbudowywany ze skanu folderu** — jeśli indeks jest nieaktualny, Cowork uzupełnia go automatycznie
+- **Lock files (HEAD.lock, index.lock) synchronizują się przez Drive** — usuwaj `mv lock lock.bak` (nie `rm` — EPERM na FUSE) przed każdym git commit
+- **`.git (1)` = Drive rename conflict** — Drive zmienił nazwę folderu git. Fix: Finder → Cmd+Shift+. → ręcznie zmień z powrotem na `.git`
+- **`git checkout HEAD -- plik` nie działa na FUSE** — używaj `git show HEAD:"ścieżka" > /tmp/restored.md && cp /tmp/restored.md "ścieżka"`
 - Wszystkie ustalenia z sesji 25-03 nadal obowiązują

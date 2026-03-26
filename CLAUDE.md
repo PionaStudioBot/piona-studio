@@ -151,11 +151,13 @@ Dlatego każda sesja Cowork stosuje Protokół Sesji (sekcja 7.2), który: tworz
 
 #### START SESJI (zanim cokolwiek zrobisz):
 
-1. **Git snapshot:** `git add -A && git commit -m "snapshot-start: [macstudio/macbook] [YYYY-MM-DD HH:MM]"`
+1. **Usuń stare lock files:** Sprawdź czy istnieją `.git/HEAD.lock` lub `.git/index.lock`. Jeśli tak — Google Drive zsynchronizował je z drugiego komputera. Usuń przez `mv .git/HEAD.lock .git/HEAD.lock.bak` (uwaga: `rm` nie działa na FUSE mount — używaj `mv`).
+2. **Git snapshot:** `git add -A && git commit -m "snapshot-start: [macstudio/macbook] [YYYY-MM-DD HH:MM]"`
    - Jeśli `git status` pokazuje brak zmian do commitowania — OK, przejdź dalej
    - Jeśli są niezcommitowane zmiany — commituj je (przyszły z Google Drive sync od drugiego komputera)
-2. **Skan pamięci:** Przeczytaj listę plików w `.auto-memory/` i porównaj z `MEMORY.md`. Jeśli istnieją pliki pamięci nieujęte w indeksie — uzupełnij indeks automatycznie.
-3. **Zapamiętaj edycje:** Przez całą sesję zapamiętuj w kontekście konwersacji: które pliki edytowałeś i jaka była ich treść po twojej edycji.
+   - Jeśli Drive zmienił `.git` na `.git (1)` — poproś użytkownika: Finder → Cmd+Shift+. → zmień nazwę z powrotem na `.git`
+3. **Skan pamięci:** Przeczytaj listę plików w `.auto-memory/` i porównaj z `MEMORY.md`. Jeśli istnieją pliki pamięci nieujęte w indeksie — uzupełnij indeks automatycznie.
+4. **Zapamiętaj edycje:** Przez całą sesję zapamiętuj w kontekście konwersacji: które pliki edytowałeś i jaka była ich treść po twojej edycji.
 
 #### PODCZAS SESJI:
 
@@ -180,5 +182,5 @@ Normalna praca. Zero dodatkowego narzutu. Jedyny obowiązek: pamiętaj które pl
 Pliki pamięci (`.auto-memory/*.md`) to osobne pliki z unikalnymi nazwami — każdy Cowork tworzy nowe pliki niezależnie, Google Drive synchronizuje je bez konfliktów. `MEMORY.md` to indeks (spis treści) — jeśli oba Coworki dodadzą wpis jednocześnie i jeden się zgubi, indeks jest automatycznie odbudowywany przez skan folderu na starcie sesji (punkt 2 Protokołu).
 
 ---
-**Wersja**: 6.0
+**Wersja**: 6.1
 **Ostatnia aktualizacja**: 26-03-2026

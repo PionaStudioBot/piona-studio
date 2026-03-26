@@ -234,8 +234,9 @@ Tak samo `mv` działa tam gdzie `rm` nie — przy HEAD.lock używaj `mv lock loc
 
 ---
 
-## TEST 9: Dwie sesje cały dzień, jedna edycja tego samego pliku (Scenariusz Realny)
+## TEST 9: Dwie sesje cały dzień, jedna edycja tego samego pliku (Scenariusz Realny) ✅ PASS
 
+**Data:** 26-03-2026
 **Cel:** Symulacja realnego dnia pracy — najważniejszy test, bo odwzorowuje rzeczywistość.
 **Wymaga:** Obu komputerów, ~30 minut.
 
@@ -262,6 +263,17 @@ Tak samo `mv` działa tam gdzie `rm` nie — przy HEAD.lock używaj `mv lock loc
 - Zero utraconego contentu
 
 **FAIL:** Jakikolwiek wpis brakuje w finalnej wersji.
+
+**WYNIKI TEST 9:**
+- FAZA 1 (poranne wpisy): PASS — oba komputery widziały swoje wpisy
+- FAZA 2 (jednoczesna edycja): PASS — conflict wywołany poprawnie (Drive nadpisał `500`→`100`)
+- FAZA 3 (detekcja + merge): PASS — Mac Studio wykrył konflikt przez porównanie pamięci sesji z dyskiem, wykonał three-way merge, przywrócił `500` zachowując `zaktualizowany`
+- MacBook: brak konfliktu do mergowania — Drive dostarczył już zmergowany plik
+- Snapshot końcowy MacBook zablokowany przez HEAD.lock synced z Drive — znane ograniczenie FUSE
+
+**Odkrycia dodane do protokołu:**
+- `.git (1)` — Drive może zmienić nazwę `.git` na `.git (1)` przy konflikcie rename. Fix: Finder → Cmd+Shift+. → zmień nazwę z powrotem
+- Lock files (HEAD.lock, index.lock) są synchronizowane między maszynami przez Drive — usuwaj je na starcie każdej sesji przed git commit
 
 ---
 
