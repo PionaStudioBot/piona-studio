@@ -10,7 +10,7 @@
 Ten tekst jest stanem bazowym pliku. Został stworzony 26-03-2026 podczas projektowania testów.
 
 ### Sekcja Oskara
-WAŻNA EDYCJA DO ODZYSKANIA — test6 recovery
+(pusta — do edycji w testach)
 
 ### Sekcja Wiktorii
 (pusta — do edycji w testach)
