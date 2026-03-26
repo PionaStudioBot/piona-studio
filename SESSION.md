@@ -56,9 +56,8 @@ Warstwa 5 — BACKUP:       GitHub (na żądanie /backup lub piątkowy)
 
 **Do zrobienia w następnej sesji:**
 1. **Pierwszy test Protokołu Sesji** — uruchomić sesję na obu komputerach, zweryfikować że git snapshot działa, opcjonalnie wywołać kontrolowany konflikt i przetestować merge
-2. **Konfiguracja nocnego Git cron** — automatyczny commit + push na GitHub o 23:00 (backup historii)
-3. **Aktualizacja SOP** — `01_Procesy_Wewnetrzne/SOP_synchronizacja_zespolowa.md` — nowy workflow z Protokołem Sesji
-4. **Przebudowa skill /sync** — dostosować do nowej architektury
+2. **Aktualizacja SOP** — `01_Procesy_Wewnetrzne/SOP_synchronizacja_zespolowa.md` — nowy workflow z Protokołem Sesji
+3. **Przebudowa skill /sync** — dostosować do nowej architektury
 
 **Inne zaległe zadania (z poprzednich sesji):**
 - Praca nad `downloads/` — zawartość do posortowania
@@ -73,7 +72,7 @@ Warstwa 5 — BACKUP:       GitHub (na żądanie /backup lub piątkowy)
 - [x] ~~GitHub repo~~ — założone (PionaStudioBot/piona-studio)
 - [x] ~~Google Drive sync~~ — wdrożony i przetestowany
 - [x] ~~Protokół Sesji Cowork~~ — zaprojektowany i wdrożony w CLAUDE.md v6.0
-- [ ] **Nocny Git cron** — do skonfigurowania (backup historii na GitHub)
+- [ ] **Nocny Git cron** — niezatwierdzone, do decyzji: czy potrzebny skoro snapshoty robią się na start/koniec sesji a /backup jest ręczny?
 - [ ] **Test Protokołu na żywo** — kontrolowany konflikt na dwóch komputerach
 - [ ] **Stary folder `Desktop/AI/PIONA Studio`** — pusty, do usunięcia
 - [ ] Folder `downloads/` — skrzynka podawcza, zostaje w root celowo
