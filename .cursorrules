@@ -1,65 +1,55 @@
 # PIONA STUDIO — ZASADY PRACY AI Z PLIKAMI
-# (Plik konfiguracyjny dla Cursor, Antigravity i wszystkich modeli AI)
-# Każdy asystent AI pracujący w tym folderze MUSI przeczytać i stosować poniższe reguły.
+# Plik konfiguracyjny dla wszystkich modeli AI (Claude, Cursor, Antigravity i inne).
 # Reguły są nadrzędne wobec domyślnych zachowań modelu.
 
 ---
 
-## PROTOKÓŁ STARTOWY (czytaj w tej kolejności)
-Zanim zaczniesz pracę, przeczytaj te pliki w dokładnie tej kolejności:
-1. `.cursorrules` — ten plik (zasady pracy z plikami)
-2. `SESSION.md` — stan ostatniej sesji i następny krok
-3. `CLAUDE.md` — mapa całej przestrzeni projektu
+## PROTOKÓŁ STARTOWY (DLA AI)
 
-Nie zaczynaj żadnej pracy przed przeczytaniem tych trzech plików.
+Zanim zaczniesz pracę, wykonaj te kroki:
+1. Przeczytaj: `.cursorrules`, `SESSION.md`, `CLAUDE.md`.
+2. **Git snapshot**: Sprawdź branch (`git rev-parse --abbrev-ref HEAD`). Jeśli jest to `main`, zasygnalizuj — praca odbywa się na branchu `oskar` lub `wika`. Wyczyść lock files: `find .git -name "*.lock" | while read f; do mv "$f" "${f}.dead" 2>/dev/null; done`
+3. Kontynuuj pracę zgodnie z zadaniem.
 
 ---
 
 ## REGUŁY
 
 **Reguła #1: ZERO NA BIURKU (ROOT DIR)**
-Nigdy nie twórz żadnych nowych plików `.md`, `.py`, `.pdf` ani folderów bezpośrednio w głównym katalogu `PIONA Studio/`. Ten folder ma być całkowicie czysty. Służy tylko do nawigacji.
-Jedyne dopuszczalne pliki w root: `.cursorrules`, `SESSION.md`, `CLAUDE.md`, `MASTERPLAN.md`, `STATUS_UPDATES.md`
+Nigdy nie twórz plików ani folderów bezpośrednio w głównym katalogu.
+Jedyne dopuszczalne pliki w root: `.cursorrules`, `SESSION.md`, `CLAUDE.md`, `MASTERPLAN.md`, `STATUS_UPDATES.md`, `.gitignore`, `.gitattributes`, `.git/`
 
-**Reguła #2: KAŻDY PLIK MA SWOJE MIEJSCE (JOHNNY.DECIMAL)**
-Zanim coś utworzysz, sprawdź strukturę w `CLAUDE.md` lub spójrz na istniejące podfoldery numeryczne. Każdy wygenerowany plik i folder MUSI trafić do odpowiedniego podfolderu:
-- `00_Strategia_2026`: Cele roczne, lejek, harmonogram.
-- `01_Procesy_Wewnetrzne`: SOPy, procesy operacyjne.
-- `02_Ofertowanie`: Szablony ofert, prompty, wytyczne designu.
-- `03_Rozwoj_i_Trendy`: Analizy rynku, notatki o trendach.
-- `04_SEO_i_WWW`: Wszystko związane ze stroną i SEO.
-- `05_Baza_Wiedzy`: TYLKO zdystylowana, zweryfikowana wiedza (patrz Reguła #3).
-- `06_Dane_i_Assety`: Dane firmy, brand assets, identyfikacja wizualna.
-- `07_Projekty_Aktywne`: Aktualnie rozwijane projekty (kod, oferty w toku).
-- `08_Skrypty_i_Narzedzia`: Wszystkie samodzielne skrypty (Python i inne).
-- `09_Notatki_i_Brudnopisy`: Surowe dane, tymczasowe notatki, logi, brudnopisy.
-- `10_Archiwum`: Zimny magazyn — stare wersje projektów.
+**Reguła #2: KAŻDY PLIK MA SWOJE MIEJSCE**
+Przed stworzeniem pliku sprawdź routing w `.claude/rules/file-routing.md`.
+Skrót:
+- Tożsamość firmy → `context/`
+- Wiedza referencyjna → `wiedza/<klaster>/`
+- Plany, strategie → `planning/`
+- SOPy, procedury → `procesy/`
+- Kod, projekty aktywne → `projekty/<nazwa>/`
+- Skrypty operacyjne → `narzedzia/scripts/`
+- Surowe notatki, tymczasowe → `inbox/` (w .gitignore)
+- Stare wersje → `archiwum/`
+- Pliki binarne (logotypy, PDF, video) → Google Drive: `PIONA Assets/`
 
-**Reguła #3: ŚWIĘTOŚĆ BAZY WIEDZY (ZŁOTA KLATKA)**
-Folder `05_Baza_Wiedzy` zawiera TYLKO zdystylowaną, skompresowaną esencję wiedzy — nie surowe materiały.
-ZAKAZ dodawania tymczasowych notatek, surowych wyników badań, fragmentów logów ani nieprzetworzonego tekstu.
-Wszystko surowe i tymczasowe idzie do `09_Notatki_i_Brudnopisy`.
+> ⚠️ Pre-migracja (Faza 0): Aktualna struktura to foldery numerowane (00_–10_). Routing docelowy obowiązuje po Fazie 2. Do tego czasu umieszczaj nowe pliki w istniejących folderach numerycznych zgodnie z logiką powyżej.
 
-AI może samodzielnie dodać wiedzę do `05_Baza_Wiedzy` WYŁĄCZNIE gdy spełnione są WSZYSTKIE trzy warunki:
-1. SYNTEZA — materiał został przeanalizowany i skompresowany do esencji (jak dystylacja ksiąg biznesowych lub artykułów naukowych). Nie wklejamy, syntezujemy.
-2. KOMPLETNOŚĆ — kluczowa wiedza nie została utracona w procesie kompresji. Esencja jest gęsta, nie pusta.
-3. TRWAŁOŚĆ — wiedza ma długoterminową wartość dla PIONA Studio, nie jest odpowiedzią na jednorazowe zadanie.
+**Reguła #3: ŚWIĘTOŚĆ BAZY WIEDZY**
+Folder `05_Baza_Wiedzy/` (pre-Faza 2) / `wiedza/` (post-Faza 2) zawiera TYLKO zdystylowaną, skompresowaną esencję wiedzy.
+ZAKAZ: surowe notatki, fragmenty logów, tymczasowe materiały. → idą do `inbox/` lub `09_Notatki_i_Brudnopisy/`.
 
-Jeśli choć jeden warunek nie jest spełniony → materiał idzie do `09_Notatki_i_Brudnopisy` i AI informuje Oskara.
-
-Gdy AI samodzielnie doda wiedzę do `05_Baza_Wiedzy`, MUSI natychmiast poinformować Oskara raportem zawierającym:
-- **Co zostało zapisane** — nazwa pliku, lokalizacja, zakres tematyczny
-- **Co z tego wynika** — jaką lukę w wiedzy to wypełnia lub jaką zasadę ustanawia
-- **Dlaczego to ważne** — konkretne uzasadnienie, nie ogólnik
-- **Jak można tego użyć** — przykład zastosowania w pracy PIONA Studio
-
-Bez tego raportu zapis jest niekompletny. Cicha aktualizacja bazy = błąd procesu.
-Powód: bezmyślne powiększanie bazy wiedzy zmniejsza okno kontekstowe i rozmywa kluczowe reguły.
+AI może samodzielnie dodać wiedzę WYŁĄCZNIE gdy: (1) synteza — nie kopia, (2) kompletność — esencja gęsta, (3) trwałość — długoterminowa wartość. Po każdym zapisie MUSI zgłosić raport Oskarowi.
 
 **Reguła #4: ARCHIWIZUJ, NIE USUWAJ**
-Nigdy nie używaj twardego usuwania (`rm` ani niszczenia struktury dokumentów) w odniesieniu do starszych iteracji wiedzy czy projektów (V1, V2 itp.).
-Zamiast tego przenoś przestarzałe foldery i pliki do `10_Archiwum/`.
+Nigdy nie używaj twardego usuwania starszych wersji. Przestarzałe pliki → `archiwum/` (post-Faza 2) lub `10_Archiwum/` (pre-Faza 2).
 
-**Reguła #5: OBOWIĄZEK AKTUALIZACJI SESSION.MD**
-Na zakończenie każdej sesji (komenda `/backup`, "zapisz pracę" lub koniec etapu zadania) AI MUSI zaktualizować `SESSION.md` przed uruchomieniem skryptu backupu.
-Backup bez aktualnego `SESSION.md` = niepełny backup.
+**Reguła #5: LEAN VERIFY na końcu zadania**
+1. Odczytaj edytowane pliki — zweryfikuj czy treść na dysku to Twoja wersja.
+2. Zaktualizuj `SESSION.md`.
+3. Wyczyść ewentualne lock files (`.lock` → `.lock.dead`).
+
+**Reguła #6: ZERO-TERMINAL POLICY DLA WIKTORII**
+Wiktoria nie obsługuje terminala. Jedyne co wpisuje to `/sync`. Wszystko inne (Git, lock files, merge) AI obsługuje automatycznie przez skill `/sync` v3.
+
+**Reguła #7: NIGDY NIE MERGE'UJ NA MOUNTED FOLDERZE**
+`git merge` i `git checkout` na tym folderze FAIL (FUSE/bindfs EPERM). Wszystkie operacje merge odbywają się przez shadow clone w `/tmp/piona-sync/`. Szczegóły: `.claude/rules/sync-architecture.md`.
