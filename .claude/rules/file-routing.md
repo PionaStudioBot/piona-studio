@@ -5,7 +5,7 @@ description: Gdzie trafia każdy nowy plik. AI musi sprawdzić tę tabelę przed
 
 # FILE ROUTING TABLE
 
-> **ZASADA NADRZĘDNA:** Tekst/kod → git repo (`~/Desktop/AI/PIONA-AI/`). Binaria → Google Drive (`Mój dysk/PIONA Assets/`).
+> **ZASADA NADRZĘDNA:** Tekst/kod → git repo (`~/Desktop/AI/PIONA-AI/`). Binaria → Google Drive (`PIONA Studio/`).
 
 ## Routing per typ treści
 
@@ -17,9 +17,9 @@ description: Gdzie trafia każdy nowy plik. AI musi sprawdzić tę tabelę przed
 | SOPy, procedury, szablony ofert | `procesy/` | system_pozyskiwania_klienta.md, ofertowanie.md |
 | Kod, spec, treści strony — projekt aktywny | `projekty/<nazwa>/` | www-v9/index.html, www-v9/spec/ |
 | Skrypty operacyjne (backup, sync, narzędzia) | `narzedzia/scripts/` | piona_backup.py, sync.sh |
-| Pliki binarne GOTOWE (logotypy, fonty) | Google Drive: `PIONA Assets/brand/` | logo-główne.png, font.woff2 |
-| Pliki binarne GOTOWE (oferty PDF/PNG) | Google Drive: `PIONA Assets/oferty/` | oferta_24it.png |
-| Pliki binarne GOTOWE (portfolio) | Google Drive: `PIONA Assets/portfolio/` | portfolio_2025.png |
+| Pliki binarne GOTOWE (logotypy, fonty) | Google Drive: `PIONA Studio/brand/` | logo-główne.png, font.woff2 |
+| Pliki binarne GOTOWE (oferty PDF/PNG) | Google Drive: `PIONA Studio/oferty/` | oferta_24it.png |
+| Pliki binarne GOTOWE (portfolio) | Google Drive: `PIONA Studio/portfolio/` | portfolio_2025.png |
 | Niesortowane, do obróbki, tymczasowe | `inbox/` (.gitignore) | zdjecia z telefonu, surowe notatki |
 | Stare wersje projektów, archiwalne pliki | `archiwum/` | www-v1-v8/, stare_skrypty/ |
 

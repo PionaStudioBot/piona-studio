@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projektowanie Logo Zielona Góra | PIONA Studio</title>
+    <meta name="description" content="Profesjonalne projektowanie logo w Zielonej Górze. Znak, który pracuje na Twój biznes i buduje rozpoznawalność.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/your-kit-id.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+</head>
+
+<body class="v6-dark-theme flex-col service-page">
+
+    <div class="glow-bg-overlay"></div>
+    <div class="noise-texture"></div>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- NAWIGACJA -->
+    <nav class="nav" id="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo"><img src="assets/images/logo-g%C5%82%C3%B3wne-czarne.png" alt="PIONA Studio" class="nav__logo-img invert-on-dark"></a>
+            <div class="nav__links" id="navLinks">
+                <a href="index.html#uslugi" class="nav__link">Usługi</a>
+                <a href="index.html#proces" class="nav__link">Jak działamy</a>
+                <a href="index.html#portfolio" class="nav__link">Portfolio</a>
+                <a href="index.html#o-nas" class="nav__link hover-glow">O nas</a>
+                <a href="index.html#newsroom" class="nav__link hover-glow">Magazyn</a>
+                <a href="#kontakt" class="nav__cta magnetic hover-glow"><span>Zbij Pionę</span> <span class="nav__cta-arrow">→</span></a>
+            </div>
+            <button class="nav__burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu__inner">
+            <a href="index.html#uslugi" class="mobile-menu__link">Usługi</a>
+            <a href="index.html#proces" class="mobile-menu__link">Jak działamy</a>
+            <a href="index.html#portfolio" class="mobile-menu__link">Portfolio</a>
+            <a href="index.html#o-nas" class="mobile-menu__link">O nas</a>
+            <a href="index.html#newsroom" class="mobile-menu__link">Newsroom</a>
+            <a href="#kontakt" class="mobile-menu__link mobile-menu__link--cta">Zbij Pionę →</a>
+        </div>
+    </div>
+
+    <!-- SEKCJA A: HERO -->
+    <header class="service-hero relative section-padding pt-6 pb-6" id="hero">
+        <div class="container container-tight relative z-2 text-center mt-5">
+            <span class="pill pill--glow fade-up mb-4">PROJEKTOWANIE LOGO</span>
+            <h1 class="hero__title fade-up mt-3">
+                <span class="visually-hidden">Projektowanie Logo Zielona Góra —</span>
+                Znak, Który Pracuje Na <span class="hero__accent text-lime">Twój Biznes.</span>
+            </h1>
+            <p class="hero__subtitle fade-up mx-auto max-w-lg mt-4">Profesjonalne logo to nie "rysunek w 5 minut". To przemyślany znak, który zwiększa rozpoznawalność Twojej firmy i buduje zaufanie klientów.</p>
+            
+            <div class="hero__ctas fade-up relative mt-5 d-flex justify-center">
+                <a href="#kontakt" class="btn btn-primary btn-conversion hover-glow magnetic relative z-2">Wyceń swoje logo w 24h</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEKCJA B: DLA KOGO TO JEST? -->
+    <section class="target-audience bg-dark-glass section-padding" id="dla-kogo">
+        <div class="container container-tight text-center reveal-el">
+            <span class="pill pill--glow outline-pill mb-3">Dla Kogo?</span>
+            <h2 class="section-title fw-black text-white mt-2 mb-5">Brzmi znajomo?</h2>
+            
+            <div class="grid layout-3-cols gap-4 text-left">
+                <div class="card card--glass p-5 border-radius-sm hover-lift hover-glow-accent">
+                    <div class="card__visual mb-4">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-lime">
+                            <path d="M21 12H15M3 12H9M12 3V9M12 15V21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M4.92896 4.92896L9.17163 9.17163M14.8284 14.8284L19.0711 19.0711M19.0711 4.92896L14.8284 9.17163M9.17163 14.8284L4.92896 19.0711" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <rect x="10" y="10" width="4" height="4" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="fw-bold text-white mb-2">Start nowej firmy</h3>
+                    <p class="txt-fira text-muted txt-sm mb-0">Otwierasz działalność i potrzebujesz logo, które od dnia zero wygląda profesjonalnie.</p>
+                </div>
+                <div class="card card--glass p-5 border-radius-sm hover-lift hover-glow-accent">
+                    <div class="card__visual mb-4">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-lime">
+                            <path d="M12 2L15 8L21 9L17 14L18 20L12 17L6 20L7 14L3 9L9 8L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 2V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="fw-bold text-white mb-2">Stare logo</h3>
+                    <p class="txt-fira text-muted txt-sm mb-0">Twoje logo powstało 10 lat temu w Paint i odstraszy każdego klienta z budżetem.</p>
+                </div>
+                <div class="card card--glass p-5 border-radius-sm hover-lift hover-glow-accent">
+                    <div class="card__visual mb-4">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-lime">
+                            <rect x="3" y="3" width="7" height="7" stroke="currentColor" stroke-width="1.5"/>
+                            <rect x="14" y="3" width="7" height="7" stroke="currentColor" stroke-width="1.5"/>
+                            <rect x="3" y="14" width="7" height="7" stroke="currentColor" stroke-width="1.5"/>
+                            <rect x="14" y="14" width="7" height="7" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/>
+                        </svg>
+                    </div>
+                    <h3 class="fw-bold text-white mb-2">Brak spójności</h3>
+                    <p class="txt-fira text-muted txt-sm mb-0">Masz logo, ale nie masz systemu — wizytówki wyglądają inaczej niż strona, a social media jeszcze inaczej.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKCJA C: CO DOKŁADNIE ROBIMY? -->
+    <section class="service-scope section-padding" id="zakres">
+        <div class="container text-center reveal-el">
+            <span class="pill pill--glow outline-pill mb-3">Co otrzymujesz?</span>
+            <h2 class="section-title fw-black text-white mb-6">Pakiet skrojony pod Twój sukces.</h2>
+            
+            <div class="scope-visual-grid mb-6">
+                <!-- Briefing -->
+                <div class="scope-item-big hover-glow-accent">
+                    <div class="scope-item-big__icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1"/>
+                            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1"/>
+                            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+                            <path d="M12 2V5M12 19V22M2 12H5M19 12H22" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="scope-item-big__content">
+                        <h4 class="fw-bold text-white uppercase mb-2">Strategia & Briefing</h4>
+                        <p class="txt-fira text-muted txt-sm">Nie strzelamy na oślep. Zaczynamy od celu i strategii.</p>
+                    </div>
+                </div>
+
+                <!-- Concepts -->
+                <div class="scope-item-big hover-glow-accent">
+                    <div class="scope-item-big__icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 21H15M12 18V21M12 3C8.13401 3 5 6.13401 5 10C5 12.3871 6.19339 14.4955 8 15.748V16C8 17.1046 8.89543 18 10 18H14C15.1046 18 16 17.1046 16 16V15.748C17.8066 14.4955 19 12.3871 19 10C19 6.13401 15.866 3 12 3Z" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 7L10 8M14 8L15 7M12 6V5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="scope-item-big__content">
+                        <h4 class="fw-bold text-white uppercase mb-2">2-3 Unikalne Koncepcje</h4>
+                        <p class="txt-fira text-muted txt-sm">Każda inna, każda osadzona w DNA Twojego brandu.</p>
+                    </div>
+                </div>
+
+                <!-- Variants -->
+                <div class="scope-item-big hover-glow-accent">
+                    <div class="scope-item-big__icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1"/>
+                            <rect x="11" y="11" width="10" height="10" rx="1" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/>
+                            <path d="M7 7H17V17" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="scope-item-big__content">
+                        <h4 class="fw-bold text-white uppercase mb-2">System Wariantów</h4>
+                        <p class="txt-fira text-muted txt-sm">Logo pionowe, poziome i sygnet. Na każdą okazję.</p>
+                    </div>
+                </div>
+
+                <!-- Files -->
+                <div class="scope-item-big hover-glow-accent">
+                    <div class="scope-item-big__icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 17V7M12 17L9 14M12 17L15 14" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                            <path d="M3 12C3 7.02944 7.02944 3 12 3C14.4853 3 16.7353 4.00736 18.364 5.63604" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="scope-item-big__content">
+                        <h4 class="fw-bold text-white uppercase mb-2">Standard Produkcyjny</h4>
+                        <p class="txt-fira text-muted txt-sm">Pliki wektorowe i rastrowe. Do druku i na ekran.</p>
+                    </div>
+                </div>
+
+                <!-- Brandbook -->
+                <div class="scope-item-big hover-glow-accent">
+                    <div class="scope-item-big__icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 19.5V4.5C4 3.67157 4.67157 3 5.5 3H18.5C19.3284 3 20 3.67157 20 4.5V19.5C20 20.3284 19.3284 21 18.5 21H5.5C4.67157 21 4 20.3284 4 19.5Z" stroke="currentColor" stroke-width="1"/>
+                            <path d="M4 17H20" stroke="currentColor" stroke-width="1"/>
+                            <path d="M8 3V21" stroke="currentColor" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <div class="scope-item-big__content">
+                        <h4 class="fw-bold text-white uppercase mb-2">Mini-Księga Znaku</h4>
+                        <p class="txt-fira text-muted txt-sm">Instrukcja obsługi Twojego sukcesu. Kolory i fonty.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="upsell-box upsell-box--immersive p-5 text-center bg-dark border-lime-glow border-radius-lg mx-auto max-w-lg mt-5 hover-glow">
+                <p class="fw-bold mb-3 text-white">Logo to tylko początek Twojej dominacji.</p>
+                <a href="/branding" class="btn btn-primary magnetic">
+                    → Zobacz Kompleksowy Branding B2B
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKCJA D: PROCES — TIMELINE -->
+    <section class="process-section bg-dark-glass section-padding" id="proces">
+        <div class="container container-tight relative z-2">
+            <div class="section-header mb-6 mx-auto text-center reveal-el">
+                <h2 class="section-title text-white fw-black m-0">Proces projektowy</h2>
+                <p class="txt-fira text-muted mt-3">Przewidywalny timeline współpracy. Łączny czas: 2-4 tygodnie.</p>
+            </div>
+
+            <div class="vertical-timeline line-lime">
+                <div class="timeline-line"></div>
+                <div class="timeline-step reveal-el">
+                    <div class="step-flag flag-dark">01</div>
+                    <div class="step-content">
+                        <h3 class="fw-black m-0">Briefing — opowiadasz o firmie</h3>
+                        <span class="pill pill--small bg-black border-lime text-lime mb-2">Czas: 1h</span>
+                        <p class="step-desc">Dokładnie badamy Twoje potrzeby i cele biznesowe.</p>
+                    </div>
+                </div>
+                <div class="timeline-step reveal-el">
+                    <div class="step-flag flag-dark">02</div>
+                    <div class="step-content">
+                        <h3 class="fw-black m-0">Analiza konkurencji i rynku</h3>
+                        <span class="pill pill--small bg-black border-lime text-lime mb-2">Czas: 3-5 dni</span>
+                        <p class="step-desc">Sprawdzamy co robi konkurencja, byś Ty mógł ich wyprzedzić.</p>
+                    </div>
+                </div>
+                <div class="timeline-step reveal-el">
+                    <div class="step-flag flag-dark">03</div>
+                    <div class="step-content">
+                        <h3 class="fw-black m-0">Prezentacja 2-3 koncepcji</h3>
+                        <span class="pill pill--small bg-black border-lime text-lime mb-2">Czas: 5-7 dni</span>
+                        <p class="step-desc">Tworzymy unikalne projekty dopasowane do DNA Twojej marki.</p>
+                    </div>
+                </div>
+                <div class="timeline-step reveal-el">
+                    <div class="step-flag flag-dark">04</div>
+                    <div class="step-content">
+                        <h3 class="fw-black m-0">Poprawki i dopieszczanie</h3>
+                        <span class="pill pill--small bg-black border-lime text-lime mb-2">Czas: 3-5 dni</span>
+                        <p class="step-desc">Szlifujemy wybrany znak, aż będzie perfekcyjny.</p>
+                    </div>
+                </div>
+                <div class="timeline-step meta-step reveal-el">
+                    <div class="step-flag flag-dark border-lime text-lime">META</div>
+                    <div class="step-content">
+                        <h3 class="text-white fw-black m-0"><span class="text-lime">FINALIZACJA</span>: pliki + mini-księga znaku</h3>
+                        <span class="pill pill--small disabled border-lime text-lime mb-2">Czas: 2-3 dni</span>
+                        <p class="step-desc">Przekazujemy komplet plików gotowych do walki o rynek.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKCJA E: CASE STUDY -->
+    <section class="portfolio section-padding" id="case-study">
+        <div class="container container-tight">
+            <div class="section-header text-center reveal-el mb-5">
+                <h2 class="section-title text-white fw-black">Projekty, z których jesteśmy dumni.</h2>
+            </div>
+            
+            <div class="grid layout-2-cols gap-5">
+                <article class="case-card reveal-el hover-cursor">
+                    <div class="case-card__image">
+                        <div class="case-card__placeholder" style="background: linear-gradient(135deg, #1A4472, #2980B9);"><span>SPOKO TRAVEL</span></div>
+                        <div class="case-card__overlay"><span>ZOBACZ →</span></div>
+                    </div>
+                    <div class="case-card__info bg-dark-glass p-4 border-radius-bl-br">
+                        <div class="case-card__tags mb-2">
+                            <span class="tag fw-bold text-lime">LOGO</span><span class="tag fw-bold">SYSTEM WIZUALNY</span>
+                        </div>
+                        <h3 class="fw-black text-white">Spoko Travel</h3>
+                        <p class="txt-fira text-muted txt-sm">Od pustej kartki do kompletnego systemu wizualnego agencji turystycznej. Logo „S" z samolotem — motyw podróży wbudowany w sam kształt litery.</p>
+                    </div>
+                </article>
+                <article class="case-card reveal-el hover-cursor">
+                    <div class="case-card__image">
+                        <div class="case-card__placeholder" style="background: linear-gradient(135deg, #8B0000, #E74C3C);"><span>MUUU BISTRO</span></div>
+                        <div class="case-card__overlay"><span>ZOBACZ →</span></div>
+                    </div>
+                    <div class="case-card__info bg-dark-glass p-4 border-radius-bl-br">
+                        <div class="case-card__tags mb-2">
+                            <span class="tag fw-bold text-lime">LOGO</span><span class="tag fw-bold">GASTRONOMIA</span>
+                        </div>
+                        <h3 class="fw-black text-white">MUUU Bistro</h3>
+                        <p class="txt-fira text-muted txt-sm">Sylwetka krowy, która jednocześnie jest uśmiechem — jedno logo, cała historia marki w jednym znaku.</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKCJA F: FAQ (Schema SEO) -->
+    <section class="faq-section section-padding bg-dark-glass" id="faq">
+        <div class="container container-tight reveal-el">
+            <div class="text-center mb-5">
+                <h2 class="section-title fw-black text-white m-0">Częste pytania</h2>
+            </div>
+            
+            <div class="accordion max-w-lg mx-auto">
+                <div class="accordion-item">
+                    <h3 class="accordion-header fw-bold text-white txt-lg cursor-pointer hover-lime transition d-flex justify-between align-center">
+                        Ile kosztuje profesjonalne logo w Zielonej Górze?
+                        <span class="accordion-icon text-lime">+</span>
+                    </h3>
+                    <div class="accordion-body txt-fira text-muted">
+                        <div class="accordion-body-content">
+                            Koszt profesjonalnego projektu logo zaczyna się od około 4 000 zł netto. Ostateczna cena zależy od stopnia skomplikowania projektu, liczby wariantów oraz zakresu księgi znaku. Każdy projekt wyceniamy indywidualnie, dopasowując go do skali Twojego biznesu.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header fw-bold text-white txt-lg cursor-pointer hover-lime transition d-flex justify-between align-center">
+                        Jakie pliki dostanę na końcu?
+                        <span class="accordion-icon text-lime">+</span>
+                    </h3>
+                    <div class="accordion-body txt-fira text-muted">
+                        <div class="accordion-body-content">
+                            Dostajesz kompletny pakiet produkcyjny: wektorowe pliki AI, SVG i PDF (idealne do druku i skalowania) oraz pliki rastrowe PNG i JPG w wysokiej rozdzielczości do użytku w internecie i social mediach. Dołączamy również mini-księgę znaku.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header fw-bold text-white txt-lg cursor-pointer hover-lime transition d-flex justify-between align-center">
+                        Ile trwa projektowanie logo?
+                        <span class="accordion-icon text-lime">+</span>
+                    </h3>
+                    <div class="accordion-body txt-fira text-muted">
+                        <div class="accordion-body-content">
+                            Standardowo proces zajmuje od 2 do 4 tygodni. Czas ten obejmuje briefing, analizę rynku, przygotowanie koncepcji oraz etap poprawek. Dużo zależy od Twojej sprawności w udzielaniu feedbacku.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h3 class="accordion-header fw-bold text-white txt-lg cursor-pointer hover-lime transition d-flex justify-between align-center">
+                        Czy mogę zamówić samo logo bez brandingu?
+                        <span class="accordion-icon text-lime">+</span>
+                    </h3>
+                    <div class="accordion-body txt-fira text-muted">
+                        <div class="accordion-body-content">
+                            Tak, projektujemy samodzielne logotypy. Zawsze jednak rekomendujemy rozszerzenie prac o podstawową identyfikację wizualną, aby Twój znak prezentował się spójnie i profesjonalnie na każdym polu eksploatacji.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKCJA G: KONTAKT / CTA -->
+    <section class="contact section-padding" id="kontakt">
+        <div class="container contact__inner bg-dark-glass border-radius-lg p-5">
+            <div class="contact__header reveal-el text-center mb-6">
+                <h2 class="contact__title fw-black text-white m-0">Gotowy na podbój rynków?<br><span
+                        class="text-lime pb-3 d-inline-block">Zbij Pionę.</span></h2>
+                <p class="contact__subtitle txt-fira text-muted mt-3">Umów bezpłatną konsultację strategiczną.
+                    Odpowiadamy w ciągu 24 godzin. Bez zobowiązań.</p>
+            </div>
+            <div class="contact-container gap-0">
+                <form class="contact-form reveal-el" id="contactForm">
+                    <h3 class="fw-bold text-white mb-4">Napisz do nas</h3>
+                    <div class="form-group mb-4">
+                        <input type="text" name="name" placeholder="Jak masz na imię?" required
+                            class="form-input w-100 bg-transparent text-white border-bottom border-muted p-2 txt-fira">
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="text" name="contact" placeholder="Jak się z Tobą kontaktować?" required
+                            class="form-input w-100 bg-transparent text-white border-bottom border-muted p-2 txt-fira">
+                    </div>
+                    <div class="form-group mb-5">
+                        <select name="need" required
+                            class="form-input form-select w-100 bg-transparent text-muted border-bottom border-muted p-2 border-none pb-3 txt-fira">
+                            <option value="" disabled selected>Czego potrzebujesz?</option>
+                            <option value="logo">Logo / Identyfikacja wizualna</option>
+                            <option value="branding">Branding / Strategia marki</option>
+                            <option value="www">Strona internetowa / Sklep</option>
+                            <option value="social">Social media</option>
+                            <option value="film">Film / Wideo</option>
+                            <option value="seo">Pozycjonowanie SEO</option>
+                            <option value="other">Inne — pogadajmy</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full w-100 magnetic hover-glow fw-bold mt-2">Umów
+                        bezpłatną konsultację (Zbij Pionę)</button>
+                    <p class="contact-form__note mt-3 txt-fira text-muted txt-sm text-center">Odpowiadamy w ciągu 24h.
+                        Wiktoria z PIONA Studio zajmie się Twoim zgłoszeniem osobiście.</p>
+                </form>
+                <div class="contact-calendly reveal-el p-4 d-flex flex-col justify-center border-left border-dark pl-5">
+                    <h3 class="fw-bold text-white mb-3">Wolisz pogadać od razu?</h3>
+                    <p class="txt-fira text-muted mb-4">Zarezerwuj termin. Zero wymiany maili o godzince. Wybierasz —
+                        widzimy się na callu.</p>
+                    <div class="calendly-placeholder bg-dark p-4 border-radius-sm text-center">
+                        <div class="calendly-placeholder__icon text-lime mb-2" style="font-size: 2rem;">📅</div>
+                        <p class="fw-bold text-white mb-3">Widget Calendly</p>
+                        <div class="d-flex flex-wrap gap-2 justify-center">
+                            <span class="pill pill--glow pill--small text-lime border-lime bg-transparent px-3 py-1">15
+                                min — Rozmowa wstępna</span>
+                            <span class="pill pill--glow pill--small text-lime border-lime bg-transparent px-3 py-1">30
+                                min — Konsultacja strategiczna</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STOPKA -->
+    <footer class="footer bg-black section-padding pb-4 border-top border-dark mt-5">
+        <div class="container footer__inner">
+            <div class="footer__top d-flex justify-between flex-wrap gap-5 mb-5 pb-5 border-bottom border-dark">
+                <div class="footer__brand">
+                    <img src="assets/images/logo-g%C5%82%C3%B3wne-czarne.png" alt="PIONA Studio" class="footer__logo mb-3 invert-on-dark" style="height: 30px;">
+                    <p class="footer__tagline txt-fira text-muted max-w-sm">Obsługujemy marki z charakterem, osobowością i głębią. Takie, które nie tylko istnieją, ale mają powód, by być.</p>
+                </div>
+                <div class="footer__cols d-flex gap-5 flex-wrap">
+                    <div class="footer__col d-flex flex-col gap-2">
+                        <h4 class="text-lime fw-medium mb-3 uppercase">Usługi</h4>
+                        <a href="branding.html" class="txt-fira text-white hover-lime transition fw-medium">Branding</a>
+                        <a href="logo.html" class="txt-fira text-white hover-lime transition fw-medium">Projektowanie Logo</a>
+                        <a href="social.html" class="txt-fira text-white hover-lime transition fw-medium">Social Media</a>
+                        <a href="www.html" class="txt-fira text-white hover-lime transition fw-medium">Strony WWW</a>
+                        <a href="wideo.html" class="txt-fira text-white hover-lime transition fw-medium">Filmy Reklamowe</a>
+                        <a href="seo.html" class="txt-fira text-white hover-lime transition fw-medium">Pozycjonowanie SEO</a>
+                    </div>
+                    <div class="footer__col d-flex flex-col gap-2">
+                        <h4 class="text-lime fw-medium mb-3 uppercase">PIONA STUDIO</h4>
+                        <a href="index.html#o-nas" class="txt-fira text-white hover-lime transition fw-medium">O nas / Culture Deck</a>
+                        <a href="index.html#portfolio" class="txt-fira text-white hover-lime transition fw-medium">Portfolio</a>
+                        <a href="index.html#newsroom" class="txt-fira text-white hover-lime transition fw-medium">Magazyn Nowości</a>
+                        <a href="#kontakt" class="txt-fira text-white hover-lime transition fw-medium">Zbij pionę - Kontakt</a>
+                    </div>
+                    <div class="footer__col d-flex flex-col gap-2">
+                        <h4 class="text-lime fw-medium mb-3 uppercase">Złap nas</h4>
+                        <a href="mailto:kontakt@piona-studio.pl" class="txt-fira text-white hover-lime transition underline fw-medium">kontakt@piona-studio.pl</a>
+                        <a href="https://instagram.com/studio.piona" target="_blank" rel="noopener" class="txt-fira text-white hover-lime transition mt-2 fw-medium">@studio.piona na Instagram</a>
+                        <p class="txt-fira text-muted mt-3">Agencja Reklamowa<br>Zielona Góra, Polska</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom d-flex justify-between flex-wrap gap-3 align-end pt-3">
+                <div class="left-bot">
+                    <p class="footer__motto fw-bold text-white mb-2">PIONA Studio — Tworzymy wartościowe relacje: marka — odbiorca.</p>
+                    <p class="footer__seo txt-fira text-muted txt-sm max-w-lg m-0">Działamy stacjonarnie w Zielonej Górze, obsługujemy B2B z całego województwa Lubuskiego oraz Polski.</p>
+                </div>
+                <div>
+                    <p class="text-muted txt-fira txt-sm m-0">© 2026 PIONA Studio. Ostateczna Fuzja. The Ultimate Masterpiece.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Smooth FAQ Accordion
+        document.addEventListener('DOMContentLoaded', () => {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const item = header.parentElement;
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all other items (optional, but cleaner)
+                    document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                    
+                    // Update icon (plus/minus) - now handled by CSS rotate mostly, 
+                    // but we can update text if needed. For now CSS rotate is enough.
+                });
+            });
+        });
+    </script>
+</body>
+</html>

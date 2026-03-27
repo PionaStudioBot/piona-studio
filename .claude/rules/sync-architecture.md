@@ -48,10 +48,35 @@ Cowork VM montuje folder przez bindfs. Ograniczenia:
 
 **Dlatego `/sync` używa shadow clone w `/tmp/`** — merge odbywa się tam, wyniki wracają przez `cp`.
 
+## Assety binarne — Google Drive
+
+Pliki binarne (logotypy, fonty, zdjęcia, PDF oferty, portfolio, wideo) **nie trafiają do git** — są w `.gitignore`. Żyją na współdzielonym Google Drive:
+
+| Typ assetów | Ścieżka Google Drive |
+|-------------|----------------------|
+| Logotypy, fonty, identyfikacja wizualna | `PIONA Studio/brand/` |
+| Oferty PDF/PNG | `PIONA Studio/oferty/` |
+| Portfolio, case studies | `PIONA Studio/portfolio/` |
+| Materiały www (zdjęcia, video) | `PIONA Studio/www/` |
+
+Folder `PIONA Studio/` — istniejący współdzielony folder Google Drive. Oskar i Wiktoria mają już dostęp.
+Oskar i Wiktoria mają już dostęp — folder synchronizuje się lokalnie przez Google Drive dla macOS na obu komputerach.
+
+## Setup Wiktorii (jednorazowy)
+
+Skrypt: `narzedzia/scripts/setup_wika.command`
+
+Kroki dla Oskara (robi jeden raz na MacBooku Wiktorii):
+1. Skopiuj plik `setup_wika.command` na pulpit MacBooka Wiktorii
+2. Kliknij prawym → „Otwórz" (pierwsze uruchomienie wymaga obejścia Gatekeepera)
+3. Poczekaj aż terminal wyświetli `✅ GOTOWE!`
+4. Otwórz aplikację Cowork → zmień folder workspace na `Desktop/AI/PIONA-AI`
+5. Gotowe — Wiktoria od teraz używa tylko `/sync` w Cowork
+
 ## Reguły stałe
 
 - `.git` jest lokalny (NIE na Google Drive) — brak problemów z Drive renaming, lock sync
 - `inbox/` jest w `.gitignore` — każda osoba ma swój lokalny inbox
-- `assety/` (logotypy, www-v9/assets) są w `.gitignore` — trzymane na Drive lub lokalnie
+- Assety binarne (logotypy, pdf, zdjęcia) → Google Drive `PIONA Assets/`, NIE w git
 - Nigdy nie używaj `git merge` / `git pull` bezpośrednio na mounted folderze
 - Nigdy nie używaj `rm` na plikach `.git/` — używaj `mv plik plik.dead`
