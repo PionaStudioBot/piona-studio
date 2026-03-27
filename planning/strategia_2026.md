@@ -33,10 +33,11 @@ Do końca 2026 roku agencja PIONA Studio osiągnie następujące cele:
 
 ## 2. FILOZOFIA DZIAŁANIA
 
-Nasze podejście opiera się na trzech fundamentach:
+Nasze podejście opiera się na czterech fundamentach:
 1. **Rozwiązania, nie usługi**: Nie sprzedajemy "robienia logo", sprzedajemy rozwiązanie konkretnego problemu biznesowego klienta.
 2. **Prowadzenie klienta**: Nie walczymy o każdego, ale prowadzimy zdecydowanego klienta po jasno określonej ścieżce.
 3. **Celowy Marketing**: Każde działanie marketingowe musi budować zaufanie, generować rozmowy lub domykać współpracę.
+4. **Autorytet > Zasięg**: Zasięg jest efektem ubocznym autorytetu — nie odwrotnie. Nie wygrywamy ilością postów. Wygrywamy pozycją eksperta, któremu przedsiębiorcy ufają zanim zapytają o cenę. Prawdziwe pole bitwy to percepcja kategorii: czy klient w ogóle rozumie, że potrzebuje agencji strategicznej — i czy PIONA jest pierwszym nazwiskiem, które mu przychodzi do głowy.
 
 ---
 
@@ -88,8 +89,15 @@ Każda publikacja musi odpowiadać na pytanie klienta: *„Czy oni są wystarcza
 3. **Proces**: Jak wyglądała praca?
 4. **Efekt**: Co się realnie zmieniło?
 
+### Multiplikacja Contentu
+Zasada: **1 wydarzenie = minimum 20 kawałków contentu**. Każde wystąpienie, warsztat, spotkanie networkingowe, zrealizowany projekt — to nie jednorazowa iskra. To surowiec na 2-3 miesiące obecności w kanałach.
+
+Mechanizm: nagraj → wytnij Reels → wyciągnij cytat-kartę → napisz artykuł z frameworkiem → wrzuć na LinkedIn → zrób Stories z backstage → opublikuj case study na blogu.
+
+Cel: efekt dominacji kanałów przy minimalnym nakładzie produkcji "od zera". Jedno wydarzenie wchodzi do lejka jako źródło autorytetu i wychodzi z niego jako 20 dowodów kompetencji.
+
 ---
-**Wersja**: 1.1
-**Ostatnia aktualizacja**: 16-01-2026
+**Wersja**: 1.2
+**Ostatnia aktualizacja**: 27-03-2026
 **Status**: ACTIVE
 

@@ -22,6 +22,9 @@ description: Gdzie trafia każdy nowy plik. AI musi sprawdzić tę tabelę przed
 | Pliki binarne GOTOWE (portfolio) | Google Drive: `PIONA Studio/portfolio/` | portfolio_2025.png |
 | Niesortowane, do obróbki, tymczasowe | `inbox/` (.gitignore) | zdjecia z telefonu, surowe notatki |
 | Stare wersje projektów, archiwalne pliki | `archiwum/` | www-v1-v8/, stare_skrypty/ |
+| **Dane klienta** (brief, strategia, notatki, plany kampanii, analizy, spec, kod) | `klienci/<nazwa>/` | klienci/funfit/KLIENT.md, klienci/funfit/strategia/ |
+| **Projekty klienta** (www, landing page, kampania) | `klienci/<nazwa>/projekty/<projekt>/` | klienci/funfit/projekty/www-landing-q2/ |
+| **Binaria klienta** (logo, zdjęcia, video, PSD, PDF) | Google Drive: `PIONA Studio/klienci/<nazwa>/` | klienci/funfit/assety-klienta/, deliverables/ |
 
 ## Zasady szczegółowe
 
@@ -34,5 +37,7 @@ description: Gdzie trafia każdy nowy plik. AI musi sprawdzić tę tabelę przed
 **`projekty/`** — jeden subfolder per projekt (`www-v9/`, `klient-xyz/`). Spec i treści RAZEM z kodem — nie rozdzielaj.
 
 **`inbox/`** — jest w `.gitignore`. Nie sync'uje się między branchami. Tymczasowy bufor, czyść regularnie.
+
+**`klienci/`** — jeden subfolder per klient (`funfit/`, `24it-solutions/`). Nazwy: lowercase, kebab-case, bez polskich znaków. Każdy klient ma identyczną strukturę podfolderów (brief/, strategia/, projekty/, analizy/, komunikacja/) i plik `KLIENT.md` jako jedyne źródło prawdy. Projekty klientów trafiają do `klienci/<nazwa>/projekty/`, NIE do top-level `projekty/`. Nowy klient = skopiuj `_szablon/`. Binaria klienta → Google Drive `PIONA Studio/klienci/<nazwa>/`.
 
 **NIGDY** nie twórz plików bezpośrednio w root (`~/Desktop/AI/PIONA-AI/`). Dopuszczalne pliki w root: `CLAUDE.md`, `SESSION.md`, `STATUS_UPDATES.md`, `MASTERPLAN.md`, `.cursorrules`, `.gitignore`, `.gitattributes`.

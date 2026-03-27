@@ -28,6 +28,8 @@ OSKAR (Mac Studio):                 WIKTORIA (MacBook):
 3. **Merge świadomy** — `/sync` łączy zmiany przez git merge, nie last-write-wins
 4. **GitHub backup** — `/sync` pushuje merged main na GitHub
 
+> **Nie ma osobnego `/backup`.** GitHub jest backupem — pełna historia wersji, autorzy zmian, cofanie do dowolnego commita. `/sync` = synchronizacja + backup w jednym narzędziu. Tygodniowy scheduled task w piątek o 17:00 przypomina o `/sync`.
+
 ## Protokół Sesji Cowork (OBOWIĄZKOWY)
 
 **START sesji:**
@@ -62,6 +64,12 @@ Pliki binarne (logotypy, fonty, zdjęcia, PDF oferty, portfolio, wideo) **nie tr
 | Oferty PDF/PNG | `PIONA Studio/oferty/` |
 | Portfolio, case studies | `PIONA Studio/portfolio/` |
 | Materiały www (zdjęcia, video) | `PIONA Studio/www/` |
+| **Assety klientów** (logo, zdjęcia, deliverables, pliki robocze) | `PIONA Studio/klienci/<nazwa>/` |
+
+> **Struktura folderu klienta na Drive:** Każdy klient ma 3 podfoldery:
+> - `assety-klienta/` — materiały które klient nam dostarcza (logo, zdjęcia, fonty)
+> - `deliverables/` — gotowe pliki od nas dla klienta
+> - `pliki-robocze/` — PSD, AI, Figma exports, wersje robocze
 
 Folder `PIONA Studio/` — istniejący współdzielony folder Google Drive. Oskar i Wiktoria mają już dostęp.
 Oskar i Wiktoria mają już dostęp — folder synchronizuje się lokalnie przez Google Drive dla macOS na obu komputerach.
