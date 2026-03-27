@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIONA Studio | V6 The Ultimate Fuzja</title>
+    <meta name="description" content="Kreatywna agencja reklamowa z Zielonej Góry. Obsługa B2B.">
+
+    <!-- Google Fonts dla Fira Sans (Teksty Opisowe) wg wytycznych usera -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Typekit ID PIONY dla Roc Grotesk (Nagłówki BOLD) -->
+    <link rel="stylesheet" href="https://use.typekit.net/your-kit-id.css">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+    <!-- Model Viewer Removed -->
+</head>
+
+<body class="v6-dark-theme flex-col">
+
+    <div class="glow-bg-overlay"></div>
+    <div class="noise-texture"></div>
+
+    <!-- Custom Cursor Custom z V3C -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+
+    <!-- ============================================== 
+         1. NAWIGACJA Z V3-C (Port 3463)
+         ============================================== -->
+    <nav class="nav" id="nav">
+        <div class="nav__inner">
+            <a href="#" class="nav__logo"><img src="assets/images/logo-g%C5%82%C3%B3wne-czarne.png" alt="PIONA Studio"
+                    class="nav__logo-img invert-on-dark"></a>
+            <div class="nav__links" id="navLinks">
+                <a href="#uslugi" class="nav__link">Usługi</a>
+                <a href="#proces" class="nav__link">Jak działamy</a>
+                <a href="#portfolio" class="nav__link">Portfolio</a>
+                <a href="#o-nas" class="nav__link hover-glow">O nas</a>
+                <a href="#newsroom" class="nav__link hover-glow">Magazyn</a>
+                <a href="#kontakt" class="nav__cta magnetic hover-glow"><span>Zbij Pionę</span> <span
+                        class="nav__cta-arrow">→</span></a>
+            </div>
+            <button class="nav__burger" id="navBurger"
+                aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu__inner">
+            <a href="#uslugi" class="mobile-menu__link">Usługi</a>
+            <a href="#proces" class="mobile-menu__link">Jak działamy</a>
+            <a href="#portfolio" class="mobile-menu__link">Portfolio</a>
+            <a href="#o-nas" class="mobile-menu__link">O nas</a>
+            <a href="#newsroom" class="mobile-menu__link">Newsroom</a>
+            <a href="#kontakt" class="mobile-menu__link mobile-menu__link--cta">Zbij Pionę →</a>
+        </div>
+    </div>
+
+    <!-- ============================================== 
+         2. HERO Z V3-C (ORBITERY) + V7 (DŁOŃ, TAGI)
+         ============================================== -->
+    <header class="hero" id="hero">
+        <div class="hero__orb hero__orb--1"></div>
+        <div class="hero__orb hero__orb--2"></div>
+        <div class="hero__content relative z-2">
+            <span class="pill pill--glow fade-up">Agencja reklamowa Zielona Góra</span>
+            <h1 class="hero__title fade-up mt-4">
+                POMAGAMY FIRMOM<br>
+                WYGLĄDAĆ JAK <span class="hero__accent">LIDERZY RYNKU.</span>
+            </h1>
+            <p class="hero__subtitle fade-up">Od strategii, przez branding, strony WWW, aż po wideo i social media.</p>
+            <div class="hero__pills fade-up">
+                <span class="hero__tag hover-glow">Branding</span><span class="hero__tag hover-glow">Social
+                    Media</span><span class="hero__tag hover-glow">Strony WWW</span>
+                <span class="hero__tag hover-glow">SEO</span><span class="hero__tag hover-glow">Filmy</span><span
+                    class="hero__tag hover-glow">Strategia</span>
+            </div>
+            <div class="hero__ctas fade-up relative mt-5">
+                <a href="#kontakt" class="btn btn-primary btn-conversion hover-glow magnetic relative z-2">Umów
+                    bezpłatną konsultację</a>
+                <a href="#portfolio" class="btn btn-ghost hover-glow magnetic relative z-2">Zobacz portfolio &rarr;</a>
+            </div>
+        </div>
+        <div class="hero__visual fade-up relative z-1">
+            <div class="hero__float hero__float--1"><span class="hero__float-num">14.4M+</span><span
+                    class="hero__float-label">views YouTube</span></div>
+            <div class="hero__float hero__float--2"><span class="hero__float-num">10+</span><span
+                    class="hero__float-label">branż</span></div>
+            <div class="hero__float hero__float--3"><span class="hero__float-num">2+</span><span
+                    class="hero__float-label">lata współpracy</span></div>
+            <div class="hero__ring"></div>
+        </div>
+
+        <!-- PIONA STATIC CHROME HAND -->
+        <img src="assets/hand-1.png" alt="Chrome Hand pointing to CTA" class="hero-static-hand fade-up">
+
+    </header>
+
+    <!-- ============================================== 
+         3. USŁUGI (KAFELKI V3-B 3462 + HEAD V4-A 3458)
+         ============================================== -->
+    <section class="services section-padding" id="uslugi">
+        <div class="container">
+            <div class="section-header text-center reveal-el mb-5">
+                <span class="pill pill--glow mb-3">Co robimy</span>
+                <!-- Nagłówek z V4A (Bez outline-text zgodnie z Rule 1) -->
+                <h2 class="section-title fw-black text-white">Nie strzelamy na oślep.<br>Wszystko ma swój cel.</h2>
+            </div>
+
+            <div class="services__grid">
+                <!-- V3B Bento Glow Card Style -->
+                <div class="service-card hover-glow reveal-el" style="--i:0">
+                    <div class="service-card__glow"></div>
+                    <span class="service-card__num txt-fira">01</span>
+                    <span class="service-card__emoji">🎯</span>
+                    <h3 class="fw-black">Branding i Strategia</h3>
+                    <p class="txt-fira">Łączymy strategiczne myślenie z kreacją, dając Ci kompletny i skuteczny system
+                        zarządzania wizerunkiem Twojej marki.</p>
+                </div>
+                <div class="service-card hover-glow reveal-el" style="--i:1">
+                    <div class="service-card__glow"></div>
+                    <span class="service-card__num txt-fira">02</span>
+                    <span class="service-card__emoji">✦</span>
+                    <h3 class="fw-black">Projektowanie Logo</h3>
+                    <p class="txt-fira">Znak, który opowiada historię. 3 koncepcje, pełna księga znaku.</p>
+                </div>
+                <div class="service-card hover-glow reveal-el" style="--i:2">
+                    <div class="service-card__glow"></div>
+                    <span class="service-card__num txt-fira">03</span>
+                    <span class="service-card__emoji">📱</span>
+                    <h3 class="fw-black">Social Media</h3>
+                    <p class="txt-fira">Budujemy strategiczną komunikację treści, która zamienia uwagę odbiorców w
+                        zaufanie i sprzedaż.</p>
+                </div>
+                <div class="service-card hover-glow reveal-el" style="--i:3">
+                    <div class="service-card__glow"></div>
+                    <span class="service-card__num txt-fira">04</span>
+                    <span class="service-card__emoji">🌐</span>
+                    <h3 class="fw-black">Strony WWW</h3>
+                    <p class="txt-fira">Lejek marketingowy zakodowany w HTML. Strony, które sprzedają, nie tylko
+                        wyglądają.</p>
+                </div>
+                <div class="service-card hover-glow reveal-el" style="--i:4">
+                    <div class="service-card__glow"></div>
+                    <span class="service-card__num txt-fira">05</span>
+                    <span class="service-card__emoji">🎬</span>
+                    <h3 class="fw-black">Filmy Reklamowe</h3>
+                    <p class="txt-fira">Każda sekunda ma moc – projektujemy emocje i storytelling, które przyciągają
+                        uwagę i zostają w pamięci.</p>
+                </div>
+                <div class="service-card hover-glow reveal-el" style="--i:5">
+                    <div class="service-card__glow"></div>
+                    <span class="service-card__num txt-fira">06</span>
+                    <span class="service-card__emoji">📈</span>
+                    <h3 class="fw-black">Pozycjonowanie SEO</h3>
+                    <p class="txt-fira">Budujemy widoczność, która zamienia ruch w zysk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== 
+         4. PROCES Z V5-A + NOWE COPY (PORT 3600)
+         ============================================== -->
+    <section id="proces" class="process-section section-padding">
+        <div class="container container-tight relative z-2">
+            <div class="section-header mb-6 mx-auto text-center">
+                <span class="pill pill--glow mb-3">Jak działamy</span>
+                <h2 class="section-title text-white fw-black m-0">Nasz wspólny proces.</h2>
+            </div>
+
+            <div class="vertical-timeline line-lime">
+                <div class="timeline-line"></div>
+                <div class="timeline-step reveal-el">
+                    <div class="step-flag flag-dark">01</div>
+                    <div class="step-content">
+                        <h3 class="fw-black">Kawa na ławę</h3>
+                        <p class="txt-fira text-muted">Zaczynamy od tego, co najważniejsze: od słuchania. Zadajemy
+                            pytania, Ty mówisz jak jest. Szczere przegadanie wyzwań to fundament. Szukamy insightów i
+                            definiujemy problem do rozwiązania.</p>
+                    </div>
+                </div>
+                <div class="timeline-step reveal-el">
+                    <div class="step-flag flag-dark">02</div>
+                    <div class="step-content">
+                        <h3 class="fw-black">Strategia</h3>
+                        <p class="txt-fira text-muted">Robimy reality-check Twojej marki. Badamy konkurencję,
+                            prześwietlamy rynek i szukamy przewagi. Tworzymy konkretny plan działania.</p>
+                    </div>
+                </div>
+                <div class="timeline-step reveal-el">
+                    <div class="step-flag flag-dark">03</div>
+                    <div class="step-content">
+                        <h3 class="fw-black">Kreacja</h3>
+                        <p class="txt-fira text-muted">Mamy plan, odpalamy proces. Wszystko ma swój cel. Wracamy z
+                            propozycjami. Zbieramy Twoj feedback i wspólnie dopieszczamy detale.</p>
+                    </div>
+                </div>
+                <div class="timeline-step reveal-el">
+                    <div class="step-flag flag-dark">04</div>
+                    <div class="step-content">
+                        <h3 class="fw-black">Egzekucja</h3>
+                        <p class="txt-fira text-muted">Dopracowane technicznie wdrożenie. Branding, wideo czy www -
+                            dbamy o detal. Dostajesz gotowy produkt na podbój rynku.</p>
+                    </div>
+                </div>
+                <div class="timeline-step meta-step reveal-el">
+                    <div class="step-flag flag-dark border-lime text-lime">05</div>
+                    <div class="step-content">
+                        <h3 class="text-lime fw-black">Przybijamy PIONĘ, nie znikamy</h3>
+                        <p class="txt-fira text-muted">Patrzymy na rynek. Analizujemy, wyciągamy wnioski i
+                            radzimy.<br><strong class="text-white">Twój sukces to nasza najlepsza wizytówka.</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- NOWY KROK 6 - Zaaplikowane copy usera -->
+                <div class="timeline-step meta-step step-extra reveal-el mt-6 pt-5">
+                    <div class="step-flag meta border-dash">+</div>
+                    <div class="step-content content-extra bg-dark-glass p-5 border-radius-lg">
+                        <div class="pill pill--glow outline-pill mb-3">Partner na Lata</div>
+                        <h3 class="text-white fw-black cl-white mt-2">Jedziemy dalej - Stałe wsparcie</h3>
+                        <p class="text-muted txt-fira mt-3 v6-copy">
+                            Znamy Twój brand od podszewki – wykorzystajmy ten rozpęd. Najchętniej przejmiemy stery w
+                            ramach kompleksowej obsługi 360, gwarantując pełną spójność Twojej komunikacji.<br><br>
+                            Wolisz wsparcie w konkretnych obszarach? Zadziałamy punktowo:
+                        </p>
+                        <ul class="benefit-list txt-fira text-white mt-4 fw-medium">
+                            <li class="mb-2"><span class="text-lime mr-2">✓</span> <strong class="text-lime">Social
+                                    Media:</strong> budujemy wizerunek i profesjonalną komunikację.</li>
+                            <li class="mb-2"><span class="text-lime mr-2">✓</span> <strong class="text-lime">SEO &
+                                    WWW:</strong> dbamy o Twoją widoczność oraz konwersję.</li>
+                            <li class="mb-2"><span class="text-lime mr-2">✓</span> <strong class="text-lime">Design &
+                                    Video:</strong> realizujemy treści osadzone w DNA marki – strategicznie i wizualnie
+                                spójne.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== 
+         5. PORTFOLIO Z V3-C (PORT 3463)
+         ============================================== -->
+    <section class="portfolio section-padding" id="portfolio">
+        <div class="container">
+            <div class="section-header text-center reveal-el mb-5">
+                <span class="pill pill--glow mb-3">Portfolio</span>
+                <!-- Bez fill-stroke -->
+                <h2 class="section-title text-white fw-black">Zobacz Wyniki.<br>Dobra marka to nie przypadek.</h2>
+            </div>
+
+            <div class="portfolio__grid">
+                <!-- V3C grid system custom cursor -->
+                <article class="case-card case-card--featured reveal-el hover-cursor">
+                    <div class="case-card__image">
+                        <div class="case-card__placeholder"
+                            style="background: linear-gradient(135deg, #002B21, #005540);"><span>SKINOW</span></div>
+                        <div class="case-card__overlay"><span>ZOBACZ →</span></div>
+                    </div>
+                    <div class="case-card__info">
+                        <div class="case-card__tags">
+                            <span class="tag fw-bold">BRANDING 360°</span>
+                            <span class="tag fw-bold">E-COMMERCE</span>
+                            <span class="tag fw-bold">SOCIAL MEDIA</span>
+                        </div>
+                        <h3 class="fw-black text-white">SKINOW — Premium Skincare od zera</h3>
+                        <p class="txt-fira text-muted">Strategia → Logo → Sklep → Instagram → Video. Pełne 360°.</p>
+                    </div>
+                </article>
+                <article class="case-card reveal-el hover-cursor">
+                    <div class="case-card__image">
+                        <div class="case-card__placeholder" style="background: linear-gradient(135deg, #1a1a1a, #333);">
+                            <span>DYCHA</span>
+                        </div>
+                        <div class="case-card__overlay"><span>ZOBACZ →</span></div>
+                    </div>
+                    <div class="case-card__info">
+                        <div class="case-card__tags">
+                            <span class="tag fw-bold">TELEDYSK</span><span class="tag fw-bold">YOUTUBE</span>
+                        </div>
+                        <h3 class="fw-black text-white">DYCHA — 14.4 mln wyświetleń</h3>
+                        <p class="txt-fira text-muted">5 teledysków. „Miłość za Pieniądze" — 9.5M views.</p>
+                    </div>
+                </article>
+                <article class="case-card reveal-el hover-cursor">
+                    <div class="case-card__image">
+                        <div class="case-card__placeholder"
+                            style="background: linear-gradient(135deg, #2d5016, #5a9e2f);"><span>FUNFIT</span></div>
+                        <div class="case-card__overlay"><span>ZOBACZ →</span></div>
+                    </div>
+                    <div class="case-card__info">
+                        <div class="case-card__tags">
+                            <span class="tag fw-bold">SOCIAL MEDIA</span><span class="tag fw-bold">META ADS</span>
+                        </div>
+                        <h3 class="fw-black text-white">FunFit II — 2+ lata współpracy</h3>
+                        <p class="txt-fira text-muted">Content + Ads + Kurs cyfrowy. Stałe partnerstwo.</p>
+                    </div>
+                </article>
+                <article class="case-card reveal-el hover-cursor">
+                    <div class="case-card__image">
+                        <div class="case-card__placeholder"
+                            style="background: linear-gradient(135deg, #1a3a5c, #4a7fb5);"><span>ŁAGÓW</span></div>
+                        <div class="case-card__overlay"><span>ZOBACZ →</span></div>
+                    </div>
+                    <div class="case-card__info">
+                        <div class="case-card__tags">
+                            <span class="tag fw-bold">BRANDING</span><span class="tag fw-bold">IDENTYFIKACJA</span>
+                        </div>
+                        <h3 class="fw-black text-white">Łagów Lubuski — Tożsamość regionu</h3>
+                        <p class="txt-fira text-muted">Identyfikacja turystyczna. Zamki, jeziora, historia.</p>
+                    </div>
+                </article>
+            </div>
+            <div class="portfolio__cta text-center mt-5 reveal-el">
+                <a href="#" class="btn btn-primary magnetic">Przejrzyj całe portfolio →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== 
+         6. CULTURE DECK Z V5-A + FOTO Z V3-C
+         ============================================== -->
+    <section id="o-nas" class="culture culture-section align-center d-flex section-padding">
+        <div class="container culture__inner layout-2-cols align-center gap-5">
+            <div class="culture__text reveal-el">
+                <span class="pill pill--glow mb-4">Culture Deck</span>
+
+                <!-- Bez obrysu tekstu / Poprawiony Background marker tak by tekst był ciemny -->
+                <h2 class="quote-text fw-black text-white m-0">
+                    "W świecie, gdzie króluje masowa produkcja,<br>
+                    my stawiamy na <span
+                        class="bg-lime text-black highlight-bg pt-1 pb-1 pr-2 pl-2 border-radius-sm d-inline-block">jakość,
+                        która wyróżnia</span>."
+                </h2>
+
+                <div class="about-desc mt-5 txt-fira text-white opacity-90 txt-lg">
+                </div>
+
+                <div class="mt-5 pt-3">
+                    <a href="/o-nas" class="btn btn-ghost magnetic hover-glow">Wejdź za kulisy &rarr;</a>
+                </div>
+            </div>
+
+            <div class="culture__visual text-right reveal-el position-relative">
+                <!-- Zdjęcie wkomponowane z v3-c -->
+                <div class="culture__photo">
+                    <div
+                        class="culture__photo-label bg-black text-white p-2 txt-xs uppercase fw-bold absolute border-lime">
+                        📸 Sesja: Zespół w akcji</div>
+                    <div class="culture__corner culture__corner--tl"></div>
+                    <div class="culture__corner culture__corner--br"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== 
+         7. NEWSROOM (Wiedza) Z V3-C (PORT 3463)
+         ============================================== -->
+    <section class="newsroom section-padding py-extra" id="newsroom">
+        <div class="container">
+            <div class="section-header text-center reveal-el mb-5">
+                <span class="pill pill--glow mb-3">Na językach</span>
+                <h2 class="section-title text-white fw-black m-0">Na językach.</h2>
+                <p class="section-subtitle txt-fira text-muted mt-3">Blog, case studies i kampanie — wszystko w jednym
+                    miejscu.</p>
+            </div>
+
+            <div class="newsroom__filters text-center mb-5 reveal-el">
+                <button class="newsroom__filter newsroom__filter--active fw-bold" data-filter="all">Wszystko</button>
+                <button class="newsroom__filter fw-bold" data-filter="wiedza">Wiedza</button>
+                <button class="newsroom__filter fw-bold" data-filter="klient">Klient</button>
+                <button class="newsroom__filter fw-bold" data-filter="kampania">Kampania</button>
+            </div>
+
+            <div class="newsroom__grid">
+                <article class="news-card reveal-el hover-glow-effect" data-category="wiedza">
+                    <div class="news-card__cover" style="background: linear-gradient(135deg, #212121, #3a3a3a);">
+                        <span class="pill pill--glow fw-bold uppercase">WIEDZA</span>
+                    </div>
+                    <div class="news-card__body p-4 bg-dark-glass text-left">
+                        <span class="news-card__time text-lime txt-fira txt-sm fw-bold">⏱ 6 min czytania</span>
+                        <h3 class="text-white mt-2 mb-3 fw-bold">Dlaczego Twoja reklama na Facebooku nie sprzedaje?</h3>
+                        <p class="text-muted txt-fira txt-sm mb-4">5 błędów, przez które lubuskie firmy tracą budżet
+                            reklamowy.</p>
+                        <span class="news-card__link text-white fw-bold">Czytaj →</span>
+                    </div>
+                </article>
+                <article class="news-card reveal-el hover-glow-effect" data-category="klient">
+                    <div class="news-card__cover" style="background: linear-gradient(135deg, #1a2a1a, #2d4a2d);">
+                        <span class="pill pill--glow fw-bold uppercase">KLIENT</span>
+                    </div>
+                    <div class="news-card__body p-4 bg-dark-glass text-left">
+                        <span class="news-card__time text-lime txt-fira txt-sm fw-bold">⏱ 8 min czytania</span>
+                        <h3 class="text-white mt-2 mb-3 fw-bold">Jak SKINOW stał się marką premium w 90 dni</h3>
+                        <p class="text-muted txt-fira txt-sm mb-4">Od pomysłu do działającego e-commerce i
+                            rozpoznawalnego brandu.</p>
+                        <span class="news-card__link text-white fw-bold">Czytaj →</span>
+                    </div>
+                </article>
+                <article class="news-card reveal-el hover-glow-effect" data-category="kampania">
+                    <div class="news-card__cover" style="background: linear-gradient(135deg, #2a1a2a, #4a2d4a);">
+                        <span class="pill pill--glow fw-bold uppercase">KAMPANIA</span>
+                    </div>
+                    <div class="news-card__body p-4 bg-dark-glass text-left">
+                        <span class="news-card__time text-lime txt-fira txt-sm fw-bold">⏱ 5 min czytania</span>
+                        <h3 class="text-white mt-2 mb-3 fw-bold">14.4 milionów wyświetleń — jak to zrobiliśmy</h3>
+                        <p class="text-muted txt-fira txt-sm mb-4">Case study produkcji teledysków Dycha na kanale
+                            IsAmU.</p>
+                        <span class="news-card__link text-white fw-bold">Czytaj →</span>
+                    </div>
+                </article>
+            </div>
+            <div class="text-center mt-5 reveal-el pt-4">
+                <a href="/newsroom" class="btn btn-ghost hover-white-fill magnetic">Zobacz wszystkie wpisy &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- KLIENCI TICKER (Z V3A - 3461 Oprzeplatany mrokiem) -->
+    <div class="clients pb-5 mb-5 overflow-hidden">
+        <p class="text-center txt-fira text-muted mb-4 pt-4 uppercase txt-sm fw-bold d-inline-block mx-auto">
+            Dołącz do firm, które nam zaufały</p>
+        <div class="clients__track text-white fs-3 fw-black text-lime mt-3">
+            <span class="mx-4 opacity-50">SKINOW</span><span class="mx-4 opacity-50">FUNFIT</span><span
+                class="mx-4 opacity-50">ŁAGÓW</span><span class="mx-4 opacity-50">SPOKO TRAVEL</span><span
+                class="mx-4 opacity-50">MUUU BISTRO</span><span class="mx-4 opacity-50">NOWCAMP</span><span
+                class="mx-4 opacity-50">DYCHA</span><span class="mx-4 opacity-50">MGP GARAGE</span>
+            <span class="mx-4 opacity-50">SKINOW</span><span class="mx-4 opacity-50">FUNFIT</span><span
+                class="mx-4 opacity-50">ŁAGÓW</span><span class="mx-4 opacity-50">SPOKO TRAVEL</span><span
+                class="mx-4 opacity-50">MUUU BISTRO</span><span class="mx-4 opacity-50">NOWCAMP</span><span
+                class="mx-4 opacity-50">DYCHA</span><span class="mx-4 opacity-50">MGP GARAGE</span>
+        </div>
+    </div>
+
+    <!-- ============================================== 
+         8. KONTAKT Z V3-A (PORT 3461)
+         ============================================== -->
+    <section class="contact section-padding" id="kontakt">
+        <div class="container contact__inner bg-dark-glass border-radius-lg p-5">
+            <div class="contact__header reveal-el text-center mb-6">
+                <h2 class="contact__title fw-black text-white m-0">Gotowy na podbój rynków?<br><span
+                        class="text-lime pb-3 d-inline-block">Zbij Pionę.</span></h2>
+                <p class="contact__subtitle txt-fira text-muted mt-3">Umów bezpłatną konsultację strategiczną.
+                    Odpowiadamy w ciągu 24 godzin. Bez zobowiązań.</p>
+            </div>
+            <div class="contact-container gap-0">
+                <form class="contact-form reveal-el" id="contactForm">
+                    <h3 class="fw-bold text-white mb-4">Napisz do nas</h3>
+                    <div class="form-group mb-4">
+                        <input type="text" name="name" placeholder="Jak masz na imię?" required
+                            class="form-input w-100 bg-transparent text-white border-bottom border-muted p-2 txt-fira">
+                    </div>
+                    <div class="form-group mb-4">
+                        <input type="text" name="contact" placeholder="Jak się z Tobą kontaktować?" required
+                            class="form-input w-100 bg-transparent text-white border-bottom border-muted p-2 txt-fira">
+                    </div>
+                    <div class="form-group mb-5">
+                        <select name="need" required
+                            class="form-input form-select w-100 bg-transparent text-muted border-bottom border-muted p-2 border-none pb-3 txt-fira">
+                            <option value="" disabled selected>Czego potrzebujesz?</option>
+                            <option value="logo">Logo / Identyfikacja wizualna</option>
+                            <option value="branding">Branding / Strategia marki</option>
+                            <option value="www">Strona internetowa / Sklep</option>
+                            <option value="social">Social media</option>
+                            <option value="film">Film / Wideo</option>
+                            <option value="seo">Pozycjonowanie SEO</option>
+                            <option value="other">Inne — pogadajmy</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full w-100 magnetic hover-glow fw-bold mt-2">Umów
+                        bezpłatną konsultację (Zbij Pionę)</button>
+                    <p class="contact-form__note mt-3 txt-fira text-muted txt-sm text-center">Odpowiadamy w ciągu 24h.
+                        Wiktoria z PIONA Studio zajmie się Twoim zgłoszeniem osobiście.</p>
+                </form>
+                <div class="contact-calendly reveal-el p-4 d-flex flex-col justify-center border-left border-dark pl-5">
+                    <h3 class="fw-bold text-white mb-3">Wolisz pogadać od razu?</h3>
+                    <p class="txt-fira text-muted mb-4">Zarezerwuj termin. Zero wymiany maili o godzince. Wybierasz —
+                        widzimy się na callu.</p>
+                    <div class="calendly-placeholder bg-dark p-4 border-radius-sm text-center">
+                        <div class="calendly-placeholder__icon text-lime mb-2" style="font-size: 2rem;">📅</div>
+                        <p class="fw-bold text-white mb-3">Widget Calendly</p>
+                        <div class="d-flex flex-wrap gap-2 justify-center">
+                            <span class="pill pill--glow pill--small text-lime border-lime bg-transparent px-3 py-1">15
+                                min — Rozmowa wstępna</span>
+                            <span class="pill pill--glow pill--small text-lime border-lime bg-transparent px-3 py-1">30
+                                min — Konsultacja strategiczna</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================== 
+         9. STOPKA Z V3-A (PORT 3461)
+         ============================================== -->
+    <footer class="footer bg-black section-padding pb-4 border-top border-dark">
+        <div class="container footer__inner">
+            <div class="footer__top d-flex justify-between flex-wrap gap-5 mb-5 pb-5 border-bottom border-dark">
+                <div class="footer__brand">
+                    <img src="assets/images/logo-g%C5%82%C3%B3wne-czarne.png" alt="PIONA Studio"
+                        class="footer__logo mb-3 invert-on-dark" style="height: 30px;">
+                    <p class="footer__tagline txt-fira text-muted max-w-sm">Obsługujemy marki z charakterem, osobowością
+                        i głębią. Takie, które nie tylko istnieją, ale mają powód, by być.</p>
+                </div>
+                <div class="footer__cols d-flex gap-5 flex-wrap">
+                    <div class="footer__col d-flex flex-col gap-2">
+                        <h4 class="text-lime fw-medium mb-3 uppercase">Usługi</h4>
+                        <a href="/branding" class="txt-fira text-white hover-lime transition fw-medium">Branding</a>
+                        <a href="/logo" class="txt-fira text-white hover-lime transition fw-medium">Projektowanie
+                            Logo</a>
+                        <a href="/social-media" class="txt-fira text-white hover-lime transition fw-medium">Social
+                            Media</a>
+                        <a href="/www" class="txt-fira text-white hover-lime transition fw-medium">Strony WWW</a>
+                        <a href="/wideo" class="txt-fira text-white hover-lime transition fw-medium">Filmy Reklamowe</a>
+                        <a href="/seo" class="txt-fira text-white hover-lime transition fw-medium">Pozycjonowanie
+                            SEO</a>
+                    </div>
+                    <div class="footer__col d-flex flex-col gap-2">
+                        <h4 class="text-lime fw-medium mb-3 uppercase">PIONA STUDIO</h4>
+                        <a href="/o-nas" class="txt-fira text-white hover-lime transition fw-medium">O nas / Culture
+                            Deck</a>
+                        <a href="/portfolio" class="txt-fira text-white hover-lime transition fw-medium">Portfolio</a>
+                        <a href="/newsroom" class="txt-fira text-white hover-lime transition fw-medium">Magazyn
+                            Nowości</a>
+                        <a href="/kontakt" class="txt-fira text-white hover-lime transition fw-medium">Zbij pionę -
+                            Kontakt</a>
+                    </div>
+                    <div class="footer__col d-flex flex-col gap-2">
+                        <h4 class="text-lime fw-medium mb-3 uppercase">Złap nas</h4>
+                        <a href="mailto:kontakt@piona-studio.pl"
+                            class="txt-fira text-white hover-lime transition underline fw-medium">kontakt@piona-studio.pl</a>
+                        <a href="https://instagram.com/studio.piona" target="_blank" rel="noopener"
+                            class="txt-fira text-white hover-lime transition mt-2 fw-medium">@studio.piona na
+                            Instagram</a>
+                        <p class="txt-fira text-muted mt-3">Agencja Reklamowa<br>Zielona Góra, Polska</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom d-flex justify-between flex-wrap gap-3 align-end pt-3">
+                <div class="left-bot">
+                    <p class="footer__motto fw-bold text-white mb-2">PIONA Studio — Tworzymy wartościowe relacje: marka
+                        — odbiorca.</p>
+                    <p class="footer__seo txt-fira text-muted txt-sm max-w-lg m-0">Działamy stacjonarnie w Zielonej
+                        Górze, obsługujemy B2B z całego województwa Lubuskiego oraz Polski.</p>
+                </div>
+                <div>
+                    <p class="text-muted txt-fira txt-sm m-0">© 2026 PIONA Studio. Ostateczna Fuzja. The Ultimate
+                        Masterpiece.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Chrome Hand 3D Material Fix Removed -->
+</body>
+
+</html>
