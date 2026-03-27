@@ -1,0 +1,85 @@
+================================================================================
+QUICK REFERENCE: Git Merge on FUSE/bindfs (Shadow Clone Pattern)
+================================================================================
+
+THE PROBLEM:
+  git merge fails on /mnt/PIONA-AI with EPERM unlink error
+  bindfs blocks unlink syscalls needed for git merge
+
+THE SOLUTION:
+  Shadow Clone Pattern — merge in /tmp, copy back
+
+EXACT STEPS:
+  1. SHADOW="/tmp/piona-shadow-$$"
+  2. git clone https://github.com/PionaStudioBot/piona-studio.git "$SHADOW"
+  3. cd "$SHADOW" && git fetch origin
+  4. git checkout main && git merge origin/oskar --no-ff
+  5. cp -r "$SHADOW/.git" /mnt/PIONA-AI/.git
+  6. cd /mnt/PIONA-AI && git reset --hard HEAD
+  7. rm -rf "$SHADOW"
+
+WHY IT WORKS:
+  /tmp is native fs — unlink works freely
+  cp works on FUSE — safe way to transfer .git back
+  All complex ops in shadow, minimal touching of FUSE mount
+
+CONFLICT HANDLING:
+  .md files        → Auto-resolve with -Xunion (keep both sections)
+  .js/.html/.py    → ABORT + NOTIFY Oskar (code needs review)
+  .yaml/.json      → Try -Xunion, abort if syntax fails
+  .png/.pdf        → ERROR: binaries belong in Google Drive, not git
+
+MERGE STRATEGY:
+  Use: git merge origin/branch --no-ff
+  (creates explicit merge commits, shows integration points)
+
+FOR WIKTORIA:
+  Type: /sync (only)
+  Everything else automated by skill
+  No terminal commands, no conflict resolution
+  Clear error messages if something goes wrong
+
+SAFETY:
+  ✓ Backup .git before starting: cp -r .git .git.backup.$(date +%s)
+  ✓ Check /tmp has space: df /tmp (need > 500MB)
+  ✓ Commit all changes first: git status (must be clean)
+  ✓ Use unique shadow names: piona-shadow-$$ or piona-shadow-$(date +%s%N)
+
+TESTING:
+  cd /mnt/PIONA-AI
+  SHADOW="/tmp/test-$$"
+  git clone . "$SHADOW"
+  cd "$SHADOW"
+  git merge origin/oskar --no-ff
+  # Should succeed here (not on mounted dir)
+  cp -r .git /mnt/PIONA-AI/.git
+  cd /mnt/PIONA-AI && git reset --hard HEAD
+  rm -rf "$SHADOW"
+
+WHAT WORKS ON FUSE:
+  ✓ git fetch, push, commit, add, rm
+  ✓ cp, mv, rm (normal files)
+  ✓ Working directory edits
+
+WHAT FAILS ON FUSE:
+  ✗ git merge, checkout, rebase (directly on /mnt)
+  ✗ unlink .git files (EPERM)
+
+REFERENCES:
+  Full details: RESEARCH_GIT_FUSE_SYNC.md
+  Executive summary: RESEARCH_SUMMARY.md
+  Conflict policy: .claude/rules/conflict-policy.md
+  Sync architecture: .claude/rules/sync-architecture.md
+
+IMPLEMENTATION:
+  Update /sync skill v3.1 with shadow clone logic
+  Use conflict-policy.md for conflict detection
+  Test on Mac Studio first, then Cowork VM
+
+STATUS:
+  ✓ Research complete
+  ✓ Pattern validated
+  ✓ Policy documented
+  → Ready for /sync v3.1 implementation
+
+================================================================================

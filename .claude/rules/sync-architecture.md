@@ -36,7 +36,9 @@ OSKAR (Mac Studio):                 WIKTORIA (MacBook):
 3. Kontynuuj pracę
 
 **KONIEC sesji / na żądanie `/sync`:**
-→ Skill `/sync` v3 obsługuje automatycznie (patrz `.claude/skills/sync/SKILL.md`)
+→ Skill `/sync` v4 obsługuje automatycznie (patrz `.claude/skills/sync/SKILL.md`)
+→ `/sync` robi PEŁNĄ synchronizację z Cowork: commit → push branch → shadow clone merge do main → push main → sync lokalny
+→ NIE wymaga uruchamiania SYNC.command ani terminala na Macu
 
 ## Znane ograniczenia FUSE/bindfs (Cowork VM)
 
@@ -46,7 +48,9 @@ Cowork VM montuje folder przez bindfs. Ograniczenia:
 - `cp` (nadpisywanie pliku) → DZIAŁA
 - `git commit`, `git push`, `git fetch` → DZIAŁAJĄ
 
-**Dlatego `/sync` używa shadow clone w `/tmp/`** — merge odbywa się tam, wyniki wracają przez `cp`.
+**Dlatego `/sync` v4 używa shadow clone w `/tmp/`** — klonuje repo z GitHub do `/tmp/piona-sync/`, tam wykonuje merge (pełny git, brak ograniczeń FUSE), potem kopiuje wyniki z powrotem przez `cp` i aktualizuje git refs.
+
+**Flow:** commit lokalne → push branch → clone z GitHub do /tmp → merge w /tmp → push main z /tmp → cp plików z /tmp na FUSE → cleanup /tmp
 
 ## Assety binarne — Google Drive
 
@@ -71,7 +75,7 @@ Kroki dla Oskara (robi jeden raz na MacBooku Wiktorii):
 2. Kliknij prawym → „Otwórz" (pierwsze uruchomienie wymaga obejścia Gatekeepera)
 3. Poczekaj aż terminal wyświetli `✅ GOTOWE!`
 4. Otwórz aplikację Cowork → zmień folder workspace na `Desktop/AI/PIONA-AI`
-5. Gotowe — Wiktoria od teraz używa tylko `/sync` w Cowork
+5. Gotowe — Wiktoria od teraz używa `/sync` w Cowork (pełna synchronizacja, bez potrzeby terminala)
 
 ## Reguły stałe
 

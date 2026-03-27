@@ -33,6 +33,3 @@ Workflow `/feedback` przetwarza i zapisuje feedback jako trwałe reguły w `.aut
 
 Bezwzględny zakaz naiwnego duplikowania plików czy wiedzy. Pojedyncze źródło prawdy jest święte. Raz wypracowane rozwiązania są ostateczne — nie wracaj do starych metod bez uzasadnienia.
 
-## Reguła 8: Zero-Terminal Policy dla Wiktorii
-
-Wiktoria nie obsługuje terminala. Jedyne co wpisuje to `/sync`. Wszystko inne (Git, merge, konflikty) AI obsługuje automatycznie.
