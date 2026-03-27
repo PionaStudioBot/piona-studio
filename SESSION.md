@@ -27,7 +27,7 @@
 
 ## Stan roboczy (gdzie skończyliśmy)
 
-**Etap:** SETUP WIKTORII — ZAKOŃCZONY ✅ | GOOGLE DRIVE SUBFOLDERS — DO ZROBIENIA
+**Etap:** CAŁA INFRASTRUKTURA ZESPOŁOWA — ZAKOŃCZONA ✅
 
 **Co zostało zrobione w tej sesji (27-03-2026, Cowork, sesja 4):**
 
@@ -48,13 +48,9 @@
 
 ## Następny krok
 
-**Do zrobienia teraz (koniec sesji 4):**
-1. **Google Drive subfolders** — ręcznie utworzyć 4 podfoldery w `PIONA Studio/`: `brand/`, `oferty/`, `portfolio/`, `www/`
-
 **Do zrobienia w następnej sesji:**
-1. **Remount Cowork** na MacBooku Wiktorii → zmienić folder workspace na `Desktop/AI/PIONA-AI`
-2. **Test `/sync` Wiktorii** — pierwsze uruchomienie `/sync` z jej Cowork po remount
-3. **Przeniesienie assetów** — posortować istniejące pliki binarne z `PIONA Studio/` do właściwych podfolderów
+1. **Przeniesienie assetów** — posortować istniejące pliki binarne z `PIONA Studio/` do właściwych podfolderów (`brand/`, `oferty/`, `portfolio/`, `www/`)
+2. **Powrót do pracy merytorycznej** — strona WWW, blog, SEO, ofertowanie
 
 ---
 
@@ -65,7 +61,7 @@
 - [x] ~~Migracja struktury folderów~~ — semantyczna, zakończona 27-03-2026
 - [x] ~~Setup MacBooka Wiktorii~~ — repo sklonowane, branch wika, zsynchronizowany
 - [x] ~~Google Drive subfolders~~ — `brand/`, `oferty/`, `portfolio/`, `www/` w `PIONA Studio/` (27-03-2026)
-- [ ] **Remount Cowork Wiktorii** — zmienić workspace na `Desktop/AI/PIONA-AI`
+- [x] ~~Remount Cowork Wiktorii~~ — workspace ustawiony na `Desktop/AI/PIONA-AI` (27-03-2026)
 - [ ] **Stary folder `Desktop/AI/PIONA Studio`** — pusty, do usunięcia z Findera
 
 ---
