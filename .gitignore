@@ -49,8 +49,10 @@ __pycache__/
 
 # --- Duże foldery (sync przez Google Drive / backup) ---
 downloads/
+inbox/
 www-*/archives/
 Backup/
+archiwum/
 10_Archiwum/
 06_Dane_i_Assety/Brand Assets/
 

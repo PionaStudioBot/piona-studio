@@ -44,7 +44,7 @@ echo "Lock files wyczyszczone"
 ```
 
 Jeśli `mv` zwraca błąd (packed-refs.lock, refs/heads/*.lock) — poinformuj:
-> ⚠ Nie mogę wyczyścić lock file `[nazwa]` z poziomu Cowork. Otwórz Finder → Cmd+Shift+. (ukryte pliki) → przejdź do PIONA-AI/.git → przesuń plik do Kosza → powiedz "gotowe".
+> ⚠ Nie mogę wyczyścić lock file `[nazwa]` z poziomu Cowork. Otwórz Finder → Cmd+Shift+. (ukryte pliki) → przejdź do Desktop/AI/PIONA-AI/.git → przesuń plik do Kosza → powiedz "gotowe".
 
 Czekaj na odpowiedź użytkownika przed kontynuacją.
 

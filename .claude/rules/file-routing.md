@@ -5,7 +5,7 @@ description: Gdzie trafia każdy nowy plik. AI musi sprawdzić tę tabelę przed
 
 # FILE ROUTING TABLE
 
-> **ZASADA NADRZĘDNA:** Tekst/kod → git repo (`~/PIONA-AI/`). Binaria → Google Drive (`Mój dysk/PIONA Assets/`).
+> **ZASADA NADRZĘDNA:** Tekst/kod → git repo (`~/Desktop/AI/PIONA-AI/`). Binaria → Google Drive (`Mój dysk/PIONA Assets/`).
 
 ## Routing per typ treści
 
@@ -35,4 +35,4 @@ description: Gdzie trafia każdy nowy plik. AI musi sprawdzić tę tabelę przed
 
 **`inbox/`** — jest w `.gitignore`. Nie sync'uje się między branchami. Tymczasowy bufor, czyść regularnie.
 
-**NIGDY** nie twórz plików bezpośrednio w root (`~/PIONA-AI/`). Dopuszczalne pliki w root: `CLAUDE.md`, `SESSION.md`, `STATUS_UPDATES.md`, `MASTERPLAN.md`, `.cursorrules`, `.gitignore`, `.gitattributes`.
+**NIGDY** nie twórz plików bezpośrednio w root (`~/Desktop/AI/PIONA-AI/`). Dopuszczalne pliki w root: `CLAUDE.md`, `SESSION.md`, `STATUS_UPDATES.md`, `MASTERPLAN.md`, `.cursorrules`, `.gitignore`, `.gitattributes`.
