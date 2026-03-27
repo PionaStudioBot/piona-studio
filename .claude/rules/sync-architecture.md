@@ -54,13 +54,13 @@ Pliki binarne (logotypy, fonty, zdjęcia, PDF oferty, portfolio, wideo) **nie tr
 
 | Typ assetów | Ścieżka Google Drive |
 |-------------|----------------------|
-| Logotypy, fonty, identyfikacja wizualna | `Mój dysk/PIONA Assets/brand/` |
-| Oferty PDF/PNG | `Mój dysk/PIONA Assets/oferty/` |
-| Portfolio, case studies | `Mój dysk/PIONA Assets/portfolio/` |
-| Materiały www (zdjęcia, video) | `Mój dysk/PIONA Assets/www/` |
+| Logotypy, fonty, identyfikacja wizualna | `PIONA Studio/brand/` |
+| Oferty PDF/PNG | `PIONA Studio/oferty/` |
+| Portfolio, case studies | `PIONA Studio/portfolio/` |
+| Materiały www (zdjęcia, video) | `PIONA Studio/www/` |
 
-Folder `PIONA Assets/` musi być **udostępniony Wiktorii** przez Google Drive (Shared Drive lub „Udostępnij z osobą").
-Obie osoby mają ten sam folder zsynchronizowany lokalnie przez Google Drive dla macOS.
+Folder `PIONA Studio/` — istniejący współdzielony folder Google Drive. Oskar i Wiktoria mają już dostęp.
+Oskar i Wiktoria mają już dostęp — folder synchronizuje się lokalnie przez Google Drive dla macOS na obu komputerach.
 
 ## Setup Wiktorii (jednorazowy)
 
