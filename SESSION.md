@@ -19,9 +19,9 @@
 
 ## Aktywne zadanie
 
-**Nazwa:** Protokół Sesji Cowork — ZWALIDOWANY ✅ Kolejne kroki: SOP + skill /sync
+**Nazwa:** Protokół Sesji Cowork — Model „Zero-Command” 🚀
 
-**Opis:** Protokół Sesji Cowork zaprojektowany, wdrożony i przeszedł pełną walidację (9 testów). System wykrywa konflikty synchronizacji Google Drive i automatycznie je merguje. Następny etap: aktualizacja SOP synchronizacji + przebudowa skill /sync.
+**Opis:** System przeszedł ewolucję z modelu manualnego na w pełni zautomatyzowany. AI (Antigravity/Claude) samodzielnie dba o snapshoty i merge konfliktów na starcie i końcu zadania. Użytkownik nie musi wpisywać żadnych komend (oprócz opcjonalnego `/sync` dla backupu na GitHub).
 
 ---
 
@@ -51,13 +51,12 @@
 - `.git (1)` naming — Drive zmienia nazwę `.git` przy rename conflict. Fix: Finder → Cmd+Shift+. → rename
 - Lock files są synchronizowane między maszynami → usuwaj je na starcie każdej sesji przed git commit (krok 1 protokołu startowego)
 
-**Nowa architektura synchronizacji (v2):**
+**Nowa architektura synchronizacji (v3 — Zero-Command):**
 ```
-Warstwa 1 — TRANSPORT:    Google Drive „Mój dysk" (Mirror, automatyczny, dwustronny)
-Warstwa 2 — RECOVERY:     Git snapshoty lokalne (commit na start i koniec każdej sesji Cowork)
-Warstwa 3 — DETEKCJA:     Weryfikacja edycji na koniec sesji (porównanie pamięci sesji z dyskiem)
-Warstwa 4 — MERGE:        Inteligentny three-way merge przez Claude (Baza + Wersja A + Wersja B → Synteza)
-Warstwa 5 — BACKUP:       GitHub (na żądanie /backup lub piątkowy)
+Warstwa 1 — TRANSPORT:    Google Drive „Mój dysk" (Mirror, auto)
+Warstwa 2 — OCHRONA AI:   Automatyczny Git Snapshot (Start/Koniec zadania)
+Warstwa 3 — WERYFIKACJA:  Auto-Merge po wykryciu różnic (Invisible)
+Warstwa 4 — BACKUP:       Manualny /sync (GitHub Cloud)
 ```
 
 ---
