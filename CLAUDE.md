@@ -37,7 +37,8 @@
 | `wiedza/` | Baza wiedzy — 4 klastry tematyczne | patrz sekcja 2.3 |
 | `planning/` | Strategie i plany działania | `strategia_2026.md`, `lejek_piona.md`, `strategia_seo.md` |
 | `procesy/` | SOPy, procedury, szablony ofert | `system_pozyskiwania_klienta.md`, `strategia_ofertowania.md` |
-| `projekty/` | Aktywne projekty (kod + spec) | `www-v9/` |
+| `projekty/` | Aktywne projekty WEWNĘTRZNE PIONA | `www-v9/` |
+| `klienci/` | Dane klientów — brief, strategia, projekty, analizy | `funfit/KLIENT.md`, `_szablon/` |
 | `narzedzia/` | Skrypty operacyjne | `scripts/` |
 | `archiwum/` | Stare wersje, archiwa (gitignored) | — |
 | `inbox/` | Bufor tymczasowy (gitignored) | — |
@@ -83,6 +84,11 @@ Przed zadaniem brandingowym/marketingowym/contentowym — załaduj klaster przez
 | Pricing, modele zysków | `wiedza/pricing_business_models/` |
 | Spec WWW, treści podstron | `projekty/www-v9/spec/` |
 | Kod WWW (HTML/CSS/JS) | `projekty/www-v9/` |
+| Dane konkretnego klienta | `klienci/<nazwa>/KLIENT.md` → potem nawiguj w podfolderach |
+| Strategia / brand klienta | `klienci/<nazwa>/strategia/` |
+| Projekty klienta (www, kampania) | `klienci/<nazwa>/projekty/` |
+| Notatki ze spotkań z klientem | `klienci/<nazwa>/komunikacja/` |
+| Szablon nowego klienta | `klienci/_szablon/` |
 | Zasady operacyjne AI | `.claude/rules/operational-rules.md` |
 | Architektura sync, Git Branches | `.claude/rules/sync-architecture.md` |
 | Routing plików (co gdzie trafia) | `.claude/rules/file-routing.md` |
@@ -101,5 +107,5 @@ Aktualny stan projektu: [STATUS_UPDATES.md](./STATUS_UPDATES.md)
 → Skill `/sync` v3 (shadow clone): `.claude/skills/sync/SKILL.md`
 
 ---
-**Wersja**: 8.0
+**Wersja**: 9.0
 **Ostatnia aktualizacja**: 27-03-2026

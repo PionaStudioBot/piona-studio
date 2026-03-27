@@ -23,7 +23,7 @@ When `/sync` merges branches (oskar → main, wika → main), git merge may dete
 
 ### Category 1: Markdown Files (Auto-Resolve)
 
-**Files:** `*.md` in `context/`, `planning/`, `wiedza/`, `procesy/`
+**Files:** `*.md` in `context/`, `planning/`, `wiedza/`, `procesy/`, `klienci/`
 
 **Examples:**
 - `planning/strategia_2026.md`
@@ -58,7 +58,7 @@ Result after `-Xunion` merge: Both sections preserved. ✅
 
 ### Category 2: Code Files (Abort & Notify)
 
-**Files:** `*.js`, `*.html`, `*.css`, `*.py` in `projekty/`
+**Files:** `*.js`, `*.html`, `*.css`, `*.py` in `projekty/` and `klienci/*/projekty/`
 
 **Examples:**
 - `projekty/www-v9/index.html`

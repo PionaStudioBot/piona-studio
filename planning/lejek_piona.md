@@ -56,6 +56,21 @@ Każdy etap lejka ma swoją strategię, swoje działania i konkretny cel komunik
 - Zaangażowanie w Zielonogórski Integrator Biznesowy (ZIBI)
 - **Wizja 2-letnia**: Pierwsza agencja, która przychodzi do głowy przy myśli o zachodniej Polsce
 
+#### Spirala Autorytetu — mechanizm kumulacji pozycji
+Sama obecność na spotkaniach nie wystarczy. Kluczowy jest mechanizm, który zamienia każde wydarzenie w kolejne — i buduje warstwę osadową, a nie jednorazowe iskry.
+
+```
+wydarzenie (warsztat, networking, wystąpienie)
+  → case study z tego wydarzenia
+    → artykuł / post z frameworkiem
+      → LinkedIn / Instagram
+        → referencja instytucjonalna lub opinia uczestnika
+          → kolejne zaproszenie do udziału / prowadzenia
+            → kolejne wydarzenie (wyższy poziom, większy zasięg)
+```
+
+**Zasada kluczowa:** Walidacja trzeciej strony (instytucja, organizacja, media) jest nieodkupywalna za pieniądze. Każde zaproszenie do wystąpienia — ZIB, konferencja, panel — traktuj jak aktyw strategiczny, nie jak "miłe zaproszenie". To jest grunt, który konkurencja musi zdobywać latami od zera.
+
 ---
 
 ## 2. Etap: INTEREST — Zainteresowanie
@@ -195,7 +210,7 @@ Klient nie kupuje naszych treści. Klient kupuje **poczucie bezpieczeństwa** i 
 > **Nie sprzedajemy projektowania — sprzedajemy rozwiązania biznesowe z przewidywalnym procesem i udowodnionymi efektami.**
 
 ---
-**Wersja**: 2.2
-**Ostatnia aktualizacja**: 05-03-2026
+**Wersja**: 2.3
+**Ostatnia aktualizacja**: 27-03-2026
 **Status**: ACTIVE
 **Powiązane dokumenty**: `proces-współpracy.pdf`, `24it-oferta.pdf`, `02_Ofertowanie/strategia_ofertowania.md`, `02_Ofertowanie/architektura_oferty_pdf.md`

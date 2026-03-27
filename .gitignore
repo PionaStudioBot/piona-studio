@@ -48,7 +48,6 @@ __pycache__/
 *.ico
 
 # --- Duże foldery (sync przez Google Drive / backup) ---
-downloads/
 inbox/
 www-*/archives/
 Backup/
