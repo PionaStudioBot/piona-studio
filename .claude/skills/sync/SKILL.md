@@ -1,212 +1,124 @@
 ---
 name: sync
 description: |
-  Synchronizuje projekt PIONA-AI z GitHub używając modelu Git Branches (oskar/wika/main).
-  Uruchom gdy użytkownik wpisze /sync, "synchronizuj", "sync projekt", "wyślij zmiany", "zapisz i wyślij zmiany".
-  Skill działa w 3 fazach: commit+push na branch → merge w /tmp (shadow clone) → aktualizacja lokalna przez cp.
-  Zawsze używaj tego skilla dla wszelkich operacji Git w projekcie PIONA Studio.
+  Synchronizuje projekt PIONA Studio z GitHub — pobiera zmiany z GitHub, commituje lokalne zmiany i pushuje na GitHub. Uruchom ten skill gdy użytkownik wpisze /sync, "synchronizuj", "sync projekt", "wyślij zmiany", "pobierz zmiany zespołu", "zaktualizuj git", "zapisz i wyślij zmiany" lub "sprawdź zmiany". Skill działa w 4 krokach: sprawdź lokalne zmiany → pobierz zmiany z GitHub → zapisz (commit z auto-opisem) → wyślij (push). Zawsze używaj tego skilla dla wszelkich operacji Git w projekcie PIONA Studio.
 ---
 
-# Sync v3 — PIONA Studio Git Branches
+# Sync — PIONA Studio Git Synchronizacja
 
 ## Kontekst środowiska
 
-Cowork VM montuje folder użytkownika przez `bindfs` (FUSE). Ograniczenia:
-- `git merge`, `git checkout` → FAIL na mounted folderze (unlink EPERM)
-- `git commit`, `git push`, `git fetch` → DZIAŁAJĄ
-- `cp` (nadpisywanie pliku) → DZIAŁA
-- Lock files (HEAD.lock, index.lock) → nie da się usunąć przez `rm`, używaj `mv plik plik.dead`
+Ten skill działa w Cowork VM (środowisko Claude na Linuxie). VM widzi folder PIONA Studio przez warstwę `bindfs`. Niektóre operacje git mogą zwrócić warning o `.lock` — to nieszkodliwy artefakt bindfs, ignoruj go i kontynuuj.
 
-**Rozwiązanie:** merge odbywa się w `/tmp/piona-sync/` (lokalne VM, brak FUSE), wyniki wracają przez `cp`.
+**Pełny sync działa z poziomu Cowork:** commit lokalnych zmian + pobieranie zmian z GitHub + push. ✅
 
 ---
 
-## Krok 0 — Znajdź folder projektu i aktualny branch
+## Lokalizacja projektu
 
-```bash
-PROJECT_DIR=$(find /sessions -name ".cursorrules" -maxdepth 6 2>/dev/null | head -1 | xargs dirname)
-echo "PROJECT_DIR: $PROJECT_DIR"
-cd "$PROJECT_DIR"
-MY_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-echo "BRANCH: $MY_BRANCH"
-```
+\`\`\`bash
+find /sessions -name ".cursorrules" -maxdepth 6 2>/dev/null | head -1 | xargs dirname
+\`\`\`
 
-Jeśli `MY_BRANCH` to `main` — poinformuj: "Jesteś na branchu main. Upewnij się, że pracujesz na swoim branchu (oskar lub wika). Czy mam przełączyć?" i czekaj na odpowiedź.
+Użyj znalezionej ścieżki jako \`PROJECT_DIR\`. Standardowo: \`/sessions/.../mnt/PIONA-AI\`.
 
 ---
 
-## Krok 1 — Wyczyść lock files
+## Krok 1 — Sprawdź lokalne zmiany
 
-```bash
-cd "$PROJECT_DIR"
-find .git -name "*.lock" 2>/dev/null | while read f; do mv "$f" "${f}.dead" 2>/dev/null || true; done
-echo "Lock files wyczyszczone"
-```
+\`\`\`bash
+cd "<PROJECT_DIR>" && git status --porcelain
+\`\`\`
 
-Jeśli `mv` zwraca błąd (packed-refs.lock, refs/heads/*.lock) — poinformuj:
-> ⚠ Nie mogę wyczyścić lock file `[nazwa]` z poziomu Cowork. Otwórz Finder → Cmd+Shift+. (ukryte pliki) → przejdź do Desktop/AI/PIONA-AI/.git → przesuń plik do Kosza → powiedz "gotowe".
-
-Czekaj na odpowiedź użytkownika przed kontynuacją.
+Zlicz i wylistuj zmienione pliki według kategorii: nowe (\`??\`), zmodyfikowane (\`M\`), usunięte (\`D\`). Jeśli brak zmian — powiedz krótko i przejdź dalej.
 
 ---
 
-## Krok 2 — Commit i push na swój branch (FUSE mount)
+## Krok 2 — Pobierz zmiany z GitHub
 
-```bash
-cd "$PROJECT_DIR"
-git status --porcelain
-```
+\`\`\`bash
+cd "<PROJECT_DIR>" && git fetch origin main --quiet 2>&1
+LOCAL=\$(git rev-parse HEAD); REMOTE=\$(git rev-parse origin/main 2>/dev/null || echo "")
+[ "\$LOCAL" != "\$REMOTE" ] && echo "SĄ NOWE ZMIANY" || echo "BRAK NOWYCH ZMIAN"
+\`\`\`
 
-Jeśli są zmiany — zrób commit:
+**Jeśli są nowe zmiany na GitHub:**
 
-```bash
-cd "$PROJECT_DIR"
-COMMIT_MSG="sync: $(git diff --cached --name-only 2>/dev/null | head -3 | tr '\n' ', ' | sed 's/,$//')$(git diff --name-only 2>/dev/null | head -3 | tr '\n' ', ' | sed 's/,$//')"
-[ -z "${COMMIT_MSG//sync: /}" ] && COMMIT_MSG="sync: session update"
-git add -A
-git commit -m "$COMMIT_MSG $(date '+%Y-%m-%d %H:%M')" 2>&1
-```
+Wyświetl listę nowych commitów:
+\`\`\`bash
+cd "<PROJECT_DIR>" && git log --oneline HEAD..origin/main
+\`\`\`
 
-Wyczyść lock files po commit:
-```bash
-find .git -name "*.lock" 2>/dev/null | while read f; do mv "$f" "${f}.dead" 2>/dev/null || true; done
-```
+Następnie pobierz je przez reset:
+\`\`\`bash
+cd "<PROJECT_DIR>" && git reset --hard origin/main 2>&1
+\`\`\`
 
-Push na swój branch:
-```bash
-cd "$PROJECT_DIR"
-git push origin "$MY_BRANCH" 2>&1
-```
+Warning o \`.lock\` — ignoruj, to artefakt bindfs. Operacja się powiedzie.
 
-Jeśli push się nie powiódł z powodu braku upstream:
-```bash
-git push -u origin "$MY_BRANCH" 2>&1
-```
+**Jeśli brak nowych zmian:** powiedz krótko i przejdź do Kroku 3.
 
 ---
 
-## Krok 3 — Merge w /tmp (shadow clone)
+## Krok 3 — Zapisz lokalne zmiany (commit)
 
-```bash
-# Wyczyść poprzedni shadow clone jeśli istnieje
-rm -rf /tmp/piona-sync 2>/dev/null || true
+\`\`\`bash
+cd "<PROJECT_DIR>" && git status --porcelain
+\`\`\`
 
-# Klonuj z GitHub do /tmp — pełny git, brak FUSE
-REMOTE_URL=$(cd "$PROJECT_DIR" && git remote get-url origin)
-git clone "$REMOTE_URL" /tmp/piona-sync 2>&1
-cd /tmp/piona-sync
+**Jeśli są zmiany do zapisania:**
 
-# Skonfiguruj user
-git config user.name "$(cd "$PROJECT_DIR" && git config user.name)"
-git config user.email "$(cd "$PROJECT_DIR" && git config user.email)"
+Wygeneruj opis commita automatycznie — na podstawie listy zmienionych plików i kontekstu bieżącej sesji pracy. Format:
 
-# Pobierz wszystkie branche
-git fetch origin 2>&1
+\`\`\`
+[Auto] Aktualizacja DD.MM HH:MM — X nowych, Y zmienionych: plik1, plik2, plik3
+\`\`\`
 
-# Przejdź na main i pobierz najnowszy stan
-git checkout main
-git pull origin main 2>&1
+Zasady generowania opisu:
+- Max 5 najważniejszych plików (tylko nazwa, bez pełnej ścieżki)
+- Jeśli zmiany dotyczą jednego obszaru tematycznego (np. tylko \`wiedza/\`) — wspomnij o tym
+- Jeśli w bieżącej sesji były konkretne zadania (np. pisanie strategii, edycja brandbooka, aktualizacja SEO) — użyj tej wiedzy by opis był znaczący, a nie tylko lista plików
 
-# Zmerguj mój branch do main
-echo "--- Mergowanie $MY_BRANCH do main ---"
-git merge "origin/$MY_BRANCH" --no-edit 2>&1
-MERGE_EXIT=$?
-```
+\`\`\`bash
+cd "<PROJECT_DIR>" && git add -A && git commit -m "<WIADOMOŚĆ>" --quiet 2>&1
+\`\`\`
 
-**Jeśli `MERGE_EXIT != 0` (konflikt):**
-```bash
-git diff --name-only --diff-filter=U
-```
-
-Dla każdego pliku z konfliktem:
-1. Odczytaj zawartość pliku z `/tmp/piona-sync/<plik>` (zawiera markery konfliktu `<<<<<<<`)
-2. Odczytaj wersję bazową: `git show HEAD:"<plik>"`
-3. Wykonaj three-way merge (synteza, nie wybór)
-4. Zapisz zmergowaną wersję
-5. `git add <plik>`
-
-Po rozwiązaniu konfliktów:
-```bash
-cd /tmp/piona-sync
-git commit -m "merge: resolved conflicts $(date '+%Y-%m-%d %H:%M')" 2>&1
-```
-
-Poinformuj:
-> 🔀 Rozwiązałem konflikt w `[nazwa pliku]`. [Opis co połączyłem]. Sprawdź czy wynik jest poprawny.
-
-**Po udanym merge — push main:**
-```bash
-cd /tmp/piona-sync
-git push origin main 2>&1
-```
-
-**Zaktualizuj swój branch (pobierz zmiany drugiej osoby):**
-```bash
-cd /tmp/piona-sync
-git checkout "$MY_BRANCH"
-git merge main --no-edit 2>&1
-git push origin "$MY_BRANCH" 2>&1
-```
+**Jeśli brak zmian:** poinformuj krótko.
 
 ---
 
-## Krok 4 — Aktualizacja lokalnego folderu (cp-based, FUSE-safe)
+## Krok 4 — Wyślij na GitHub (push)
 
-```bash
-cd /tmp/piona-sync
+\`\`\`bash
+cd "<PROJECT_DIR>" && git push origin main --quiet 2>&1
+\`\`\`
 
-# Znajdź pliki które różnią się między lokalnym a origin/MY_BRANCH
-CHANGED_FILES=$(git diff --name-only "origin/$MY_BRANCH" HEAD 2>/dev/null)
-
-if [ -z "$CHANGED_FILES" ]; then
-  echo "Brak nowych plików do zaktualizowania lokalnie"
-else
-  echo "$CHANGED_FILES" | while read f; do
-    if [ -f "$f" ]; then
-      # Upewnij się że katalog docelowy istnieje
-      mkdir -p "$PROJECT_DIR/$(dirname "$f")" 2>/dev/null
-      cp "$f" "$PROJECT_DIR/$f" 2>/dev/null && echo "Zaktualizowano: $f"
-    fi
-  done
-fi
-```
-
-Zaktualizuj lokalny ref:
-```bash
-cd "$PROJECT_DIR"
-find .git -name "*.lock" 2>/dev/null | while read f; do mv "$f" "${f}.dead" 2>/dev/null || true; done
-git fetch origin "$MY_BRANCH" --quiet 2>&1
-git update-ref "refs/heads/$MY_BRANCH" "origin/$MY_BRANCH" 2>/dev/null || true
-```
-
-Wyczyść shadow clone:
-```bash
-rm -rf /tmp/piona-sync
-```
+**Jeśli push się nie uda:**
+- Brak internetu → poinformuj że zmiany są zapisane lokalnie, push przy następnej sesji
+- Błąd uprawnień → poinformuj że należy sprawdzić token GitHub w konfiguracji
+- Rejected (non-fast-forward) → zrób fetch + reset --hard origin/main, potem push ponownie
 
 ---
 
-## Krok 5 — Podsumowanie
+## Podsumowanie
 
 Wyświetl zawsze na końcu:
 
-```
+\`\`\`
 ✅ SYNC ZAKOŃCZONY — [data i godzina]
-   Branch:          [oskar / wika]
-   Commit:          [X plików / brak zmian]
-   Push branch:     [✓ / ⚠ błąd]
-   Merge do main:   [✓ bez konfliktów / 🔀 rozwiązano konflikty w: plik1, plik2]
-   Push main:       [✓ GitHub / ⚠ tylko lokalnie]
-   Aktualizacja:    [X plików zaktualizowanych lokalnie / brak zmian]
-```
+   Lokalne zmiany:  [X plików / brak]
+   GitHub (nowe):   [✓ pobrano X commitów / ✓ brak]
+   Zapisano:        [nazwa commita / brak zmian]
+   Wysłano:         [✓ GitHub / ⚠ tylko lokalnie]
+\`\`\`
 
 ---
 
 ## Zasady
 
-- **Nigdy** nie wykonuj `git merge` ani `git pull` bezpośrednio na mounted folderze — zawsze przez `/tmp/piona-sync/`
-- **Nigdy** nie używaj `rm` na plikach `.git/` — używaj `mv plik plik.dead`
-- **Zawsze** czyść `/tmp/piona-sync/` na końcu i na początku skilla
-- **Nigdy** nie pytaj użytkownika o opis commita — generuj automatycznie
-- Komunikuj się wyłącznie po polsku
-- Jeśli któryś krok się nie powiedzie — opisz błąd i nie kontynuuj do następnego
+- **Używaj \`git reset --hard origin/main\`** do pobierania zmian z GitHub — działa w Cowork VM bez błędów uprawnień.
+- **Kolejność gdy są JEDNOCZEŚNIE lokalne zmiany I zmiany na GitHub:** najpierw commit lokalnych zmian → potem reset --hard origin/main → potem push. UWAGA: reset --hard nadpisze lokalny stan — dlatego commit MUSI być przed reset.
+- **Nigdy nie pytaj użytkownika o opis commita** — generuj automatycznie z listy zmienionych plików i kontekstu sesji.
+- Jeśli \`git\` nie jest zainstalowany lub brak \`.git\` w folderze — poinformuj i zakończ.
+- Komunikuj się wyłącznie po polsku.
+- Jeśli któryś krok się nie powiedzie — opisz błąd i nie kontynuuj do następnego.
