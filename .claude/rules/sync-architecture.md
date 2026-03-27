@@ -19,7 +19,7 @@ OSKAR (Mac Studio):                 WIKTORIA (MacBook):
 ```
 
 **Pliki tekstowe** (markdown, HTML, CSS, JS, Python) → git repo (`~/Desktop/AI/PIONA-AI/`)
-**Pliki binarne** (logotypy, oferty, portfolio, fonty) → Google Drive (`Mój dysk/PIONA Assets/`)
+**Pliki binarne** (logotypy, oferty, portfolio, fonty) → Google Drive (`PIONA Studio/`)
 
 ## Warstwy bezpieczeństwa
 

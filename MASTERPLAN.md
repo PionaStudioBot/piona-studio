@@ -62,6 +62,8 @@
 - [x] **Architektura synchronizacji**: Git Branches + GitHub backup + shadow clone merge (wdrożone 25-03-2026, v3 27-03-2026)
 - [x] **Migracja folderu**: Z `~/Desktop/AI/` → `~/Mój dysk/PIONA Studio/` (25-03) → `~/Desktop/AI/PIONA-AI/` (27-03)
 - [x] **Migracja struktury**: Z numerycznej (00_-10_) na semantyczną (context/, wiedza/, planning/, procesy/, projekty/) (27-03-2026)
+- [x] **Setup Wiktorii**: MacBook z branch `wika`, zsynchronizowany z main, Zero-Terminal Policy (27-03-2026)
+- [x] **Google Drive subfolders**: Utworzone `brand/`, `oferty/`, `portfolio/`, `www/` w folderze `PIONA Studio/` (27-03-2026)
 
 ---
 

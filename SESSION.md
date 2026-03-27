@@ -10,81 +10,63 @@
 
 | Pole | Wartość |
 |------|---------|
-| **Data** | 2026-03-26 (sesja 3) |
+| **Data** | 2026-03-27 (sesja 4) |
 | **Platforma** | Claude Desktop (Cowork mode) |
-| **Model** | Claude Opus 4.6 |
-| **Czas trwania** | ~3h |
+| **Model** | Claude Sonnet 4.6 |
+| **Czas trwania** | ~2h |
 
 ---
 
 ## Aktywne zadanie
 
-**Nazwa:** Protokół Sesji Cowork — Model „Zero-Command” 🚀
+**Nazwa:** Finalizacja infrastruktury zespołowej — Git Branches + Google Drive Assets
 
-**Opis:** System przeszedł ewolucję z modelu manualnego na w pełni zautomatyzowany. AI (Antigravity/Claude) samodzielnie dba o snapshoty i merge konfliktów na starcie i końcu zadania. Użytkownik nie musi wpisywać żadnych komend (oprócz opcjonalnego `/sync` dla backupu na GitHub).
+**Opis:** Migracja całego systemu na nową architekturę: semantyczna struktura folderów w git repo, branch isolation (oskar/wika/main), setup MacBooka Wiktorii, assety binarne na Google Drive `PIONA Studio/`.
 
 ---
 
 ## Stan roboczy (gdzie skończyliśmy)
 
-**Etap:** WALIDACJA PROTOKOŁU SESJI COWORK — ZAKOŃCZONA ✅
+**Etap:** SETUP WIKTORII — ZAKOŃCZONY ✅ | GOOGLE DRIVE SUBFOLDERS — DO ZROBIENIA
 
-**Co zostało zrobione w tej sesji (26-03-2026, Cowork, sesja 3+):**
+**Co zostało zrobione w tej sesji (27-03-2026, Cowork, sesja 4):**
 
-**Audyt i diagnostyka problemu synchronizacji (kontynuacja z sesji 2):**
-1. **Testy synchronizacji** — przetestowano jednoczesną edycję pliku z dwóch komputerów. Odkryto: Google Drive Mirror używa last-write-wins, nie tworzy conflict files przy normalnej pracy online. Zmiany jednej strony mogą zniknąć bez śladu.
-2. **Analiza ryzyka** — zidentyfikowano że realne okno ryzyka jest wąskie (ten sam plik, te same sekundy), ale przy plikach systemowych (SESSION.md, MEMORY.md, STATUS_UPDATES.md) jest realne.
-3. **Research branżowy** — zbadano jak duże firmy rozwiązują problem concurrent editing (Git branches, optimistic locking, CRDT, Obsidian Sync). Oceniono co jest adaptowalne dla 2-osobowej agencji.
-4. **Odrzucone rozwiązania:** ownership zones (band-aid, nie skaluje się), git branches (nie działają z jednym folderem Google Drive), per-edit monitoring (zbyt kosztowny), lock files (wymaga manualnej dyscypliny), rozbijanie shared files na osobne per-user (łamie DRY).
+1. **Migracja struktury** — z numerycznej (00_-10_) na semantyczną (`context/`, `wiedza/`, `planning/`, `procesy/`, `projekty/`, `narzedzia/`). 109 plików, historia git zachowana (rename 100% similarity).
+2. **CLAUDE.md v8.0** — przebudowany hub nawigacyjny z nową mapą folderów i nawigacją kontekstową.
+3. **Skrypt `setup_wika.command`** — jednorazowy setup MacBooka Wiktorii. Klonuje repo, ustawia branch `wika`, konfiguruje git credentials przez macOS Keychain.
+4. **`SOP_wiktoria_cowork.md`** — instrukcja Zero-Terminal dla Wiktorii (tylko `/sync`).
+5. **Naprawa korupcji repo** — stare `.lock.dead` pliki z FUSE obejścia trafiły do `.git/refs/` Wiktorii. Fix: `find .git/refs -name “*.dead” -delete` + fresh clone.
+6. **Merge branchy** — `oskar` → `main` → `wika` przez shadow clone. Wszystkie 3 branche zsynchronizowane z nową strukturą.
+7. **Sync-architecture.md** — zaktualizowana z sekcją “Assety binarne” i “Setup Wiktorii”.
 
-**Zaprojektowanie i wdrożenie Protokołu Sesji Cowork:**
-5. **CLAUDE.md v6.0** — przebudowana Sekcja 7: nowe warstwy bezpieczeństwa, dodane podsekcje 7.1 (jak działa sync), 7.2 (Protokół Sesji — START/PODCZAS/KONIEC), 7.3 (obsługa .auto-memory).
-6. **Protokół trzywarstwowy:** git snapshot na starcie sesji (punkt odtworzenia) → normalna praca bez narzutu → weryfikacja edycji + inteligentny merge na końcu sesji.
-
-**Walidacja — seria 9 testów (26-03-2026):**
-7. **TEST 1 PASS** — Snapshot startowy działa poprawnie
-8. **TEST 6 PASS** — Git recovery przez `git show` + `cp` (odkrycie: `git checkout` nie działa na FUSE mount)
-9. **TEST 7 PASS** — index.lock edge case wykryty i obsłużony (wymaga interwencji użytkownika przez Finder)
-10. **TEST 9 PASS** — Full integration test: poranne wpisy → jednoczesna edycja → detekcja konfliktu → three-way merge → weryfikacja na obu komputerach. WSZYSTKIE dane zachowane.
-
-**Odkrycia z testów dodane do CLAUDE.md v6.1:**
-- `.git (1)` naming — Drive zmienia nazwę `.git` przy rename conflict. Fix: Finder → Cmd+Shift+. → rename
-- Lock files są synchronizowane między maszynami → usuwaj je na starcie każdej sesji przed git commit (krok 1 protokołu startowego)
-
-**Nowa architektura synchronizacji (v3 — Zero-Command):**
-```
-Warstwa 1 — TRANSPORT:    Google Drive „Mój dysk" (Mirror, auto)
-Warstwa 2 — OCHRONA AI:   Automatyczny Git Snapshot (Start/Koniec zadania)
-Warstwa 3 — WERYFIKACJA:  Auto-Merge po wykryciu różnic (Invisible)
-Warstwa 4 — BACKUP:       Manualny /sync (GitHub Cloud)
-```
+**Stan branchy na GitHub (27-03-2026 ~02:00):**
+- `oskar` → `b41aae9` (najnowszy, Google Drive folder name fix)
+- `main` → `86ef4f4` (merge oskar + main, rozwiązany konflikt)
+- `wika` → `63619a6` (nowa struktura, zsync z main)
 
 ---
 
 ## Następny krok
 
-**Do zrobienia w następnej sesji:**
-1. **Aktualizacja SOP** — `01_Procesy_Wewnetrzne/SOP_synchronizacja_zespolowa.md` — nowy workflow z Protokołem Sesji (dla Wiktorii — Zero-Terminal: co robić gdy Drive zablokuje lub lock się pojawi)
-2. **Przebudowa skill /sync** — dostosować do nowej architektury (snapshot → weryfikacja → merge → push)
-3. **Cleanup plików testowych** — `09_Notatki_i_Brudnopisy/TEST_SYNC_PLIK.md` i `PLAN_TESTOW_SYNC.md` — do usunięcia po zatwierdzeniu wyników
+**Do zrobienia teraz (koniec sesji 4):**
+1. **Google Drive subfolders** — ręcznie utworzyć 4 podfoldery w `PIONA Studio/`: `brand/`, `oferty/`, `portfolio/`, `www/`
 
-**Inne zaległe zadania (z poprzednich sesji):**
-- Praca nad `downloads/` — zawartość do posortowania
-- Archiwizacja starych skryptów sync → `10_Archiwum/`
-- Usunąć `folder testowy do usuniecia` z PIONA Studio
-- Usunąć stary pusty folder z pulpitu (`Desktop/AI/PIONA Studio`)
+**Do zrobienia w następnej sesji:**
+1. **Remount Cowork** na MacBooku Wiktorii → zmienić folder workspace na `Desktop/AI/PIONA-AI`
+2. **Test `/sync` Wiktorii** — pierwsze uruchomienie `/sync` z jej Cowork po remount
+3. **Przeniesienie assetów** — posortować istniejące pliki binarne z `PIONA Studio/` do właściwych podfolderów
 
 ---
 
 ## Otwarte pytania / flagi dla Oskara
 
 - [x] ~~GitHub repo~~ — założone (PionaStudioBot/piona-studio)
-- [x] ~~Google Drive sync~~ — wdrożony i przetestowany
-- [x] ~~Protokół Sesji Cowork~~ — zaprojektowany, wdrożony i zwalidowany (CLAUDE.md v6.1)
-- [x] ~~Test Protokołu na żywo~~ — TEST 9 PASS, wszystkie dane zachowane, merge działał poprawnie
-- [ ] **Nocny Git cron** — niezatwierdzone, do decyzji: czy potrzebny skoro snapshoty robią się na start/koniec sesji a /backup jest ręczny?
-- [ ] **Stary folder `Desktop/AI/PIONA Studio`** — pusty, do usunięcia
-- [ ] Folder `downloads/` — skrzynka podawcza, zostaje w root celowo
+- [x] ~~Architektura synchronizacji v3~~ — Git branches, shadow clone merge, działa
+- [x] ~~Migracja struktury folderów~~ — semantyczna, zakończona 27-03-2026
+- [x] ~~Setup MacBooka Wiktorii~~ — repo sklonowane, branch wika, zsynchronizowany
+- [x] ~~Google Drive subfolders~~ — `brand/`, `oferty/`, `portfolio/`, `www/` w `PIONA Studio/` (27-03-2026)
+- [ ] **Remount Cowork Wiktorii** — zmienić workspace na `Desktop/AI/PIONA-AI`
+- [ ] **Stary folder `Desktop/AI/PIONA Studio`** — pusty, do usunięcia z Findera
 
 ---
 
